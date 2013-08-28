@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="google" value="notranslate" />
+        <title>Lv1</title>
+        
+        <style type="text/css"> 
+            html, body  { height:100%; }
+            body { margin:0; padding:0; overflow:hidden; text-align:left; background-color: #222; }   
+            object:focus { outline:none; }
+			#container {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 960px;
+				height: 480px;
+				margin-left: -480px;
+				margin-top: -240px;
+				background-color: #333;
+				border:1px solid #000;
+				padding:1px;
+			}
+        </style>
+        
+        <script type="text/javascript" src="swfobject.js"></script>
+        <script type="text/javascript">
+            swfobject.embedSWF("Main.swf", "flashContent", "960", "480", "11.1.0", "", 
+                {}, // FlashVars
+                {bgcolor: "#000000", allowscriptaccess : "always", allowfullscreen : "true", wmode :"direct"}, // Params
+                {id : "flashObj", name : "flashObj"}); // Attribute
+        </script>
+    </head>
+    <body>
+		<div id="container">
+		    <div id="flashContent">
+		        <p style="color:#888;">To view this page ensure that <a href='http://www.adobe.com/go/getflashplayer'>Adobe Flash Player</a> version 11.1.0 or greater is installed. </p>
+		    </div>
+		</div>
+   </body>
+</html>
