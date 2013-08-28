@@ -21,5 +21,5 @@ sdfjd
 	  /*AS3 註解*/
       dsthejslt
     ```
-
-[cccccccc](http://i.creativecommons.org/l/by/3.0/88x31.png)
+dd
+![cccccccc](http://i.creativecommons.org/l/by/3.0/88x31.png)
