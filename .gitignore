@@ -1,0 +1,10 @@
+##    ignore folder    ##
+
+bu
+
+##    ignore file    ##
+
+.DS_Store
+.DS_Store?
+Thumbs.db
+.Trashes
