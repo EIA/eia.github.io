@@ -1,6 +1,6 @@
-eia.github.io
+Away 3D Demo
 =============
-> Author: EIA, [[About.me](http:about.me/eia)] <br/>
+> Author: EIA, [about.me](http:about.me/eia) <br/>
 > Demo Inspire From
 
 
