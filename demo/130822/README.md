@@ -1,6 +1,6 @@
 eia.github.io
 =============
-> Author: EIA[About.me](http:about.me/eia) <br/>
+> Author: EIA, [[About.me](http:about.me/eia)] <br/>
 > Demo Inspire From
 
 
