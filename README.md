@@ -10,11 +10,9 @@ Hello:
 
 
 
-[![image]](demo/130822/)
-[image]: demo/130822/demo.jpg
+[![image]](demo/130822/)[image]: demo/130822/demo.jpg
 
-[![image]](demo/130823/)
-[image]: demo/130822/demo.jpg
+[![image]](demo/130823/)[image]: demo/130822/demo.jpg
 
 * 1234
 
