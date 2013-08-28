@@ -10,28 +10,10 @@ Hello:
 
 
 
-[![image]](demo/130822/)[image]: demo/130822/demo.jpg
+[![image]](demo/130822/)[image]: demo/130822/demo_480x200.jpg
 
-[![image]](demo/130823/)[image]: demo/130822/demo.jpg
+[![image]](demo/130823/)[image]: demo/130823/demo_480x200.jpg
 
-* 1234
-
-eia.github.io
-
-sdfkjsdghfjksdh`1233`sdfhsdjl
-sdfjd
-
-* testcode
-
-    ```Ruby
-      # cool
-      cool
-    ```
-
-    ```ActionScript
-      //555
-	  /*AS3 註解*/
-      dsthejslt
-    ```
+[![image]](demo/130823/)[image]: demo/130824/demo_480x200.jpg
 
 
