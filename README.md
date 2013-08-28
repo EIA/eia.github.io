@@ -1,7 +1,7 @@
 eia.github.io
 =============
 > http:about.me/eia
-> yrdy ´ú¦ÛP
+> yrdy 測試
 
 
 Helo
@@ -11,19 +11,19 @@ Helo
 
 eia.github.io
 
-sdfkjsdghfjksdh'1233'sdfhsdjl
+sdfkjsdghfjksdh`1233`sdfhsdjl
 sdfjd
 
 * testcode
 
-    '''Ruby
+    ```Ruby
       # cool
       cool
-    '''
+    ```
 
-    '''ActionScript
+    ```ActionScript
       #555
       dsthejslt
-    '''
+    ```
 
 
