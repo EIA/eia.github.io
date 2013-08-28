@@ -10,7 +10,7 @@ Helod
 [about.me:](http://about.me/eia)
 
 * need Away3d
-* source:[Away3d.as](Away3d.as)
+* source:[Aw3d.as](Aw3d.as)
 
 
 * 1234
