@@ -13,20 +13,7 @@ Helod
 Usage Library:
 * [Away3d](http://away3d.com/)<br/>
 * [TweenMax](http://www.greensock.com/tweenmax/)<br/>
+
+Source:
 * source:[Aw3d.as](Aw3d.as)
 
-
-
-eia.github.io
-
-sdfkjsdghfjksdh`1233`sdfhsdjl
-sdfjd
-
-* testcode
-
-
-    ```ActionScript
-      //555
-	  /*AS3 註解*/
-      dsthejslt
-    ```
