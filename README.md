@@ -22,7 +22,8 @@ sdfjd
     ```
 
     ```ActionScript
-      #555
+      //555
+	  /*AS3 註解*/
       dsthejslt
     ```
 
