@@ -26,6 +26,8 @@ body {
 
 .wrap:hover{
 	transition:1.5s;
+	left: 50%;
+	top:50%;
 	/*-webkit-transform: perspective(0px) rotatex(25deg) rotateY(-45deg) rotateY(0deg) scalex(1) scaley(1) scalez(1);*/
 	-webkit-transform: perspective(0px) rotatex(45deg) rotateY(-45deg) rotateY(180deg) scalex(1) scaley(1) scalez(1);
 	/*-webkit-transform: perspective(0px) rotatex(-45deg) rotateY(45deg) rotateZ(0deg);*/ /* rotate test*/
