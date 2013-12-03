@@ -10,5 +10,5 @@ FLASH <br/>
 [![alt](demo/130824/demo_359x150.jpg)](http://eia.github.io/demo/130824/)
 
 =============
-CSS3 <br/>
+CSS3 (Chrome Only) <br/>
 [![alt](demo/131203/demo_359x150.jpg)](http://eia.github.io/demo/131203/lv11.html)
