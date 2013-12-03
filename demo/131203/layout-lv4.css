@@ -1,0 +1,96 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+body {
+	background-color: #666;
+	font-family: "Arial Black", Gadget, sans-serif;
+}
+
+.wrap {
+	position:absolute;
+	display: block;
+	left: 50%;
+	top:50%;
+	margin-left: -160px;
+	margin-top: -160px;
+
+
+	-webkit-transform-style: preserve-3d;
+	transition:1.5s;
+	/*-webkit-transform: perspective(300px) rotateY(-45deg);*/
+	-webkit-transform: perspective(0px) rotatex(-45deg) rotateY(-45deg) translateZ(0px);
+}
+
+.wrap:hover{
+	transition:1.5s;
+	/*-webkit-transform: perspective(300px) rotateY(45deg);*/
+	-webkit-transform: perspective(0px) rotateY(-45deg) rotateY(310deg) translateZ(0px);
+}
+
+
+.box1{
+	display:block;
+	width: 320px;
+	height: 320px;
+	-webkit-transform:translateZ(100px);
+}
+
+.box2{
+	display:block;
+	width: 320px;
+	height: 320px;
+	-webkit-transform:translateY(-320px) translateZ(-160px);
+}
+
+
+
+
+.wrap li:nth-child(1),
+.wrap li:nth-child(2),
+.wrap li:nth-child(3),
+.wrap li:nth-child(4){
+	display: block;
+	float:left;
+	background-image: -webkit-linear-gradient( right, hsla(181,100%,50%,.5) 0%, hsla(181,0%,50%,0) 100%),
+	                  -webkit-linear-gradient( bottom, hsla(0,100%,0%,.5) 0%, hsla(0,100%,100%,.5) 100%);
+
+	background-size:300px 300px;
+	width: 150px;
+	height: 150px;
+	color: #ff0000;
+	margin:5px;}
+
+.wrap li:nth-child(1){	background-position: 0% 0%;}
+.wrap li:nth-child(2){	background-position: 100% 0%;}
+.wrap li:nth-child(3){	background-position: 0% 100%;}
+.wrap li:nth-child(4){	background-position: 100% 100%;}
+
+
+
+
+
+
+
+
+
+.wrap li:nth-child(5),
+.wrap li:nth-child(6),
+.wrap li:nth-child(7),
+.wrap li:nth-child(8){
+	display: block;
+	float:left;
+	background-image: -webkit-linear-gradient( right, hsla(51,100%,50%,.5) 0%, hsla(51,0%,50%,0) 100%),
+	                  -webkit-linear-gradient( bottom, hsla(0,100%,0%,.5) 0%, hsla(0,100%,100%,.5) 100%);
+
+	background-size:300px 300px;
+	width: 150px;
+	height: 150px;
+	color: #ff0000;
+	margin:5px;}
+
+.wrap li:nth-child(5){	background-position: 0% 0%;}
+.wrap li:nth-child(6){	background-position: 100% 0%;}
+.wrap li:nth-child(7){	background-position: 0% 100%;}
+.wrap li:nth-child(8){	background-position: 100% 100%;}

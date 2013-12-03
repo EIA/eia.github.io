@@ -4,6 +4,7 @@ bu
 
 ##    ignore file    ##
 
+.psd
 .DS_Store
 .DS_Store?
 Thumbs.db
