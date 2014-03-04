@@ -152,6 +152,7 @@
           init();
           initControl();
           animate();
+          initLeap();
         }
       }
 
@@ -624,7 +625,24 @@
 
 
 
+      function initLeap(){
+          if ( Leap ) {
+alert("Leap!");
+            Leap.loop( function( frame ) {
 
+                var fingers = frame.pointables;
+                var finger;
+
+                for ( var i = 0, n = fingers.length; i < n; i++ ) {
+
+                    finger = fingers[i];
+
+                }
+            });
+        }
+
+
+      }
 
 
 
