@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - collada</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: Monospace;
+				background-color: #CCCCCC;
+				margin: 0px;
+        overflow: hidden;
+
+
+			}
+
+			#info {
+				color: #fff;
+				position: absolute;
+				top: 10px;
+				width: 100%;
+				text-align: center;
+				z-index: 100;
+				display:block;
+
+			}
+
+			a { color: skyblue }
+		</style>
+	</head>
+	<body>
+
+    <!--
+    <button onclick="mode1()">mode1</button>
+    <button onclick="mode2()">mode2</button>
+    <button onclick="mode3()">mode3</button>
+    -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.1/TweenMax.min.js"></script>
+
+    <!--<script src="../build/three.min.js"></script>-->
+		<script src="build/three.min.js"></script>
+
+		<script src="js/loaders/ColladaLoader.js"></script>
+
+		<script src="js/Detector.js"></script>
+		<script src="js/libs/stats.min.js"></script>
+
+		<script>
+      const MODE1 = 'mode1';
+      const MODE2 = 'mode2';
+      const MODE3 = 'mode3';
+      const MODE4 = 'mode4';
+
+      var currentMode = MODE1;
+
+
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			var container, stats;
+
+			var camera, scene, renderer, objects;
+			var particleLight, pointLight;
+      var dae, skin;
+
+      ////////// 140227-2 //////////
+      var sphere;
+      ////////// 140227-2 //////////
+      ////////// 140303 //////////
+      var projector;
+      var mousePos;
+      var dir, pos, distance;
+      var guns = [];
+      var gunsPos = [];
+
+      var posObj;
+      var line;
+      ////////// 140303 //////////
+      ////////// 140304 //////////
+      var patterndae;
+      ////////// 140304 //////////
+      /*
+      var skyMesh;
+      var materials = [
+
+        new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/px.jpg' ), overdraw: true } ), // right
+        new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/nx.jpg' ), overdraw: true } ), // left
+        new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/py.jpg' ), overdraw: true } ), // top
+        new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/ny.jpg' ), overdraw: true } ), // bottom
+        new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/pz.jpg' ), overdraw: true } ), // back
+        new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/nz.jpg' ), overdraw: true } )  // front
+
+        ];
+      */
+
+
+
+
+
+
+      var loader = new THREE.ColladaLoader();
+			loader.options.convertUpAxis = true;
+      //loader.load( './models/mo_pureLogo_v5.dae', function ( collada ) { //eia
+      //loader.load( './models/mo_pureLogo_v6_5.dae', function ( collada ) { //eia
+      //loader.load( './models/from_blender.dae', function ( collada ) { //eia
+      //loader.load( './models/from_cinema4d.dae', function ( collada ) { //eia
+
+
+
+      //loader.load( './models/from_blender.dae', function ( collada ) { //eia 140227
+      loader.load( './models/from_cinema4d_v4.dae', function ( collada ) { //eia 140227
+
+        console.log(collada);
+
+
+				dae = collada.scene;
+				skin = collada.skins[ 0 ];
+
+        console.log(dae);
+				dae.scale.x = dae.scale.y = dae.scale.z = 0.005;
+				//dae.scale.x = dae.scale.y = dae.scale.z = 0.6;
+				dae.updateMatrix();
+
+        flowHandler();
+        } );
+
+
+
+
+
+      var patternloader = new THREE.ColladaLoader();
+			patternloader.options.convertUpAxis = true;
+      patternloader.load( './models/pattern_ex.dae', function ( collada ) { //eia 140227
+
+
+
+				patterndae = collada.scene;
+
+				patterndae.scale.x = patterndae.scale.y = patterndae.scale.z = 0.005;
+				patterndae.updateMatrix();
+
+
+        flowHandler();
+      } );
+
+
+
+
+      function flowHandler(){
+        if(dae && patterndae){
+          init();
+          initControl();
+          animate();
+        }
+      }
+
+
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+
+
+
+
+
+
+
+
+
+
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+				camera.position.set( 2, 2, 3 );
+        camera.position.y = 5; // 2, 2, 3
+        camera.position.z = 28;
+
+
+        scene = new THREE.Scene();
+        //scene.fog = new THREE.FogExp2( 0xDDDDDD, 0.00001);
+        scene.fog = new THREE.FogExp2( 0x332a21, .00001);
+
+        /*
+        ////box////
+        //skyMesh = new THREE.Mesh( new THREE.BoxGeometry( 10000, 10000, 10000, 7, 7, 7 ), new THREE.MeshFaceMaterial( materials ) );
+        skyMesh = new THREE.Mesh( new THREE.BoxGeometry( 1000, 1000, 1000, 7, 7, 7 ), new THREE.MeshFaceMaterial( materials ) );
+        skyMesh.scale.x = - 1;
+        scene.add(skyMesh);
+        ////box////
+        */
+
+
+
+				// Grid
+				var size = 14, step = 1;
+
+				var geometry = new THREE.Geometry();
+				//var material = new THREE.LineBasicMaterial( { color: 0xff0000 } ); // 格線
+        var material = new THREE.LineBasicMaterial( { color: 0x999999}); // 格線 //eeeeee
+        material.opacity = .1;
+        material.transparent = true;
+				//var material = new THREE.MeshLambertMaterial( { color: 0x303030, wireframe: true } );
+
+				for ( var i = - size; i <= size; i += step ) {
+
+					geometry.vertices.push( new THREE.Vector3( - size, - 0.04, i ) );
+					geometry.vertices.push( new THREE.Vector3(   size, - 0.04, i ) );
+
+					geometry.vertices.push( new THREE.Vector3( i, - 0.04, - size ) );
+					geometry.vertices.push( new THREE.Vector3( i, - 0.04,   size ) );
+
+				}
+
+        line = new THREE.Line( geometry, material, THREE.LinePieces );
+				scene.add( line );
+
+
+
+
+
+        //140303//
+        posObj = new THREE.Object3D();
+        scene.add( posObj );
+        //140303//
+
+
+
+
+        //140227//
+				for ( var i = 0; i < 50; i ++ ) {
+
+					var mm = dae.clone();
+          mm.position.x = Math.random() * 10 - 5; // 10 -5
+					mm.position.y = Math.random() * 10 - 5; // 10 -5
+					mm.position.z = Math.random() * 10 - 5; // 10 -5
+					//mm.scale.x = mm.scale.y = mm.scale.z = Math.random() * 4 + 2;
+          // posObj.add( mm );
+          scene.add( mm );
+
+
+          guns.push(mm);
+          gunsPos.push(mm.position.clone());
+				}
+        //140227//
+
+        //140227-2 //
+				sphere = new THREE.Mesh( new THREE.SphereGeometry( 100, 20, 20 ), new THREE.MeshNormalMaterial( { shading: THREE.SmoothShading } ) );
+        sphere.position.x = 0;
+        sphere.position.y = 0;
+        sphere.position.z = 0;
+        sphere.scale.x = sphere.scale.y = sphere.scale.z = .003;
+        scene.add( sphere );
+
+        // 140227-2 //
+
+
+        //140304//
+				for ( var i = 0; i < 50; i ++ ) {
+
+					var mm = patterndae.clone();
+          mm.position.x = Math.sin((360/50 * i )*(Math.PI/180))*36;
+					//mm.position.y = Math.random() * 10 - 5;
+					mm.position.z = Math.cos((360/50 * i )*(Math.PI/180))*36;
+					//mm.scale.x = mm.scale.y = mm.scale.z = Math.random() * 4 + 2;
+          scene.add( mm );
+          mm.lookAt(new THREE.Vector3(0, 0, 0));
+
+				}
+        //140304//
+
+
+
+
+
+
+				// Add the COLLADA
+
+        scene.add( dae );
+        guns.push(dae)
+        gunsPos.push(dae.position.clone());
+
+				particleLight = new THREE.Mesh( new THREE.SphereGeometry( 4, 8, 8 ), new THREE.MeshBasicMaterial( { color: 0xffffff } ) );
+				scene.add( particleLight );
+
+				// Lights
+
+				scene.add( new THREE.AmbientLight( 0xcccccc ) );
+
+				//var directionalLight = new THREE.DirectionalLight(/*Math.random() * 0xffffff*/0xeeeeee );
+				var directionalLight = new THREE.DirectionalLight(0xBBBBBB, 3); // 光源
+				directionalLight.position.x = Math.random() - 0.5;
+				directionalLight.position.y = Math.random() - 0.5;
+				directionalLight.position.z = Math.random() - 0.5;
+				directionalLight.position.normalize();
+				scene.add( directionalLight );
+
+				//pointLight = new THREE.PointLight( 0xffffff, 1 ); //4
+				//pointLight.position = particleLight.position;
+				//scene.add( pointLight );
+
+
+        //renderer = new THREE.WebGLRenderer();
+        renderer = new THREE.WebGLRenderer({antialias:true});
+        //renderer.setClearColor(scene.fog.color,1);
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+        // 140303 //
+        projector = new THREE.Projector();
+        mousePos = new THREE.Vector3();
+        // 140303 //
+
+				container.appendChild( renderer.domElement );
+
+				stats = new Stats();
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				container.appendChild( stats.domElement );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+
+
+
+
+
+
+      }
+
+      function initControl(){
+        renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+        renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
+        //renderer.domElement.addEventListener( 'mouseup',aspect onDocumentMouseUp, false );
+      }
+      function onDocumentMouseMove(){
+      // 140303 //
+      /*
+        var mouse3D = projector.unprojectVector(
+            new THREE.Vector3(
+                ( event.clientX / renderer.domElement.width ) * 2 - 1,
+                - ( event.clientY / renderer.domElement.height ) * 2 + 1,
+                0.5
+            ),
+            camera
+            );
+    */
+           mousePos.x = ( event.clientX / renderer.domElement.width ) * 2 - 1;
+           mousePos.y = - ( event.clientY / renderer.domElement.height ) * 2 + 1;
+           mousePos.z = 0.5;
+
+
+
+
+          projector.unprojectVector( mousePos, camera );
+          dir = mousePos.sub( camera.position ).normalize();
+          distance = - camera.position.z / dir.z;
+          pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
+
+
+
+
+
+
+
+        //ray.direction = mouse3D.subSelf( camera.position ).normalize();
+
+        // 140303-1 //
+        //sphere.position.x = ( event.clientX / renderer.domElement.width ) * 2 - 1;
+        //sphere.position.y = - ( event.clientY / renderer.domElement.height ) * 2 + 1;
+        //sphere.position.z = 0.5;
+        // 140303-1 //
+
+
+        // 140303-2 //
+        //sphere.position.x = pos.x;
+        //sphere.position.y = pos.y;
+        //sphere.position.z = pos.z;
+        // 140303-2 //
+
+
+      }
+
+      function onDocumentMouseDown(){
+          switch(currentMode){
+            case MODE1:
+                      currentMode = MODE2;
+                      for ( var i = 0, l = guns.length; i < l; i ++ ) {
+                        //TweenMax.to(guns[i].rotation, 0,{x:0, ease:Strong.easeOut, overwrite:"all"});
+                        TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, x:Math.PI*2, ease:Strong.easeOut});
+                        TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, y:0, ease:Strong.easeOut});
+                        TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, z:0, ease:Strong.easeOut});
+                      }
+                      break;
+            case MODE2:
+                      for ( var i = 0, l = guns.length; i < l; i ++ ) {
+                        //TweenMax.to(guns[i].rotation, 0,{x:0, ease:Strong.easeOut, overwrite:"all"});
+                        TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, x:Math.PI*(2-.5)+(Math.random()*1-.5), ease:Strong.easeOut});
+                        TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, y:0, ease:Strong.easeOut});
+                        TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, z:0, ease:Strong.easeOut});
+                        //
+                        TweenMax.to(guns[i].position, .4,{delay:Math.random()*.4, y:.9, ease:Strong.easeInOut});
+                      }
+                      currentMode = MODE3;
+                      break;
+            case MODE3:
+
+                      for ( var i = 0, l = guns.length; i < l; i ++ ) {
+                        //TweenMax.to(guns[i].rotation, 0,{x:0, ease:Strong.easeOut, overwrite:"all"});
+                        TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, x:Math.PI*(2-.5)+(Math.random()*1-.5), ease:Strong.easeOut});
+                        TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, y:0, ease:Strong.easeOut});
+                        TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, z:0, ease:Strong.easeOut});
+                        //
+                        TweenMax.to(guns[i].position, 2,{delay:Math.random()*.4,
+                                                            x:Math.random()*20-10,
+                                                            y:Math.random()*20-10,
+                                                            z:Math.random()*20-10,
+                                                            ease:Strong.easeOut, onComplete:mode4complete, onCompleteParams:[guns[i]]});
+                      }
+                      currentMode = MODE4;
+                      break;
+            case MODE4:
+                      currentMode = MODE1;
+                      break;
+          }
+      }
+
+      function mode4complete($param){
+          switch(currentMode){
+                     case MODE1:
+                     case MODE2:
+                     case MODE3:
+                                 break;
+                     case MODE4:
+                                 var randX = Math.random()*20-10;
+                                 var randY = Math.random()*20-10;
+                                 var randZ = Math.random()*20-10;
+                                 var tmpRotationX1 = $param.rotation.x;
+                                 var tmpRotationY1 = $param.rotation.y;
+                                 var tmpRotationZ1 = $param.rotation.z;
+                                 $param.lookAt(new THREE.Vector3(randX, randY, randZ));
+                                 var tmpRotationX2 = $param.rotation.x;
+                                 var tmpRotationY2 = $param.rotation.y;
+                                 var tmpRotationZ2 = $param.rotation.z
+                                 //
+                                 $param.rotation.x = tmpRotationX1;
+                                 $param.rotation.y = tmpRotationY1;
+                                 $param.rotation.z = tmpRotationZ1;
+                                 TweenMax.to($param.position, 2,{delay:Math.random()*.4,
+                                                                  x:randX,
+                                                                  y:randY,
+                                                                  z:randZ,
+                                                                  onComplete:mode4complete, onCompleteParams:[$param]}
+                                                                  );
+                                 TweenMax.to($param.rotation, .5,{
+                                                                  x:tmpRotationX2+Math.PI*2,
+                                                                  y:tmpRotationY2+Math.PI,
+                                                                  z:tmpRotationZ2+Math.PI*2,
+                                                                  ease:Strong.easeOut
+
+                                 });
+                                 break;
+
+
+          }
+
+      }
+
+
+			function onWindowResize() {
+
+        camera.aspect = window.innerwidth / window.innerheight;
+				camera.updateprojectionmatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+
+
+
+			var t = 0;
+			var clock = new THREE.Clock();
+
+			function animate() {
+
+
+				var delta = clock.getDelta();
+
+				requestAnimationFrame( animate );
+				if ( t > 1 ) t = 0;
+
+				if ( skin ) {
+
+					// guess this can be done smarter...
+
+					// (Indeed, there are way more frames than needed and interpolation is not used at all
+					//  could be something like - one morph per each skinning pose keyframe, or even less,
+					//  animation could be resampled, morphing interpolation handles sparse keyframes quite well.
+					//  Simple animation cycles like this look ok with 10-15 frames instead of 100 ;)
+
+					for ( var i = 0; i < skin.morphTargetInfluences.length; i++ ) {
+
+						skin.morphTargetInfluences[ i ] = 0;
+
+					}
+
+					skin.morphTargetInfluences[ Math.floor( t * 30 ) ] = 1;
+
+					t += delta;
+
+				}
+				render();
+				stats.update();
+
+			}
+
+			function render() {
+
+        var timer = Date.now() * 0.0005;
+
+
+
+        // 140227-2 //
+        var time = Date.now() * 0.003;
+
+/*
+				sphere.position.x = Math.sin( time * 0.7 ) * 3;
+				sphere.position.y = Math.cos( time * 0.5 ) * 3;
+				sphere.position.z = Math.cos( time * 0.3 ) * 3;
+*/
+
+          for ( var i = 0, l = guns.length; i < l; i ++ ) {
+
+            //scene.children[ i ].lookAt( sphere.position );
+            switch(currentMode){
+              case MODE1:
+                        guns[ i ].lookAt( sphere.position );
+                        break;
+              case MODE2:
+                        break;
+              case MODE3:
+              case MODE4:
+                        break;
+            }
+          }
+
+
+        // 140227-2 //
+
+				camera.position.x = Math.cos( timer ) * 15; //10
+				camera.position.y = 3; // 2
+				camera.position.z = Math.sin( timer ) * 15; //10
+        camera.lookAt( scene.position );
+
+
+
+
+        if(posObj){
+          posObj.rotation.y = Math.sin( timer ) * 2; //10
+        }
+
+
+
+        // 140303-3 //
+        if(pos){
+
+          sphere.position.x += ( pos.x - (sphere.position.x)) / 4;
+          sphere.position.y += ( pos.y - (sphere.position.y)) / 4;
+          sphere.position.z += ( pos.z - (sphere.position.z)) / 4;
+
+          for ( var i = 0, l = guns.length; i < l; i ++ ) {
+
+            switch(currentMode){
+              case MODE1:
+              case MODE2:
+                      guns[ i ].position.x += ( pos.x - (guns[ i ].position.x) + gunsPos[i].x) / 16;
+                      guns[ i ].position.y += ( pos.y - (guns[ i ].position.y) + gunsPos[i].y) / 16;
+                      guns[ i ].position.z += ( pos.z - (guns[ i ].position.z) + gunsPos[i].z) / 16;
+                      break;
+
+              case MODE3:
+              case MODE4:
+                        break;
+            }
+
+          }
+
+
+
+
+
+          }
+          //console.log(sphere.position.x);
+        // 140303-3 //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				particleLight.position.x = Math.sin( timer * 4 ) * 3009;
+				particleLight.position.y = Math.cos( timer * 5 ) * 4000;
+				particleLight.position.z = Math.cos( timer * 4 ) * 3009;
+
+
+
+
+
+				renderer.render( scene, camera );
+
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+     ////////////////////////////////////////////////
+      function renderMode1(){
+      }
+      function renderMode2(){
+      }
+      function renderMode3(){
+      }
+      ////////////////////////////////////////////////
+
+
+
+      function mode1(){
+        console.log('mode1');
+        currentMode = MODE1;
+      }
+      function mode2(){
+        console.log('mode2');
+        currentMode = MODE2;
+
+
+        //140303//
+        for ( var i = 0, l = guns.length; i < l; i ++ ) {
+
+          TweenMax.to(guns[i].rotation, 0,{x:0, ease:Strong.easeOut, overwrite:"all"});
+          TweenMax.to(guns[i].rotation, 1,{delay:Math.random()*.4, x:Math.PI*2, ease:Strong.easeOut, overwrite:"all"});
+
+        }
+        //140303//
+      }
+      function mode3(){
+        console.log('mode3');
+        currentMode = MODE3;
+      }
+
+
+      </script>
+	</body>
+</html>
