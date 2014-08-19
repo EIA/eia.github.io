@@ -79,6 +79,10 @@
       ////////// 140303 //////////
       ////////// 140304 //////////
       var patterndae;
+      var fingers, finger;
+      var gestures;
+
+
       ////////// 140304 //////////
       /*
       var skyMesh;
@@ -630,14 +634,20 @@
 alert("Leap!");
             Leap.loop( function( frame ) {
 
-                var fingers = frame.pointables;
-                var finger;
+                fingers = frame.pointables;
 
                 for ( var i = 0, n = fingers.length; i < n; i++ ) {
 
                     finger = fingers[i];
 
                 }
+
+                gestures = frame.Gesture();
+                if(gestures.length!=0){
+                  console.log(gestures);
+                }
+
+
             });
         }
 
