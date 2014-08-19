@@ -23,15 +23,16 @@
 
     function tag1tagLaunchHandler(){
       //console.log("tag1tagLaunchHandler"+ tag1.currencLaunchPercent);
-      document.write("Tag1 Launch! "+tag1.currencLaunchPercent+"</br>");
+      document.getElementById("outputMsg").innerHTML += "Tag1 Launch! "+tag1.currencLaunchPercent+"</br>";
     }
     function tag2tagLaunchHandler(){
       //console.log("tag2tagLaunchHandler"+ tag2.currencLaunchPercent);
-      document.write("Tag2 Launch! "+tag2.currencLaunchPercent+"</br>");
+      document.getElementById("outputMsg").innerHTML += "Tag2 Launch! "+tag2.currencLaunchPercent+"</br>";
     }
   </script>
 </head>
 <body>
     <a href="https://github.com/EIA/TweenTag.js/"><img style="position:absolute;top:0;right:0;border:0;" width="149" height="149" src="forkme.png" alt="Fork me on GitHub"></a>
+    <div id="outputMsg"></div>
 </body>
 </html>
