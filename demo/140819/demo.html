@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TweenTag Demo</title>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+  <script src="TweenTag.js"></script>
+  <script>
+    var tweenNum = {num:0};
+    var tag1 = new TweenTag([0.3, 0.6, 0.9, 0.95, 0.99, 1]);
+    var tag2 = new TweenTag([0.3, 0.5, 0.6, 0.66]);
+    TweenMax.to(tweenNum, 1, {num:1,
+      onStart:function(){
+        tag1.addCallback(TweenTag.TAG_LAUNCH, tag1tagLaunchHandler);
+        tag2.addCallback(TweenTag.TAG_LAUNCH, tag2tagLaunchHandler);
+      },
+      onUpdate:function(){
+        //console.log(tweenNum.num);
+        tag1.updatePercent(tweenNum.num);
+        tag2.updatePercent(tweenNum.num);
+      }
+    })
+
+    function tag1tagLaunchHandler(){
+      //console.log("tag1tagLaunchHandler"+ tag1.currencLaunchPercent);
+      document.write("Tag1 Launch! "+tag1.currencLaunchPercent+"</br>");
+    }
+    function tag2tagLaunchHandler(){
+      //console.log("tag2tagLaunchHandler"+ tag2.currencLaunchPercent);
+      document.write("Tag2 Launch! "+tag2.currencLaunchPercent+"</br>");
+    }
+  </script>
+</head>
+<body>
+
+</body>
+</html>
