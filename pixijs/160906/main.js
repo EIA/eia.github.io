@@ -3,6 +3,24 @@ var renderer = PIXI.autoDetectRenderer(STAGE_WIDTH, STAGE_HEIGHT,{backgroundColo
 var stage = new PIXI.Container();
 var clCount = 12; //12
 var device;
+
+var isFB = (navigator.userAgent.toLowerCase().indexOf("fb") != -1); // FB App
+var isLine = (navigator.userAgent.toLowerCase().indexOf("line") != -1); // Line App
+// alert("isFB: "+isFB+" isLine: "+isLine+" again: "+again);
+
+
+if( isFB == true){
+  openAlert();
+}else if( isLine == true){
+  openAlert();
+}else{
+}
+
+function openAlert(){
+  alert("建議使用Google Chrome / Safari");
+}
+
+
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
   device = 'mobile';
 } else {
