@@ -7,6 +7,13 @@ PixiJS - Practice <br/>
 [![alt](pixijs/160906/demo_359x150.jpg)](http://eia.github.io/pixijs/160906/)
 
 =============
+Maker <br/>
+[![alt](pixijs/160406/demo_359x150.jpg)](http://eia.github.io/pixijs/160406/)
+[![alt](pixijs/160224/demo_359x150.jpg)](http://eia.github.io/pixijs/160224/)
+[![alt](pixijs/150805/demo_359x150.jpg)](http://eia.github.io/pixijs/150805/)
+[![alt](pixijs/150525/demo_359x150.jpg)](http://eia.github.io/pixijs/150525/)
+
+=============
 FLASH <br/>
 [![alt](demo/130822/demo_359x150.jpg)](http://eia.github.io/demo/130822/)
 [![alt](demo/130823/demo_359x150.jpg)](http://eia.github.io/demo/130823/)
