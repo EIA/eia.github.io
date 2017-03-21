@@ -153,6 +153,10 @@ var gear1visible = true;
 var gear2visible = true;
 var gear1colorMode = true;
 var gear2colorMode = true;
+var gear1customizedColor = [0, 0, 0];
+var gear2customizedColor = [0, 0, 0];
+var gear1customizedAlpha = 0.3;
+var gear2customizedAlpha = 0.25;
 
 ///////////////////// FOR GUI /////////////////////
 
@@ -189,11 +193,15 @@ var effectController = {
     Gear1_Radius: runCirclePercent_bigCircle,
     Gear1_Dot_Position: dotPercent_runCircle,
     Gear1_Visible: gear1visible,
-    Gear1_Color: gear1colorMode,
+    Gear1_AutoColor: gear1colorMode,
+    Gear1_Color: [ 0, 0, 0 ],
+    Gear1_Alpha: 0.6,
     Gear2_Radius: runCirclePercent2_bigCircle,
     Gear2_Dot_Position: dotPercent2_runCircle2,
     Gear2_Visible: gear2visible,
-    Gear2_Color: gear2colorMode,
+    Gear2_AutoColor: gear2colorMode,
+    Gear2_Color: [ 0, 0, 0 ],
+    Gear2_Alpha: 0.5,
     Speed: speed,
     Exporting : exportPic
 };
@@ -212,11 +220,15 @@ function exportPic(){
 gui.add( effectController, "Gear1_Radius", 0.05, 1.3, .01 ).onChange( guiHandler );
 gui.add( effectController, "Gear1_Dot_Position", 0.05, 1.3, .01 ).onChange( guiHandler );
 gui.add( effectController, "Gear1_Visible" ).onChange( gearsVisibleHandler );
-gui.add( effectController, "Gear1_Color" ).onChange( guiHandler );
+gui.add( effectController, "Gear1_AutoColor" ).onChange( guiHandler );
+gui.addColor(effectController, 'Gear1_Color').onChange( guiHandler );
+gui.add(effectController, 'Gear1_Alpha', 0, 1, .1).onChange( guiHandler );
 gui.add( effectController, "Gear2_Radius", 0.05, 1.3, .01 ).onChange( guiHandler );
 gui.add( effectController, "Gear2_Dot_Position", 0.01, 1.3, .01 ).onChange( guiHandler );
 gui.add( effectController, "Gear2_Visible" ).onChange( gearsVisibleHandler );
-gui.add( effectController, "Gear2_Color" ).onChange( guiHandler );
+gui.add( effectController, "Gear2_AutoColor" ).onChange( guiHandler );
+gui.addColor(effectController, 'Gear2_Color').onChange( guiHandler );
+gui.add(effectController, 'Gear2_Alpha', 0, 1, .1).onChange( guiHandler );
 gui.add( effectController, "Speed", 0.5, 4, .5 ).onChange( speedChanger );
 gui.add( effectController, "Exporting", 0, 100, .1 ).onChange( guiHandler );
 
@@ -243,10 +255,14 @@ function guiHandler(){
   dotPercent_runCircle = effectController.Gear1_Dot_Position;
   dotPercent2_runCircle2 = effectController.Gear2_Dot_Position;
 
-  gear1colorMode = effectController.Gear1_Color;
-  gear2colorMode = effectController.Gear2_Color;
+  gear1colorMode = effectController.Gear1_AutoColor;
+  gear2colorMode = effectController.Gear2_AutoColor;
 
+  gear1customizedColor = effectController.Gear1_Color;
+  gear2customizedColor = effectController.Gear2_Color;
 
+  gear1customizedAlpha = effectController.Gear1_Alpha;
+  gear2customizedAlpha = effectController.Gear2_Alpha;
 
 
   updateSetting();
@@ -277,7 +293,7 @@ function rebuildObjs(){
     // console.log("rebuildObjs");
 
     bigCircle.clear();
-    bigCircle.beginFill(0xffffff, .1);
+    bigCircle.beginFill(0xffffff);
     bigCircle.drawCircle(0, 0, bigCircleRadius);
     bigCircle.endFill();
 
@@ -398,17 +414,17 @@ function animate() {
         lineColorArray = hsvToRGB2(tk2, .7, 1);
         lineColor = lineColorArray[0] * 256 * 256 + lineColorArray[1] * 256 + lineColorArray[2];
     }else{
-        lineColor = 0xffffff;
+        // lineColor = 0x000000;
+        lineColor = gear1customizedColor[0] * 256 * 256 + gear1customizedColor[1] * 256 + gear1customizedColor[2];
     }
     if(tk <= 1){
       lineAlpha = 0;
     } else{
       if(gear1colorMode){
-        // lineAlpha = .5;
-        lineAlpha = .8;
+        lineAlpha = .5;
       }else{
         // lineAlpha = .25;
-        lineAlpha = .6;
+        lineAlpha = gear1customizedAlpha;
       }
     }
     if(device == "pc"){
@@ -478,17 +494,17 @@ function animate() {
         lineColorArray = hsvToRGB2(tk2, .7, 1);
         lineColor = lineColorArray[0] * 256 * 256 + lineColorArray[1] * 256 + lineColorArray[2];
     }else{
-        lineColor = 0xffffff;
+        // lineColor = 0x000000;
+        lineColor = gear2customizedColor[0] * 256 * 256 + gear2customizedColor[1] * 256 + gear2customizedColor[2];
     }
     if(tk2 <= 1){
       lineAlpha = 0;
     } else{
       if(gear1colorMode){
-        // lineAlpha = .6;
-        lineAlpha = .9;
+        lineAlpha = .6;
       }else{
         // lineAlpha = .3;
-        lineAlpha = .7;
+        lineAlpha = gear2customizedAlpha;
       }
     }
     if(device == "pc"){
