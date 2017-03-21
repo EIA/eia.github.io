@@ -79,8 +79,8 @@ var renderer = PIXI.autoDetectRenderer(STAGE_WIDTH, STAGE_HEIGHT,{backgroundColo
 // var renderer = PIXI.autoDetectRenderer(STAGE_WIDTH, STAGE_HEIGHT,{backgroundColor : 0xcccccc, antialias: true});
 
 var stage = new PIXI.Container();
-	  stage.position.x = STAGE_WIDTH * .5;
-	  stage.position.y = STAGE_HEIGHT * .5;
+    stage.position.x = STAGE_WIDTH * .5;
+    stage.position.y = STAGE_HEIGHT * .5;
 
 var bigCircle = new PIXI.Graphics();
 var bigCircleRadius = 250;
@@ -277,7 +277,7 @@ function rebuildObjs(){
     // console.log("rebuildObjs");
 
     bigCircle.clear();
-    bigCircle.beginFill(0xffffff);
+    bigCircle.beginFill(0xffffff, .1);
     bigCircle.drawCircle(0, 0, bigCircleRadius);
     bigCircle.endFill();
 
@@ -398,15 +398,17 @@ function animate() {
         lineColorArray = hsvToRGB2(tk2, .7, 1);
         lineColor = lineColorArray[0] * 256 * 256 + lineColorArray[1] * 256 + lineColorArray[2];
     }else{
-        lineColor = 0x000000;
+        lineColor = 0xffffff;
     }
     if(tk <= 1){
       lineAlpha = 0;
     } else{
       if(gear1colorMode){
-        lineAlpha = .5;
+        // lineAlpha = .5;
+        lineAlpha = .8;
       }else{
-        lineAlpha = .25;
+        // lineAlpha = .25;
+        lineAlpha = .6;
       }
     }
     if(device == "pc"){
@@ -476,15 +478,17 @@ function animate() {
         lineColorArray = hsvToRGB2(tk2, .7, 1);
         lineColor = lineColorArray[0] * 256 * 256 + lineColorArray[1] * 256 + lineColorArray[2];
     }else{
-        lineColor = 0x000000;
+        lineColor = 0xffffff;
     }
     if(tk2 <= 1){
       lineAlpha = 0;
     } else{
       if(gear1colorMode){
-        lineAlpha = .6;
+        // lineAlpha = .6;
+        lineAlpha = .9;
       }else{
-        lineAlpha = .3;
+        // lineAlpha = .3;
+        lineAlpha = .7;
       }
     }
     if(device == "pc"){
