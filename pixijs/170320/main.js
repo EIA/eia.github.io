@@ -413,7 +413,7 @@ function animate() {
       // lineWidth = 5 + Math.floor(bigCircleRadius * 0.005);
       lineWidth = 4;
     }else{
-      lineWidth = 4;
+      lineWidth = 8;
     }
 
 
@@ -491,7 +491,7 @@ function animate() {
       // lineWidth = 2 + Math.floor(bigCircleRadius * 0.005);
       lineWidth = 2;
     }else{
-      lineWidth = 2;
+      lineWidth = 4;
     }
 
     // lineGraphics2.lineStyle(5, lineColor, .9);
