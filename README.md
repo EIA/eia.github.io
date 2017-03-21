@@ -4,6 +4,7 @@ eia.github.io
 
 
 PixiJS - Practice <br/>
+[![alt](pixijs/170320/demo_359x150.jpg)](http://eia.github.io/pixijs/170320/)
 [![alt](pixijs/170317/demo_359x150.jpg)](http://eia.github.io/pixijs/170317/)
 [![alt](pixijs/160913/demo_359x150.jpg)](http://eia.github.io/pixijs/160913/)
 [![alt](pixijs/160906/demo_359x150.jpg)](http://eia.github.io/pixijs/160906/)
