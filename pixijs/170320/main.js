@@ -85,7 +85,7 @@ var stage = new PIXI.Container();
 var bigCircle = new PIXI.Graphics();
 var bigCircleRadius = 250;
 
-    bigCircle.beginFill(0xffffff);
+    bigCircle.beginFill(0xffffff, .1);
     bigCircle.drawCircle(0, 0, bigCircleRadius);
     bigCircle.endFill();
 
@@ -293,7 +293,7 @@ function rebuildObjs(){
     // console.log("rebuildObjs");
 
     bigCircle.clear();
-    bigCircle.beginFill(0xffffff);
+    bigCircle.beginFill(0xffffff, .1);
     bigCircle.drawCircle(0, 0, bigCircleRadius);
     bigCircle.endFill();
 
