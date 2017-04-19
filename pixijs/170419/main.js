@@ -260,7 +260,7 @@ function nextTween(){
         TweenMax.to(scene4hexasArray[i].container.scale, tmpDuration, {delay:tmpDelay, x:1, y:1, ease:Strong.easeOut});
         */
         target = scene4hexasArray[i].container;
-        var tmpDelay = Math.abs(target.e_data.pos.cor_x)*0.3+ Math.abs(target.e_data.pos.cor_y)*0.3 - 0.3;
+        var tmpDelay = Math.abs(target.e_data.pos.cor_x)*0.3+ Math.abs(target.e_data.pos.cor_y)*0.3 - 0.4 + Math.random()*0.1;
         TweenMax.to(scene4hexasArray[i].container, 1.5, {delay:tmpDelay, rotation:0, alpha:1, ease:Strong.easeIn});
         TweenMax.to(scene4hexasArray[i].container.scale, 1.5, {delay:tmpDelay, x:1, y:1, ease:Strong.easeInOut});
 
