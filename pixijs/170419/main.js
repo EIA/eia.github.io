@@ -22,7 +22,7 @@ window.onresize = function (event){
   //hexagonCountW
 
   // console.log("width: "+renderer.width + " height: "+renderer.height);
-  console.log("width: "+renderer.width+ " height: "+renderer.height);
+  // console.log("width: "+renderer.width+ " height: "+renderer.height);
 
 
 
@@ -274,11 +274,11 @@ function rebuildObjs(){
   hMin = (App.hexagonCountH-1) * -.5;
   hMax = hMin + App.hexagonCountH;
   for(j = hMin; j< hMax; j++){
-    console.log("j: "+ j);
+    // console.log("j: "+ j);
 
     if(j%2 == 0){ // -2, 0, 2
       if(App.hexagonCountW %2 == 0){
-        console.log(" h1 " + (App.hexagonCountW-1));
+        // console.log(" h1 " + (App.hexagonCountW-1));
         wMin = (App.hexagonCountW-1 -1 ) * -.5;
         wMax = wMin + App.hexagonCountW -1;
         ot = "[";
@@ -290,7 +290,7 @@ function rebuildObjs(){
         ot += "]";
         // console.log("\t\t "+ ot);
       }else{
-        console.log(" h2 " + (App.hexagonCountW-0));
+        // console.log(" h2 " + (App.hexagonCountW-0));
         wMin = (App.hexagonCountW-1) * -.5;
         wMax = wMin + App.hexagonCountW;
         ot = "[";
@@ -304,7 +304,7 @@ function rebuildObjs(){
       }
     }else{ // -3, -1, 1, 3
       if(App.hexagonCountW %2 == 0){
-        console.log(" h3 " + (App.hexagonCountW-0));
+        // console.log(" h3 " + (App.hexagonCountW-0));
         wMin = (App.hexagonCountW ) * -.5;
         wMax = wMin + App.hexagonCountW +1;
         ot = "[";
@@ -317,7 +317,7 @@ function rebuildObjs(){
         ot += "]";
         // console.log("\t\t "+ ot);
       }else{
-        console.log(" h4 " + (App.hexagonCountW-1));
+        // console.log(" h4 " + (App.hexagonCountW-1));
         wMin = (App.hexagonCountW-1) * -.5;
         wMax = wMin + App.hexagonCountW;
         ot = "[";
@@ -338,7 +338,7 @@ function rebuildObjs(){
 }
 
 function buildDot($i, $j){
-  console.log("buildDot: "+$i+" "+ $j);
+  // console.log("buildDot: "+$i+" "+ $j);
   
   var hexagon = new Hexagon("hana_1");
      // hexagon.container.anchor.set(0.5);
