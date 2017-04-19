@@ -1,3 +1,28 @@
+var isFB = (navigator.userAgent.toLowerCase().indexOf("fb") != -1); // FB App
+var isLine = (navigator.userAgent.toLowerCase().indexOf("line") != -1); // Line App
+// alert("isFB: "+isFB+" isLine: "+isLine);
+
+
+if( isFB == true){
+  openAlert();
+}else if( isLine == true){
+  openAlert();
+}else{
+}
+
+function openAlert(){
+  alert("建議使用Google Chrome / Safari");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+var device;
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  device = 'mobile';
+} else {
+  device = 'pc';
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////
 window.onresize = function (event){
   var w = window.innerWidth;
@@ -11,6 +36,12 @@ window.onresize = function (event){
   App.STAGE_WIDTH = w;
   App.STAGE_HEIGHT = h;
 
+  // App.bound_width = App.STAGE_WIDTH - 200;
+  // App.bound_height = App.STAGE_HEIGHT - 200;
+  
+  App.bound_width = App.STAGE_WIDTH - 200;
+  App.bound_height = App.STAGE_HEIGHT - 200;
+
   stage.position.x = renderer.width * .5;
   stage.position.y = renderer.height * .5;
 
@@ -19,14 +50,12 @@ window.onresize = function (event){
   wBd.drawRect(App.STAGE_WIDTH * -.5 ,App.STAGE_HEIGHT*-.5, App.STAGE_WIDTH, App.STAGE_HEIGHT);
   wBd.endFill();
 
-  //hexagonCountW
+  // App.hexagonCountW = Math.ceil((App.bound_width) / (App.halfHexagonWidth * 2)) +1;
+  // App.hexagonCountH = Math.ceil((App.bound_height - App.radius) / (App.radius * 3)) * 2  + 1;
 
-  // console.log("width: "+renderer.width + " height: "+renderer.height);
+  // rebuildObjs();
+
   // console.log("width: "+renderer.width+ " height: "+renderer.height);
-
-
-
-
 };
 
 
@@ -59,10 +88,17 @@ var title_w = document.getElementById("title_w");
 var renderer = PIXI.autoDetectRenderer(App.STAGE_WIDTH, App.STAGE_HEIGHT,{backgroundColor : 0x222222, antialias: true});
 
 var stage = new PIXI.Container();
-	  stage.position.x = App.STAGE_WIDTH * .5;
-	  stage.position.y = App.STAGE_HEIGHT * .5;
+    stage.position.x = App.STAGE_WIDTH * .5;
+    stage.position.y = App.STAGE_HEIGHT * .5;
 
+    if(device=="mobile"){
+      stage.scale.x = 1.5;
+      stage.scale.y = 1.5;
+      title_b.className += " m";
+      title_w.className += " m";
+    }else{
 
+    }
 ////////////////////
 
 var wBd = new PIXI.Graphics();
@@ -106,10 +142,18 @@ scene3.addChild(hexagon_3_1.container);
 scene3.alpha = 0;
 
 ///////
+onresize();
+if(App.hexagonCountW > App.hexagonCountH){
 
+}else{
 
-App.hexagonCountW = Math.ceil((App.bound_width) / (App.halfHexagonWidth * 2)) +1;
-App.hexagonCountH = Math.ceil((App.bound_height - App.radius) / (App.radius * 3)) * 2  + 1;
+}
+var bd_range = App.bound_width > App.bound_height ? App.bound_width : App.bound_height;
+// App.hexagonCountW = Math.ceil((App.bound_width) / (App.halfHexagonWidth * 2)) +1;
+// App.hexagonCountH = Math.ceil((App.bound_height - App.radius) / (App.radius * 3)) * 2  + 1;
+
+App.hexagonCountW = Math.ceil((bd_range) / (App.halfHexagonWidth * 2)) +1;
+App.hexagonCountH = Math.ceil((bd_range - App.radius) / (App.radius * 3)) * 2  + 1;
 
 var scene4 = new PIXI.Container();
     stage.addChild(scene4);
@@ -120,37 +164,6 @@ scene4.alpha = 0;
 
 var scene4hexasArray = [];
 rebuildObjs();
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-//////////////////////////////////////
-/*
-var gui = new dat.GUI();
-
-var effectController = {
-    Bound_Width: App.bound_width,
-    Bound_Height: App.bound_height,
-};
-
-
-// gui.add( effectController, "Bound_Width", 10, 1500, 10 ).onChange( guiHandler );
-// gui.add( effectController, "Bound_Height", 10, 1200, 10 ).onChange( guiHandler );
-
-
-
-
-function guiHandler(){
-
-};
-
-guiHandler();
-*/
-
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -174,12 +187,14 @@ function nextTween(){
     case 0:
       tl.clear();
       tl.to(scene1, 1, {alpha:1}, "start");
+      tl.to(wBd, 1, {alpha:1}, "start");
       tl.to(title_b, 2, {autoAlpha:0}, "start");
       tl.to(title_w, 2, {autoAlpha:1}, "start");
       tl.set(hexagon_1_1.container, {rotation:15 * (Math.PI / 180)}, "start");
       tl.to(hexagon_1_1.container, 2, {rotation:0, ease:Strong.easeOut}, "start");
       tl.to(hexagon_1_1.container, 2, {rotation:-15 * (Math.PI / 180), ease:Strong.easeIn}, "end+=3");
       tl.to(scene1, 1, {alpha:0}, "end+=3");
+      tl.to(wBd, 2, {alpha:0}, "end+=3");
       tl.to(title_b, 2, {autoAlpha:0}, "end+=3");
       tl.to(title_w, 2, {autoAlpha:0}, "end+=3");
       break;
@@ -237,10 +252,19 @@ function nextTween(){
         if(scene4hexasArray[i].container.x == 0 && scene4hexasArray[i].container.y == 0){
           continue;
         }
+
+        /*
         var tmpDelay = Math.random()*1.5;
         var tmpDuration = 1+Math.random()*1.5;
         TweenMax.to(scene4hexasArray[i].container, tmpDuration, {delay:tmpDelay, rotation:0, alpha:1, ease:Strong.easeOut});
         TweenMax.to(scene4hexasArray[i].container.scale, tmpDuration, {delay:tmpDelay, x:1, y:1, ease:Strong.easeOut});
+        */
+        target = scene4hexasArray[i].container;
+        var tmpDelay = Math.abs(target.e_data.pos.cor_x)*0.3+ Math.abs(target.e_data.pos.cor_y)*0.3 - 0.3;
+        TweenMax.to(scene4hexasArray[i].container, 1.5, {delay:tmpDelay, rotation:0, alpha:1, ease:Strong.easeIn});
+        TweenMax.to(scene4hexasArray[i].container.scale, 1.5, {delay:tmpDelay, x:1, y:1, ease:Strong.easeInOut});
+
+
       }
       break;
   }
@@ -390,7 +414,6 @@ function buildDot($i, $j){
 
 
 
-onresize();
 
 animate();
 function animate() {

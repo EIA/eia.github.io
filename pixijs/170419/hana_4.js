@@ -6,7 +6,7 @@
                          > triangleMask
 
 */
-Triangle_Hana_4 = function($debug = false){
+Triangle_Hana_4 = function($debug){
 
   this.texture = PIXI.Texture.fromImage('assets/hana/hana_4.png');
 
@@ -54,7 +54,6 @@ Triangle_Hana_4 = function($debug = false){
     this.triangleMask.alpha = 0;
     this.triangle2.alpha = 1;
   }
-  // console.log("$debug: " + $debug );
 }
 
 Triangle_Hana_4.prototype = {
@@ -72,8 +71,8 @@ Triangle_Hana_4.prototype = {
 
     // this.hana_1.rotation = Math.sin((-30 - 20 * (1-ctPercent2)) * (Math.PI / 180));
 
-    this.hana_1.x = Math.sin(30 * (Math.PI / 180)) * -170 * (1-ctPercent2) + Math.sin(30 * (Math.PI / 180)) * -300;
-    this.hana_1.y = Math.cos(30 * (Math.PI / 180)) * -170 * (1-ctPercent2) + Math.cos(30 * (Math.PI / 180)) * -300;
+    this.hana_1.x = Math.sin(30 * (Math.PI / 180)) * -200 * (1-ctPercent2) + Math.sin(30 * (Math.PI / 180)) * -270;
+    this.hana_1.y = Math.cos(30 * (Math.PI / 180)) * -200 * (1-ctPercent2) + Math.cos(30 * (Math.PI / 180)) * -270;
 
   },
   setX:function($x){

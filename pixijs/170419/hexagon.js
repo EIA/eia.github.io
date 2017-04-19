@@ -46,8 +46,6 @@ Hexagon = function($type){
                     alert("Hexagon ERROR");
   }
   
-
-
   this.container = new PIXI.Container();
   this.container.addChild(this.triangle1.container);
   this.container.addChild(this.triangle2.container);

@@ -12,25 +12,35 @@
 	<meta property="og:site_name" content="PixiJS-Practices: Flowers and Kaleidoscope"/>
 	<meta property="og:type" content="website"/>
 
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/4.2.2/pixi.min.js"></script>
     <script src='js/libs/dat.gui.min.js'></script>
-
+	<script src="hana_1.js"></script>
+	<script src="hana_2.js"></script>
+	<script src="hana_3.js"></script>
+	<script src="hana_4.js"></script>
+	<script src="hexagon.js"></script>
 	<style>
 		html, body{
 			margin: 0;
 			overflow: hidden;
+			background-color: #222;
 		}
 		.title{
 			position: absolute;
-			width: 210px;
-			height: 140px;
+			width: 240px;
+			height: 160px;
 			left: 50%;
 			top: 50%;
-			margin-left: -105px;
-			margin-top: -70px;
+			margin-left: -120px;
+			margin-top: -82px;
 			z-index: 3;
+		}
+		.title.m{
+			width: 360px;
+			height: 240px;
+			margin-left: -180px;
+			margin-top: -124px;
 		}
 		#title_b{
 			background: url(images/fl.png) center no-repeat;
@@ -44,14 +54,8 @@
 	
 </head>
 <body>
-	<div class="title" id="title_b"></div>
+	<div class="title" id="title_b" style="visibility: hidden;"></div>
 	<div class="title" id="title_w" style="visibility: hidden;"></div>
-
-	<script src="hana_1.js"></script>
-	<script src="hana_2.js"></script>
-	<script src="hana_3.js"></script>
-	<script src="hana_4.js"></script>
-	<script src="hexagon.js"></script>
 	<script src="main.js"></script>
 	<script>
 		document.body.appendChild(renderer.view);

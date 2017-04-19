@@ -6,7 +6,7 @@
                          > triangleMask
 
 */
-Triangle_Hana_2 = function($debug = false){
+Triangle_Hana_2 = function($debug){
 
   this.texture = PIXI.Texture.fromImage('assets/hana/hana_2.png');
 
@@ -54,7 +54,6 @@ Triangle_Hana_2 = function($debug = false){
     this.triangleMask.alpha = 0;
     this.triangle2.alpha = 1;
   }
-  // console.log("$debug: " + $debug );
 }
 
 Triangle_Hana_2.prototype = {
