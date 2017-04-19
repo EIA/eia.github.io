@@ -8,7 +8,7 @@
 */
 Triangle_Hana_3 = function($debug = false){
 
-  this.texture = PIXI.Texture.fromImage('_assets/hana/hana_3.png');
+  this.texture = PIXI.Texture.fromImage('assets/hana/hana_3.png');
 
   this.container = new PIXI.Container();
 
