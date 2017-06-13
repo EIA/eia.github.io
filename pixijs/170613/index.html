@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>PixiJS-Practices: Collision Detection</title>
+
+	<meta property="og:title" content="PixiJS-Practices: Collision Detection" />
+	<meta property="og:image" content="http://eia.github.io/pixijs/170613/share.jpg?v=2" />
+	<meta property="og:description" content="" />
+
+	<meta property="og:url" content="http://eia.github.io/pixijs/170613/"/>
+	<meta property="og:site_name" content="PixiJS-Practices: Collision Detection"/>
+	<meta property="og:type" content="website"/>
+
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/4.2.2/pixi.min.js"></script>
+    <script src='js/libs/dat.gui.min.js'></script>
+
+	<style>
+
+		@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+		html, body{
+			margin: 0;
+			overflow: hidden;
+
+			color: #3e3836;
+			font-size: 24px;
+			font-family: 'Noto Sans TC', 'Microsoft JhengHei', Tahoma, Verdana, Arial, Helvetica, sans-serif; /* 'Noto Sans TC',  */
+			font-weight: 700;
+		}
+
+		.content.mobile{
+		    -ms-transform: scale(1.6, 1.6); /* IE 9 */
+    		-webkit-transform: scale(1.6, 1.6); /* Safari */
+    		transform: scale(1.6, 1.6);
+		}
+
+		.content{
+			position: absolute;
+			width: 343px;
+			height: 78px;
+			left: 50%;
+			top: 50%;
+			margin-left: -171px;
+			margin-top: -39px;
+			z-index: 3;
+		}
+
+		.content .title{
+			position: relative;
+			width: 343px;
+			height: 30px;
+		    background: url(images/title.png) no-repeat;
+		    margin-bottom: 9px;
+		}
+
+		.content .bar{
+			position: relative;
+			width: 100%;
+			height: 3px;
+			background-color: #d9d9d9;
+		}
+
+		.content .bar .barP{
+			position: relative;
+			width: 0;
+			height: 3px;
+			background-color: #000;
+
+		    -webkit-transition: 0.2s;
+		    transition: 0.2s;
+		    -webkit-transition-timing-function: ease-in-out;
+		    transition-timing-function: ease-in-out;
+		}
+
+		.content .icon{
+			position: absolute;
+			width: 25px;
+			height: 23px;
+			left: 130px;
+			bottom: 0;
+		    background: url(images/icon.png) no-repeat;
+		}
+
+		.times{
+			position: absolute;
+			width: 100%;
+			height: 24px;
+			left: 10px;
+			bottom: 6px;
+			text-align: center;
+		}
+
+
+
+
+
+
+	</style>
+	
+</head>
+<body>
+
+	<div id="content" class="content">
+		<div class="title"></div>
+		<div class="bar">
+			<div id="barP" class="barP"></div>
+		</div>
+		<div class="icon"></div>
+		<div id="counts" class="times">0</div>
+	</div>
+
+	<script src="main.js"></script>
+	<script>
+		document.body.appendChild(renderer.view);
+	</script>
+
+</body>
+</html>
