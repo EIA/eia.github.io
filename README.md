@@ -3,6 +3,9 @@ eia.github.io
 > [About.me](http:about.me/eia) <br/>
 
 
+three.js - Practice<br/>
+[![alt](threejs/170719/demo_359x150.jpg)](http://eia.github.io/threejs/170719/)
+
 PixiJS - Practice <br/>
 [![alt](pixijs/170613/demo_359x150.jpg)](http://eia.github.io/pixijs/170613/)
 [![alt](pixijs/170419/demo_359x150.jpg)](http://eia.github.io/pixijs/170419/)
