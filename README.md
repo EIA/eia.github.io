@@ -4,7 +4,7 @@ eia.github.io
 
 
 three.js - Practice<br/>
-[![alt](threejs/170719/demo_359x150.jpg)](http://eia.github.io/threejs/170719/)
+[![alt](threejs/170719/demo_359x150.jpg)](http://eia.github.io/threejs/170719/?s=io)
 
 PixiJS - Practice <br/>
 [![alt](pixijs/170613/demo_359x150.jpg)](http://eia.github.io/pixijs/170613/)
