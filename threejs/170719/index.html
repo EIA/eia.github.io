@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl</title>
+		<meta charset="utf-8">
+		<!-- <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> -->
+		<meta name="viewport" content="width=device-width">
+		<style>
+			body {
+				font-family: Monospace;
+				background-color: #000;
+				color: #fff;
+				margin: 0px;
+				overflow: hidden;
+			}
+			#info {
+				color: #fff;
+				position: absolute;
+				top: 10px;
+				width: 100%;
+				text-align: center;
+				z-index: 100;
+				display:block;
+			}
+			#info a, .button { color: #f00; font-weight: bold; text-decoration: underline; cursor: pointer }
+		</style>
+	</head>
+
+	<body>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+		<!-- <script src="libs/TweenMax.min.js"></script> -->
+		
+
+		<script src="../libs/three-83dev/build/three.js"></script>
+
+		<script src="../libs/three-83dev/examples/js/Detector.js"></script>
+		<script src="../libs/three-83dev/examples/js/libs/stats.min.js"></script>
+
+		<script>
+
+		////////////////////////////////////////////////////////////////////////////////////////
+		var isFB = (navigator.userAgent.toLowerCase().indexOf("fb") != -1); // FB App
+		var isLine = (navigator.userAgent.toLowerCase().indexOf("line") != -1); // Line App
+		// alert("isFB: "+isFB+" isLine: "+isLine);
+
+
+		if( isFB == true){
+		  openAlert();
+		}else if( isLine == true){
+		  openAlert();
+		}else{
+		}
+
+		function openAlert(){
+		  alert("建議使用Google Chrome / Safari");
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////
+
+		var device;
+		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+		  device = 'mobile';
+		} else {
+		  device = 'pc';
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////
+
+			var DEG_TO_RAD = Math.PI/180;
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			var container, stats;
+
+			var camera, scene, renderer;
+
+			var mouseX = 0, mouseY = 0;
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			var cubeGeometry;
+			var darkMaterial, lightMaterial;
+
+			var currentTime = "00-00-00";
+
+			var groupH1, groupH2, groupM1, groupM2, groupS1, groupS2;
+			var groupD1, groupD2;
+
+			var light1, light2, light3;
+
+			init();
+			animate();
+
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 10, window.innerWidth / window.innerHeight, 1, 13000 );
+				camera.position.z = 5000; //850
+
+				// scene
+
+				scene = new THREE.Scene();
+				scene.fog = new THREE.Fog( 0x999999, 5500, 9000 );
+				if(device == "pc"){
+					scene.scale.set(1.5, 1.5, 1.5);
+				}else{
+					if(windowHalfX > windowHalfY){
+						scene.scale.set(2.5, 2.5, 2.5);
+					}else{
+						scene.scale.set(0.65, 0.65, 0.65);
+					}
+				}
+
+				var floorMaterial = new THREE.MeshBasicMaterial( { color: 0xaaaaaa, side: THREE.DoubleSide } );
+				// var	floorMaterial = new THREE.MeshLambertMaterial( { color: 0x333333, side: THREE.DoubleSide } );
+				var floorGeo = new THREE.PlaneBufferGeometry( 50000, 50000, 1, 1 );
+
+				var floorMesh = new THREE.Mesh( floorGeo, floorMaterial );
+				floorMesh.position.y = - 95;
+				floorMesh.rotation.x = - Math.PI / 2;
+				scene.add( floorMesh );
+
+
+				var ambient = new THREE.AmbientLight( 0xffffff, 0.7 );
+				scene.add( ambient );
+
+				var directionalLight1 = new THREE.DirectionalLight( 0xffffff, 1.5 );
+				directionalLight1.position.set( 0, 1, 0 );
+				scene.add( directionalLight1 );
+
+				var directionalLight2 = new THREE.DirectionalLight( 0xffffff, 0.5 );
+				directionalLight2.position.set( 0, -1, 0 ).normalize();
+				scene.add( directionalLight2 );
+
+				var sphere = new THREE.SphereGeometry( 5, 16, 8 );
+				light1 = new THREE.PointLight( 0xff9900, 0.5, 900 );
+				light1 = new THREE.PointLight( 0xdddddd, 0.2, 2500 );
+				// light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0x333333 } ) ) );
+				scene.add( light1 );
+
+				light2 = light1.clone();
+				scene.add( light2 );
+
+				light3 = light1.clone();
+				scene.add( light3 );
+
+
+				// shadow
+
+				var canvas = document.createElement( 'canvas' );
+				canvas.width = 128;
+				canvas.height = 128;
+
+				var context = canvas.getContext( '2d' );
+				var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
+				gradient.addColorStop( 0.1, 'rgba(112,112,112,1)' );
+				// gradient.addColorStop( 1, 'rgba(255,255,255,1)' );
+				gradient.addColorStop( 1, 'rgba(192,192,192,0)' );
+
+				context.fillStyle = gradient;
+				context.fillRect( 0, 0, canvas.width, canvas.height );
+
+				var shadowTexture = new THREE.CanvasTexture( canvas );
+
+				var shadowMaterial = new THREE.MeshBasicMaterial( { map: shadowTexture, side: THREE.DoubleSide, transparent: true } );
+				var shadowGeo = new THREE.PlaneBufferGeometry( 300, 300, 1, 1 );
+
+				var shadowMeshH = new THREE.Mesh( shadowGeo, shadowMaterial );
+				shadowMeshH.position.y = - 90;
+				shadowMeshH.rotation.x = - Math.PI / 2;
+				scene.add( shadowMeshH );
+
+				var shadowMeshM = shadowMeshH.clone();
+				shadowMeshM.position.x = - 250;
+				scene.add( shadowMeshM );
+
+				var shadowMeshS = shadowMeshH.clone();
+				shadowMeshS.position.x = 250;
+				scene.add( shadowMeshS );
+
+
+
+				// model
+
+				cubeGeometry = new THREE.BoxGeometry( 24, 24, 24 );
+
+				/*
+				material = new THREE.MeshBasicMaterial( { color: 0xff9900, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending } );
+				*/
+
+				// darkMaterial = new THREE.MeshLambertMaterial( { color: 0xaa7700, transparent: true, opacity: 1 } );
+				darkMaterial = new THREE.MeshLambertMaterial( { color: 0x111111, transparent: true, opacity: 1, side: THREE.DoubleSide } );
+				// darkMaterial = new THREE.MeshLambertMaterial( { color: 0x6f000d, transparent: true, opacity: 0.9, side: THREE.DoubleSide } );
+				// darkMaterial = new THREE.MeshLambertMaterial( { color: 0x001414, transparent: true, opacity: 1.0, side: THREE.DoubleSide } );
+
+				// lightMaterial = new THREE.MeshLambertMaterial( { color: 0xff9900, transparent: true, opacity: 1 } );
+				lightMaterial = new THREE.MeshLambertMaterial( { color: 0xf5f5f5, transparent: true, opacity: 1, side: THREE.DoubleSide } );
+
+				var group1 = new THREE.Group();
+				group1.name = "g1";
+				buildCube({ type: "light"	, pos: [ -1, 2, -1] }, group1);
+				buildCube({ type: "light"	, pos: [  0, 2, -1] }, group1);
+				buildCube({ type: "dark"	, pos: [  1, 2, -1] }, group1);
+
+				buildCube({ type: "light"	, pos: [ -1, 2,  0] }, group1);
+				buildCube({ type: "light"	, pos: [  0, 2,  0] }, group1);
+				buildCube({ type: "light"	, pos: [  1, 2,  0] }, group1);
+
+				buildCube({ type: "dark"	, pos: [ -1, 2,  1] }, group1);
+				buildCube({ type: "dark"	, pos: [  0, 2,  1] }, group1);
+				buildCube({ type: "dark"	, pos: [  1, 2,  1] }, group1);
+
+				buildCube({ type: "light"	, pos: [  0, 2,  0] }, group1);
+
+				//
+
+				var group2 = new THREE.Group();
+				group2.name = "g2";
+				buildCube({ type: "light"	, pos: [ -1, 1, -1] }, group2);
+				buildCube({ type: "light"	, pos: [  0, 1, -1] }, group2);
+				buildCube({ type: "light"	, pos: [  1, 1, -1] }, group2);
+
+				buildCube({ type: "light"	, pos: [ -1, 1,  0] }, group2);
+				buildCube({ type: "light"	, pos: [  0, 1,  0] }, group2);
+				buildCube({ type: "light"	, pos: [  1, 1,  0] }, group2);
+
+				buildCube({ type: "dark"	, pos: [ -1, 1,  1] }, group2);
+				buildCube({ type: "light"	, pos: [  0, 1,  1] }, group2);
+				buildCube({ type: "dark"	, pos: [  1, 1,  1] }, group2);
+
+				buildCube({ type: "light"	, pos: [  0, 1,  0] }, group2);
+
+				//
+
+				var group3 = new THREE.Group();
+				group3.name = "g3";
+				buildCube({ type: "light"	, pos: [ -1,  0, -1] }, group3);
+				buildCube({ type: "light"	, pos: [  0,  0, -1] }, group3);
+				buildCube({ type: "dark"	, pos: [  1,  0, -1] }, group3);
+
+				buildCube({ type: "light"	, pos: [ -1,  0,  0] }, group3);
+				buildCube({ type: "light"	, pos: [  0,  0,  0] }, group3);
+				buildCube({ type: "light"	, pos: [  1,  0,  0] }, group3);
+
+				buildCube({ type: "dark"	, pos: [ -1,  0,  1] }, group3);
+				buildCube({ type: "dark"	, pos: [  0,  0,  1] }, group3);
+				buildCube({ type: "dark"	, pos: [  1,  0,  1] }, group3);
+
+				buildCube({ type: "light"	, pos: [  0,  0,  0] }, group3);
+
+				//
+
+				var group4 = new THREE.Group();
+				group4.name = "g4";
+				buildCube({ type: "light"	, pos: [ -1, -1, -1] }, group4);
+				buildCube({ type: "light"	, pos: [  0, -1, -1] }, group4);
+				buildCube({ type: "light"	, pos: [  1, -1, -1] }, group4);
+
+				buildCube({ type: "light"	, pos: [ -1, -1,  0] }, group4);
+				buildCube({ type: "light"	, pos: [  0, -1,  0] }, group4);
+				buildCube({ type: "light"	, pos: [  1, -1,  0] }, group4);
+
+				buildCube({ type: "dark"	, pos: [ -1, -1,  1] }, group4);
+				buildCube({ type: "light"	, pos: [  0, -1,  1] }, group4);
+				buildCube({ type: "dark"	, pos: [  1, -1,  1] }, group4);
+
+				buildCube({ type: "light"	, pos: [  0, -1,  0] }, group4);
+
+				//
+
+				var group5 = new THREE.Group();
+				group2.name = "g5";
+				buildCube({ type: "light"	, pos: [ -1, -2, -1] }, group5);
+				buildCube({ type: "light"	, pos: [  0, -2, -1] }, group5);
+				buildCube({ type: "light"	, pos: [  1, -2, -1] }, group5);
+
+				buildCube({ type: "light"	, pos: [ -1, -2,  0] }, group5);
+				buildCube({ type: "light"	, pos: [  0, -2,  0] }, group5);
+				buildCube({ type: "light"	, pos: [  1, -2,  0] }, group5);
+
+				buildCube({ type: "dark"	, pos: [ -1, -2,  1] }, group5);
+				buildCube({ type: "dark"	, pos: [  0, -2,  1] }, group5);
+				buildCube({ type: "dark"	, pos: [  1, -2,  1] }, group5);
+
+				buildCube({ type: "light"	, pos: [  0, -2,  0] }, group5);
+
+				//
+
+				groupS2 = new THREE.Group();
+				groupS2.add(group1);
+				groupS2.add(group2);
+				groupS2.add(group3);
+				groupS2.add(group4);
+				groupS2.add(group5);
+				scene.add( groupS2 );
+				groupS2.position.x = 300;
+				groupS2.name = "s2";
+
+				//
+
+				groupS1 = new THREE.Group();
+				groupS1 = groupS2.clone();
+				scene.add( groupS1 );
+				groupS1.position.x = 200;
+				groupS1.name = "s1";
+
+				//
+
+				groupM2 = new THREE.Group();
+				groupM2 = groupS2.clone();
+				scene.add( groupM2 );
+				groupM2.position.x = 50;
+				groupM2.name = "m2";
+
+				//
+
+				groupM1 = new THREE.Group();
+				groupM1 = groupS2.clone();
+				scene.add( groupM1 );
+				groupM1.position.x = -50;
+				groupM1.name = "m1";
+
+				//
+
+				groupH2 = new THREE.Group();
+				groupH2 = groupS2.clone();
+				scene.add( groupH2 );
+				groupH2.position.x = -200;
+				groupH2.name = "h2";
+
+				//
+
+				groupH1 = new THREE.Group();
+				groupH1 = groupS2.clone();
+				scene.add( groupH1 );
+				groupH1.position.x = -300;
+				groupH1.name = "h1";
+
+				//
+
+				groupD2 = new THREE.Group();
+				groupD2.name = "d2";
+
+				var dotGeometry = new THREE.BoxGeometry( 20, 20, 10 );
+				var targetMaterial;
+				var mesh;
+
+				//
+
+				targetMaterial = darkMaterial;
+				mesh = new THREE.Mesh( dotGeometry, targetMaterial );
+				mesh.position.set(0, 25, -5);
+
+				groupD2.add( mesh );
+
+				targetMaterial = lightMaterial;
+				mesh = new THREE.Mesh( dotGeometry, targetMaterial );
+				mesh.position.set(0, 25, 5);
+
+				groupD2.add( mesh );
+
+				//
+
+				targetMaterial = darkMaterial;
+				mesh = new THREE.Mesh( dotGeometry, targetMaterial );
+				mesh.position.set(0, -25, -5);
+
+				groupD2.add( mesh );
+
+				targetMaterial = lightMaterial;
+				mesh = new THREE.Mesh( dotGeometry, targetMaterial );
+				mesh.position.set(0, -25, 5);
+
+				groupD2.add( mesh );
+
+				//
+
+				groupD2.position.set(125, 0, 0);
+
+				scene.add( groupD2 );
+
+				//
+
+				groupD1 = new THREE.Group();
+				groupD1 = groupD2.clone();
+				groupD1.name = "d1";
+				groupD2.position.set(-125, 0, 0);
+				scene.add( groupD1 );
+
+				//
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setClearColor( 0xaaaaaa );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+				//
+
+				// stats = new Stats();
+				// container.appendChild( stats.dom );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				if (device == "mobile" && window.DeviceOrientationEvent) {
+					window.addEventListener( 'deviceorientation', onDeviceOrientation, false );
+				}
+
+			}
+
+			function onDeviceOrientation(eventData) {
+
+				var tiltLR = eventData.gamma;
+				var tiltFB = eventData.beta;
+				var dir = eventData.alpha;
+
+
+
+				
+				// v2
+				var infoDom = document.getElementById('info');
+				var otString = "";
+				/*
+				var tmpR = (tiltLR + 90) / 180;
+				var tmpG = (tiltFB + 180) / 360;
+				var tmpB = dir / 360;
+				*/
+
+				mouseX = tiltLR * 5;
+				mouseY = tiltFB * 2;
+
+
+				otString += "tiltLR: " + tiltLR+" \n";
+				otString += "tiltFB: " + tiltFB+" \n";
+				otString += "dir: " + dir;
+				// infoDom.innerText = otString;
+		  
+		    };
+
+
+
+
+
+
+
+
+
+
+
+
+			/*
+				buildCube({ type: "dark" , pos: [0, 0, 0] }, group);
+			 */
+			function buildCube($meshData, $target){
+				// console.log("buildCube");
+				var mesh;
+				var targetMaterial;
+
+
+				switch($meshData.type){
+						case "dark":
+										targetMaterial = darkMaterial;
+										break;
+						case "light":
+										targetMaterial = lightMaterial;
+										break;
+
+				}
+
+				var sp = 25;
+
+				mesh = new THREE.Mesh( cubeGeometry, targetMaterial );
+				mesh.position.set($meshData.pos[0]* sp, $meshData.pos[1]* sp, $meshData.pos[2]* sp);
+
+				$target.add( mesh );
+			}
+
+
+
+			function onWindowResize() {
+				// alert("onWindowResize");
+
+				windowHalfX = window.innerWidth / 2;
+				windowHalfY = window.innerHeight / 2;
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				if(device == "pc"){
+					scene.scale.set(1.5, 1.5, 1.5);
+				}else{
+					if(windowHalfX > windowHalfY){
+						scene.scale.set(2.5, 2.5, 2.5);
+					}else{
+						scene.scale.set(0.65, 0.65, 0.65);
+					}
+				}
+
+			}
+
+			function onDocumentMouseMove( event ) {
+
+				mouseX = ( event.clientX - windowHalfX ) / 2;
+				mouseY = ( event.clientY - windowHalfY ) / 2;
+
+				// console.log('mouseX: '+mouseX+' mouseY: '+mouseY);
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+				render();
+				// stats.update();
+
+			}
+
+			function render() {
+
+				var time = Date.now() * 0.0005; //0.0005
+
+
+				light1.position.x = Math.sin( time * 1.0 ) * 500;
+				light1.position.y = Math.sin( time * 0.6 ) * 100+0;
+				light1.position.z = Math.cos( time * 2.0 ) * 150;
+
+				light2.position.x = Math.cos( time * 2.0 ) * 500;
+				light2.position.y = Math.sin( time * 0.6 ) * 100+0;
+				light2.position.z = Math.sin( time * 1.0 ) * 150;
+
+				light3.position.x = Math.sin( time * 1.0 ) * 500;
+				light3.position.y = Math.cos( time * 2.0 ) * 100+0;
+				light3.position.z = Math.sin( time * 0.6 ) * 150;
+
+
+
+
+				var tmpDate = new Date();
+				var tmpTime = tmpDate.getHours()+"-"+tmpDate.getMinutes()+"-"+tmpDate.getSeconds();
+
+				if(tmpTime != currentTime){
+					updateClock(currentTime, tmpTime );
+				}
+
+
+				// camera.position.x += ( mouseX - camera.position.x ) * .05;
+				// camera.position.y += ( - mouseY - camera.position.y ) * .05;
+				camera.position.x += ( mouseX * 6 - camera.position.x ) * 0.9; //.003
+				camera.position.y += ( - mouseY - camera.position.y ) * 1.6 + 800; //.003
+
+				camera.lookAt( scene.position );
+
+				renderer.render( scene, camera );
+
+			}
+
+			function updateClock($prevTime, $newTime){
+
+				currentTime = $newTime;
+				// console.log(currentTime);
+
+				//////////////////////////////////////////////////////////////////////
+
+				/*
+				var prevDatas = $prevTime.split("-");
+				// console.log(prevDatas);
+				var ph0, ph1, pm0, pm1, ps0, ps1;
+				ph0 = Math.floor(prevDatas[0]*.1);
+				ph1 = parseInt(prevDatas[0])%10;
+				pm0 = Math.floor(prevDatas[1]*.1);
+				pm1 = parseInt(prevDatas[1])%10;
+				ps0 = Math.floor(prevDatas[2]*.1);
+				ps1 = parseInt(prevDatas[2])%10;
+				console.log(ph0, ph1, pm0, pm1, ps0, ps1);
+				*/
+
+				var ph0, ph1, pm0, pm1, ps0, ps1;
+				ph0 = groupH1.name.split("-")[1];
+				ph1 = groupH2.name.split("-")[1];
+				pm0 = groupM1.name.split("-")[1];
+				pm1 = groupM2.name.split("-")[1];
+				ps0 = groupS1.name.split("-")[1];
+				ps1 = groupS2.name.split("-")[1];
+				// console.log(ph0, ph1, pm0, pm1, ps0, ps1);
+
+
+				//////////////////////////////////////////////////////////////////////
+
+				var datas = currentTime.split("-");
+				// console.log(datas);
+				var h0, h1, m0, m1, s0, s1;
+
+				h0 = Math.floor(datas[0]*.1);
+				h1 = parseInt(datas[0])%10;
+				m0 = Math.floor(datas[1]*.1);
+				m1 = parseInt(datas[1])%10;
+				s0 = Math.floor(datas[2]*.1);
+				s1 = parseInt(datas[2])%10;
+				// console.log(h0, h1, m0, m1, s0, s1);
+
+				if(s1 %2 == 0){
+					if(h0!=ph0) { updadeMotion(groupH1, h0); groupH1.name = "h1-" + h0; };
+					if(h1!=ph1) { updadeMotion(groupH2, h1); groupH2.name = "h2-" + h1; };
+					if(m0!=pm0) { updadeMotion(groupM1, m0); groupM1.name = "m1-" + m0; };
+					if(m1!=pm1) { updadeMotion(groupM2, m1); groupM2.name = "m2-" + m1; };
+					if(s0!=ps0) { updadeMotion(groupS1, s0); groupS1.name = "s1-" + s0; };
+					if(s1!=ps1) { updadeMotion(groupS2, s1); groupS2.name = "s2-" + s1; };
+				}
+
+				if(s1 %2 == 0){
+					TweenMax.to(groupD1.rotation, 0.95, {y: (  0 * DEG_TO_RAD), ease:Strong.easeOut,onComplete:twComplete, onCompleteParams:[groupD1.rotation, "y", (  0 * DEG_TO_RAD)]});
+					TweenMax.to(groupD2.rotation, 0.95, {y: (  0 * DEG_TO_RAD), ease:Strong.easeOut,onComplete:twComplete, onCompleteParams:[groupD2.rotation, "y", (  0 * DEG_TO_RAD)]});
+				}else{
+					TweenMax.to(groupD1.rotation, 0.95, {y: (  180 * DEG_TO_RAD), ease:Strong.easeOut,onComplete:twComplete, onCompleteParams:[groupD1.rotation, "y", (  -180 * DEG_TO_RAD)]});
+					TweenMax.to(groupD2.rotation, 0.95, {y: (  180 * DEG_TO_RAD), ease:Strong.easeOut,onComplete:twComplete, onCompleteParams:[groupD2.rotation, "y", (  -180 * DEG_TO_RAD)]});
+				}
+
+
+
+			}
+
+			function twComplete($params, $params1, $params2, $params3){
+				/*
+				console.log("twComplete-");
+				console.log($params);
+				console.log($params[$params1]);
+				console.log($params1);
+				console.log($params2);
+				console.log($params3);
+				*/
+				$params[$params1] = $params2;
+			}
+
+			function updadeMotion($targetGroup, $number){
+
+				var g1, g2, g3, g4, g5;
+				g1 = $targetGroup.children[0];
+				g2 = $targetGroup.children[1];
+				g3 = $targetGroup.children[2];
+				g4 = $targetGroup.children[3];
+				g5 = $targetGroup.children[4];
+
+				switch($number){
+					case 0:
+							rotationTween(g1, 0);
+							rotationTween(g2, 0);
+							rotationTween(g3, 270);
+							rotationTween(g4, 0);
+							rotationTween(g5, 0);
+							break;
+					case 1:
+							rotationTween(g1, 90);
+							rotationTween(g2, 90);
+							rotationTween(g3, 90);
+							rotationTween(g4, 90);
+							rotationTween(g5, 90);
+							break;
+					case 2:
+							rotationTween(g1, 0);
+							rotationTween(g2, 90);
+							rotationTween(g3, 0);
+							rotationTween(g4, 270);
+							rotationTween(g5, 0);
+							break;
+					case 3:
+							rotationTween(g1, 0);
+							rotationTween(g2, 90);
+							rotationTween(g3, 0);
+							rotationTween(g4, 90);
+							rotationTween(g5, 0);
+							break;
+					case 4:
+							rotationTween(g1, 270);
+							rotationTween(g2, 0);
+							rotationTween(g3, 0);
+							rotationTween(g4, 90);
+							rotationTween(g5, 90);
+							break;
+					case 5:
+							rotationTween(g1, 0);
+							rotationTween(g2, 270);
+							rotationTween(g3, 0);
+							rotationTween(g4, 90);
+							rotationTween(g5, 0);
+							break;
+					case 6:
+							rotationTween(g1, 0);
+							rotationTween(g2, 270);
+							rotationTween(g3, 0);
+							rotationTween(g4, 0);
+							rotationTween(g5, 0);
+							break;
+					case 7:
+							rotationTween(g1, 0);
+							rotationTween(g2, 90);
+							rotationTween(g3, 90);
+							rotationTween(g4, 90);
+							rotationTween(g5, 90);
+							break;
+					case 8:
+							rotationTween(g1, 0);
+							rotationTween(g2, 0);
+							rotationTween(g3, 0);
+							rotationTween(g4, 0);
+							rotationTween(g5, 0);
+							break;
+					case 9:
+							rotationTween(g1, 0);
+							rotationTween(g2, 0);
+							rotationTween(g3, 0);
+							rotationTween(g4, 90);
+							rotationTween(g5, 90);
+							break;
+				}
+
+			}
+
+			function rotationTween($target, $rad){
+				if($target.rotation.y !=  ($rad - 360 )* DEG_TO_RAD){
+					TweenMax.to($target.rotation, 1.4, {delay:Math.random()*0.15, y: (  $rad * DEG_TO_RAD), ease:Strong.easeInOut,onComplete:twComplete, onCompleteParams:[$target.rotation, "y", ( ($rad-360) * DEG_TO_RAD)]});
+				}
+			}
+
+		</script>
+
+	
+		<div id="info"></div>
+
+	</body>
+</html>
