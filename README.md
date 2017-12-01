@@ -33,5 +33,5 @@ CSS3 (Chrome Only) <br/>
 TweenTag <br/>
 [![alt](demo/140819/demo_359x150.jpg)](http://eia.github.io/demo/140819/demo.html)
 
----
+<br/><br/>
 [![Analytics](https://ga-beacon.appspot.com/UA-17772443-6/index)](https://github.com/igrigorik/ga-beacon)
