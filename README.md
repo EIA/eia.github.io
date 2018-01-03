@@ -3,6 +3,9 @@ eia.github.io
 > [About.me](http:about.me/eia) <br/>
 
 
+iT邦幫忙鐵人賽<br/>
+[![alt](2018ironman/pics/ironman_sticker-9-web.png)](https://ithelp.ithome.com.tw/users/20106532/ironman/1249)
+
 three.js - Practice<br/>
 [![alt](threejs/170719/demo_359x150.jpg)](http://eia.github.io/threejs/170719/?s=io)
 
