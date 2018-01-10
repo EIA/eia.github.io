@@ -230,7 +230,7 @@ gui.add( effectController, "Gear2_AutoColor" ).onChange( guiHandler );
 gui.addColor(effectController, 'Gear2_Color').onChange( guiHandler );
 gui.add(effectController, 'Gear2_Alpha', 0, 1, .1).onChange( guiHandler );
 gui.add( effectController, "Speed", 0.5, 4, .5 ).onChange( speedChanger );
-gui.add( effectController, "Exporting", 0, 100, .1 ).onChange( guiHandler );
+gui.add( effectController, "Exporting" ).onChange( guiHandler );
 
 
 function gearsVisibleHandler(){
