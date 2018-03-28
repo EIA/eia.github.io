@@ -1,3 +1,33 @@
+var isFB = (navigator.userAgent.toLowerCase().indexOf("fb") != -1); // FB App
+var isLine = (navigator.userAgent.toLowerCase().indexOf("line") != -1); // Line App
+// alert("isFB: "+isFB+" isLine: "+isLine);
+
+
+if( isFB == true){
+  openAlert();
+}else if( isLine == true){
+  openAlert();
+}else{
+}
+
+function openAlert(){
+  alert("建議使用Google Chrome / Safari");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+var device;
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  device = 'mobile';
+} else {
+  device = 'pc';
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+
 var app = new PIXI.Application(800, 600, {backgroundColor : 0x000000, antialias: true, preserveDrawingBuffer:true});
 // document.body.appendChild(app.view);
 $('.pixi-container').append(app.view);
@@ -51,6 +81,11 @@ $(function(){
 			setPixi();
 			onresize(); //mob
 
+		}).catch(function(err) {
+
+			/* PC, not support Mob*/
+			alert("若無開啟相機，建議使用最新版手機 Google Chrome / Safari");
+
 		});
 
 		$('#video').css('display', 'block');
@@ -58,6 +93,7 @@ $(function(){
 
 
 	}else{
+
 		setPixi();
 		onresize();
 	}
