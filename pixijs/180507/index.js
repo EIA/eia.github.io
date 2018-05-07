@@ -1,5 +1,20 @@
+////////////////////////////////////////////////////////////////////////////////////////
+
+var device;
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  device = 'mobile';
+} else {
+  device = 'pc';
+}
+
+
 var app = new PIXI.Application(800, 600, {backgroundColor: 0x1099bb, antialias: true});
 document.body.appendChild(app.view);
+
+if(device == 'mobile'){
+	app.stage.scale.x = app.stage.scale.y = 0.7;
+}
+
 
 var tk = 0;
 
