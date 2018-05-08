@@ -22,8 +22,8 @@ var tk = 0;
 var bearContainer = new PIXI.Container();
 app.stage.addChild(bearContainer);
 
-var lineGraphic = new PIXI.Graphics;
-bearContainer.addChild(lineGraphic);
+var faceGraphic = new PIXI.Graphics;
+bearContainer.addChild(faceGraphic);
 
 app.stage.x = app.renderer.width * 0.5;
 app.stage.y = app.renderer.height * 0.5;
@@ -72,7 +72,8 @@ topEarsBackGraphic.scale.y = 0.9;
 
 var topEarsFrontGraphic = new PIXI.Graphics();
 bearContainer.addChildAt(topEarsFrontGraphic, 0);
-topEarsFrontGraphic.lineStyle(20, 0x000000, .75);
+// topEarsFrontGraphic.lineStyle(20, 0x000000, .75);
+topEarsFrontGraphic.lineStyle(40, 0x000000, .75);
 topEarsFrontGraphic.drawCircle(-85, -129, 25);
 topEarsFrontGraphic.drawCircle( 85, -129, 25);
 topEarsFrontGraphic.scale.y = 0.9;
@@ -197,14 +198,14 @@ app.ticker.add(function(delta) {
 	// console.log(Math.sin(tk * (Math.PI / 180)));
 	
 	var tmpPg = Math.sin(tk * (Math.PI / 180));
-	lineGraphic.clear();
-	lineGraphic.lineStyle(20, 0x000000, .75);
-	lineGraphic.beginFill(0xffffff, 1);
-	lineGraphic.moveTo(-100, -100);
-	// lineGraphic.lineTo( 100, -100);
+	faceGraphic.clear();
+	faceGraphic.lineStyle(20, 0x000000, .75);
+	faceGraphic.beginFill(0xffffff, 1);
+	faceGraphic.moveTo(-100, -100);
+	// faceGraphic.lineTo( 100, -100);
 
 	/* 頭頂 */
-	lineGraphic.quadraticCurveTo( 
+	faceGraphic.quadraticCurveTo( 
 									0,
 									-160,
 									100,
@@ -212,31 +213,31 @@ app.ticker.add(function(delta) {
 								);
 	
 	/*
-	lineGraphic.quadraticCurveTo(
+	faceGraphic.quadraticCurveTo(
 									100 + tmpPg * 100 + 20,
 									0 + 30,
 									100,
 									100
 								);
 	*/
-	lineGraphic.quadraticCurveTo(
+	faceGraphic.quadraticCurveTo(
 									mouseSpriteR.x,
 									0 + 30 + ((mouseSpriteR.y - 30) / (app.renderer.height * 0.5)) * 100,
 									100,
 									100
 								);
 
-	lineGraphic.lineTo(-100, 100);
+	faceGraphic.lineTo(-100, 100);
 
 	/*
-	lineGraphic.quadraticCurveTo(
+	faceGraphic.quadraticCurveTo(
 									-100 + tmpPg * -100 - 20,
 									0 + 30,
 									-100,
 									-100
 								);
 	*/
-	lineGraphic.quadraticCurveTo(
+	faceGraphic.quadraticCurveTo(
 									mouseSpriteL.x,
 									0 + 30 + ((mouseSpriteL.y - 30) / (app.renderer.height * 0.5)) * 100,
 									-100,
@@ -257,7 +258,7 @@ window.onresize = function (event){
   app.renderer.resize(w,h);
 
   app.stage.position.x = app.renderer.width * .5;
-  app.stage.position.y = app.renderer.height * .5;
+  app.stage.position.y = app.renderer.height * .5 + 15;
 
   if(mouseSpriteL){
 	mouseSpriteL.maxX = -100;
