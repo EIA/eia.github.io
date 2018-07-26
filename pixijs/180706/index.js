@@ -329,11 +329,11 @@ var dData =
 
 var testData = [
 
-					{title:'標題1', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et dolor eu nulla molestie mollis quis et ante. Praesent sed scelerisque nibh. Cras nec placerat urna, quis aliquet felis. Aenean elementum turpis eget magna convallis, quis consequat turpis porta.'},
-					{title:'標題2', desc:'Sed posuere lacus velit, eu vestibulum nisl semper at. In at turpis vitae leo semper dapibus mattis sit amet urna. Pellentesque pretium nunc lectus, ac ultricies purus dictum ac. Donec et nulla erat. Suspendisse blandit ultricies sem et consequat. Nunc facilisis mauris non porttitor semper.'},
-					{title:'標題3', desc:'Fusce lectus felis, laoreet ac sollicitudin a, efficitur vitae purus. Curabitur lacinia fermentum risus, vitae congue lectus ornare sit amet. Maecenas tellus leo, porttitor nec magna id, bibendum tempus erat. Cras sed molestie quam. Maecenas venenatis leo aliquam metus congue pulvinar.'},
-					{title:'標題4', desc:'Curabitur risus augue, viverra eget lacus ac, laoreet luctus massa. Donec tortor arcu, commodo sed faucibus a, vestibulum non velit. Quisque semper nisi et nunc tempor efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;'},
-					{title:'標題5', desc:'Phasellus est nisi, hendrerit vel dui non, egestas dapibus odio. Proin molestie rhoncus placerat. Suspendisse lectus lacus, scelerisque sit amet euismod non, tempus eu metus. Ut dignissim urna dolor, in finibus massa commodo id. Aenean feugiat finibus ultrices. Curabitur ac ultrices velit.'}
+					{title:'Title1', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et dolor eu nulla molestie mollis quis et ante. Praesent sed scelerisque nibh. Cras nec placerat urna, quis aliquet felis. Aenean elementum turpis eget magna convallis, quis consequat turpis porta.'},
+					{title:'Title2', desc:'Sed posuere lacus velit, eu vestibulum nisl semper at. In at turpis vitae leo semper dapibus mattis sit amet urna. Pellentesque pretium nunc lectus, ac ultricies purus dictum ac. Donec et nulla erat. Suspendisse blandit ultricies sem et consequat. Nunc facilisis mauris non porttitor semper.'},
+					{title:'Title3', desc:'Fusce lectus felis, laoreet ac sollicitudin a, efficitur vitae purus. Curabitur lacinia fermentum risus, vitae congue lectus ornare sit amet. Maecenas tellus leo, porttitor nec magna id, bibendum tempus erat. Cras sed molestie quam. Maecenas venenatis leo aliquam metus congue pulvinar.'},
+					{title:'Title4', desc:'Curabitur risus augue, viverra eget lacus ac, laoreet luctus massa. Donec tortor arcu, commodo sed faucibus a, vestibulum non velit. Quisque semper nisi et nunc tempor efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;'},
+					{title:'Title5', desc:'Phasellus est nisi, hendrerit vel dui non, egestas dapibus odio. Proin molestie rhoncus placerat. Suspendisse lectus lacus, scelerisque sit amet euismod non, tempus eu metus. Ut dignissim urna dolor, in finibus massa commodo id. Aenean feugiat finibus ultrices. Curabitur ac ultrices velit.'}
 
 				]
 
