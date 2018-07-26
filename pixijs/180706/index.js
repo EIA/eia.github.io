@@ -344,7 +344,7 @@ var testData = [
 
 
 
-var app = new PIXI.Application(800, 600, {backgroundColor : 0xdddddd, antialias: true});
+var app = new PIXI.Application(800, 600, {backgroundColor : 0x111111, antialias: true});
 document.body.appendChild(app.view);
 
 var diamondContainer = new PIXI.Container();
@@ -430,7 +430,8 @@ function initView(){
 		}
 		*/
 	
-		moveGraphics.beginFill(0xffffff, Math.random()*0.7+0.3);
+		// moveGraphics.beginFill(0xffffff, Math.random()*0.7+0.3);
+		moveGraphics.beginFill(0xffffff, Math.random()*0.5+0.5);
 
 
 
