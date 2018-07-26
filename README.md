@@ -10,6 +10,7 @@ three.js - Practice<br/>
 [![alt](threejs/170719/demo_359x150.jpg)](https://eia.github.io/threejs/170719/?s=io)
 
 PixiJS - Practice <br/>
+[![alt](pixijs/180706/demo_359x150.jpg)](https://eia.github.io/pixijs/180706/)
 [![alt](pixijs/180507/demo_359x150.jpg)](https://eia.github.io/pixijs/180507/)
 [![alt](pixijs/180328/demo_359x150.jpg)](https://eia.github.io/pixijs/180328/)
 [![alt](pixijs/171128/demo_359x150.jpg)](https://eia.github.io/pixijs/171128/)
