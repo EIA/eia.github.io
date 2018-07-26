@@ -344,7 +344,7 @@ var testData = [
 
 
 
-var app = new PIXI.Application(800, 600, {backgroundColor : 0x111111, antialias: true});
+var app = new PIXI.Application(800, 600, {backgroundColor : 0xcccccc, antialias: true});
 document.body.appendChild(app.view);
 
 var diamondContainer = new PIXI.Container();
@@ -769,8 +769,7 @@ function openDiamond($ct_x, $ct_y){
 		}
 
 		contentBd.endFill();
-		// contentBd.beginFill(0xffffff, 0.75);
-		contentBd.beginFill(0xffffff, 0.95);
+		contentBd.beginFill(0xffffff, 0.75);
 
 		if(device == 'pc'){
 			movePos2 = contentBd.e_data.pos2 + (contentBd.e_data.tmpPos2 - contentBd.e_data.pos2) * this.target.openValue;
