@@ -344,7 +344,7 @@ var testData = [
 
 
 
-var app = new PIXI.Application(800, 600, {backgroundColor : 0xcccccc, antialias: true});
+var app = new PIXI.Application(800, 600, {backgroundColor : 0xdddddd, antialias: true});
 document.body.appendChild(app.view);
 
 var diamondContainer = new PIXI.Container();
