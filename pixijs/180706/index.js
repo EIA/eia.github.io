@@ -769,7 +769,8 @@ function openDiamond($ct_x, $ct_y){
 		}
 
 		contentBd.endFill();
-		contentBd.beginFill(0xffffff, 0.75);
+		// contentBd.beginFill(0xffffff, 0.75);
+		contentBd.beginFill(0xffffff, 0.95);
 
 		if(device == 'pc'){
 			movePos2 = contentBd.e_data.pos2 + (contentBd.e_data.tmpPos2 - contentBd.e_data.pos2) * this.target.openValue;
