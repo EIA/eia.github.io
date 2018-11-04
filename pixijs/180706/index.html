@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+	<title>PixiJS-Practices: Diamond</title>
+
+	<meta property="og:title" content="PixiJS-Practices: Diamond" />
+	<meta property="og:image" content="https://eia.github.io/pixijs/180706/share/meta_2.jpg" />
+	<meta property="og:description" content="" />
+
+	<meta property="og:url" content="https://eia.github.io/pixijs/180706/"/>
+	<meta property="og:site_name" content="PixiJS-Practices: Diamond"/>
+	<meta property="og:type" content="website"/>
+
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.4/pixi.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+
+	<style>
+		@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+		html, body{
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			font-family: 'Noto Sans TC', 'Microsoft JhengHei', Tahoma, Verdana, Arial, Helvetica, sans-serif; /* 'Noto Sans TC',  */
+			font-weight: 300;
+		}
+		#ot{
+			position: fixed;
+			left: 5px;
+			top: 5px;
+			width: 10px;
+			height: 10px;
+
+			z-index: 3;
+			color: #111;
+		}
+		.aw-r{
+			position: fixed;
+			right: 10px;
+			bottom: 10px;
+			width: 80px;
+			height: 80px;
+			background: url(images/aw_r.png) no-repeat;
+			background-size: 100% 100%;
+			background-position: 0 0;
+			cursor: pointer;
+		}
+
+
+		.aw-l{
+			position: fixed;
+			/*left: 10px;*/
+			right: 100px;
+			bottom: 10px;
+			width: 80px;
+			height: 80px;
+			background: url(images/aw_l.png) no-repeat;
+			background-size: 100% 100%;
+			background-position: 0 0;
+			cursor: pointer;
+		}
+		.cl{
+			position: fixed;
+			right: 10px;
+			top: 10px;
+			width: 80px;
+			height: 80px;
+			background: url(images/cl.png) no-repeat;
+			background-size: 100% 100%;
+			background-position: 0 0;
+			cursor: pointer;
+		}
+
+		@media screen and (max-width: 760px) {
+			.aw-r{
+				width: 40px;
+				height: 40px;
+			}
+			.aw-l{
+				right: 60px;
+				width: 40px;
+				height: 40px;
+			}
+			.cl{
+				width: 40px;
+				height: 40px;
+			}
+		}
+
+		.content{
+			position: absolute;
+			left: 50%;
+			top: 0;
+			width: 50%;
+			height: 100%;
+			/*background-color: rgba(255, 144, 0, .3);*/
+			pointer-events: none;
+		}
+		.content .dc{
+			position: relative;
+			margin-left: 100px;
+			margin-top: 200px;
+			width: 80%;
+		}
+		.content .dc .title{
+			font-size: 36px;
+			margin-bottom: 10px;
+		}
+		.content .dc .desc{
+			font-size: 18px;
+		}
+
+		@media screen and (max-width: 760px) {
+			.content{
+				left: 0;
+				top: 30%;
+				width: 100%;
+				height: 70%;
+			}
+			.content .dc{
+				margin-left: 30px;
+				margin-top: 100px;
+			}
+			.content .dc .title{
+				font-size: 24px;
+			}
+			.content .dc .desc{
+				font-size: 18px;
+			}
+		}
+
+
+	</style>
+</head>
+<body>
+	<script src="index.js"></script>
+	<div id="ot"></div>
+	<div class="aw-r" style="display:none;"></div>
+	<div class="aw-l" style="display:none;"></div>
+	<div class="cl" style="display:none;"></div>
+	<div class="content" style="display: none;">
+		<div class="dc">
+			<div class="title"></div>
+			<div class="desc"></div>
+		</div>
+	</div>
+</body>
+</html>
