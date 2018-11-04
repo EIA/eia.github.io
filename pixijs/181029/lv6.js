@@ -97,11 +97,11 @@ window.onresize = function (event){
 
   var scalePercent;
       if(app.screen.width / app.screen.height > PIC_WIDTH / PIC_HEIGHT ){
-        // scalePercent = app.screen.width / PIC_WIDTH; // cover
-        scalePercent = app.screen.height / PIC_HEIGHT; // contain
+        scalePercent = app.screen.width / PIC_WIDTH; // cover
+        // scalePercent = app.screen.height / PIC_HEIGHT; // contain
       }else{
-        // scalePercent = app.screen.height / PIC_HEIGHT; // cover
-        scalePercent = app.screen.width / PIC_WIDTH; // contain
+        scalePercent = app.screen.height / PIC_HEIGHT; // cover
+        // scalePercent = app.screen.width / PIC_WIDTH; // contain
       }
 
 
