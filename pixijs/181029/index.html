@@ -12,7 +12,7 @@
 	
 
 	<style>
-			@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
+			@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
 			html, body{
 				font-family: 'Noto Sans TC', 'Microsoft JhengHei', Tahoma, Verdana, Arial, Helvetica, sans-serif; /* 'Noto Sans TC',  */
 				font-weight: 300;
@@ -143,7 +143,7 @@
 		bunny2.y = app.screen.height / 2;
 
 		app.stop();
-		PIXI.loader.add('shader', 'lv42.frag').load(onLoaded);
+		PIXI.loader.add('shader', 'fg.frag').load(onLoaded);
 
 		function onLoaded (loader,res) {
 
