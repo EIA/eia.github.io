@@ -3,10 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
-	<title>lv27</title>
+	<title>PixiJS-Practices: Custom Displacement Filter</title>
 
-	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/4.2.2/pixi.min.js"></script> -->
-	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/4.3.5/pixi.min.js"></script> -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.4/pixi.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 	<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -22,6 +20,7 @@
 				overflow: hidden;
 			}
 			.info{
+				display: none;
 				margin: 5px;
 				padding: 5px 10px;
 				color: #fff;
@@ -32,6 +31,33 @@
 				z-index: 3;
 				background-color: rgba(0, 0, 0, 0.3);
 			}
+
+			.aw{
+				display: none;
+				position: fixed;
+				top: 50%;
+				margin-top: -30px;
+				width: 60px;
+				height: 60px;
+				background: url(images/arrow.png) center center no-repeat;
+    			background-size: 200% 100%;
+    			background-position: 0 0;
+				transition: all 0.5s;
+				opacity: 0.2;
+				pointer-events: none;
+			}
+
+			.aw.aw-left{
+				left: 30px;
+				background-position: 0 0;
+			}
+			.aw.aw-right{
+				right: 30px;
+				background-position: 100% 0;
+			}
+			.aw.mouse-over{
+				opacity: 1;
+			}
 	
 		</style>
 	
@@ -39,6 +65,8 @@
 <body>
 	
 	<div class="info"></div>
+	<div class="aw aw-left"></div>
+	<div class="aw aw-right"></div>
 
 
 	<script>
@@ -49,42 +77,37 @@
 			device = 'mobile';
 		} else {
 			device = 'pc';
+			$('.aw').css('display', 'block');
 		}
 
 		////////////////////////////////////////////////////////////////////////////////////////
 
-		var app, bunny, background, loadedShaderData, filter;
+		var app, bunny, bunny2, background, loadedShaderData, filter;
 		var bg1, bg2, bg3, bg4;
 		var bgs = [];
 		var touch_data;
 		var bgLock = false;
-		var tl;
+		var tl = new TimelineMax({onStart: bgStart, onComplete:bgEnd});;
 		var tmpBg = currentBg = 0;
 		var bgDir = ""
 		var gui, effectController;
 		var mouseX, mouseY;
 		var otString = '', tlString = '';
-		var uX = 0, uD = 0;
+		var uX = 0, uX2 = 0, uX3 = 0, uD = 0;
 		var PIC_WIDTH = 1920, PIC_HEIGHT = 1080;
-		// var PIC_WIDTH = 300, PIC_HEIGHT = 300;
+		var touchTl = new TimelineMax();
+		var tCount = 0;
 
 		//////////////////////////////////////
-				
-		// app = new PIXI.Application(800, 600, {backgroundColor : 0x1099bb});
-		// app = new PIXI.Application(1024, 768, {backgroundColor : 0xdddddd});
+
 		app = new PIXI.Application(1024, 768, {backgroundColor : 0x0});
 		document.body.appendChild(app.view);
-
-
 
 		//////////////////////////////////////
 
 		background = new PIXI.Container();
 		background.width = PIC_WIDTH;
 		background.height = PIC_HEIGHT;
-		// background.anchor.set(0.5);
-		// background.x = app.renderer.width / 2;
-		// background.y = app.renderer.height / 2;
 		app.stage.addChild(background);
 
 		//////////////////////////////////////
@@ -95,15 +118,11 @@
 		bg4 = PIXI.Sprite.fromImage('images/4.jpg');
 		bgs = [bg1, bg2, bg3, bg4];
 
-		/*
-		var testBg = PIXI.Sprite.fromImage('assets/UV_Grid_Sm_300.jpg');
-		bgs = [testBg];
-		*/
-		
-
-		bg1.width = bg2.width = bg3.width = bg4.width = PIC_WIDTH;
-		bg1.height = bg2.height = bg3.height = bg4.height = PIC_HEIGHT;
 		for(var i=0; i<bgs.length; i++){
+
+			bgs[i].width = PIC_WIDTH;
+			bgs[i].height = PIC_HEIGHT;
+
 			TweenMax.set(bgs[i], {alpha:0});
 			background.addChild(bgs[i]);
 		}
@@ -115,35 +134,28 @@
 		bunny.anchor.set(0.5);
 		bunny.x = app.screen.width / 2;
 		bunny.y = app.screen.height / 2;
-		app.stage.addChild(bunny);
+
+
+		bunny2 = PIXI.Sprite.fromImage('assets/basics/bunny.png');
+
+		bunny2.anchor.set(0.5);
+		bunny2.x = app.screen.width / 2;
+		bunny2.y = app.screen.height / 2;
 
 		app.stop();
-
-
-
-
-
-		PIXI.loader.add('shader', 'lv27.frag').load(onLoaded);
-
-		filter;
-		loadedShaderData = '';
-
-		var tCount = 0;
+		PIXI.loader.add('shader', 'lv42.frag').load(onLoaded);
 
 		function onLoaded (loader,res) {
 
 		    loadedShaderData = res.shader.data;
-
-			//filter = new PIXI.Filter(null, loadedShaderData, null);
-
 			var uniforms = {
 								dimensions: { type: 'v2', value: [569, 412] },
 								uX: { type: 'float', value: 0 },
+								uX2: { type: 'float', value: 0 },
+								uX3: { type: 'float', value: 0 },
 								uD: { type: 'float', value: 0 },
-								uShowUV: { type: 'bool', value: effectController.ShowUV },
-								uTestMask: { type: 'bool', value: effectController.TestMask },
-								uTestShap: { type: 'bool', value: effectController.TestShap },
-								mappedMatrix: { type: 'mat3', value: new PIXI.Matrix()},
+								uDebugMode: { type: 'bool', value: effectController.DebugMode },
+								mappedMatrix: { type: 'mat3', value: new PIXI.Matrix()}
 							};
 			filter = new PIXI.Filter( null, loadedShaderData, uniforms );
 			filter.apply = function(filterManager, input, output)
@@ -152,37 +164,18 @@
 				this.uniforms.dimensions[0] = input.sourceFrame.width;
 				this.uniforms.dimensions[1] = input.sourceFrame.height;
 				this.uniforms.uX = uX;
+				this.uniforms.uX2 = uX2;
+				this.uniforms.uX3 = uX3;
 				this.uniforms.uD = uD;
 				this.uniforms.mappedMatrix = filterManager.calculateNormalizedScreenSpaceMatrix( this.uniforms.mappedMatrix );
-
-				/*
-				if(tCount%1000 == 1){
-					console.log(this);
-					console.log(this.uniforms);
-					console.log(this.uniforms.mappedMatrix);
-					console.log(filterManager);
-					console.log(filterManager.calculateNormalizedScreenSpaceMatrix);
-				}
-				*/
-
 				filterManager.applyFilter(this, input, output);
 			}
-
-
-
-
-
-
-
-
-
 
 		    background.filters = [filter];
 		    // app.stage.filters = [filter];
 		    // bunny.filters = [filter];
 		    
 		    filter.padding = 0;
-
 
 			startApp();
 		}
@@ -191,7 +184,6 @@
 
 		app.ticker.add(function(delta) {
 		    bunny.rotation += 0.1 * delta;
-		    // console.log(delta);
 
 			var tmpUVX, tmpUVY;
 			var tmpUVX2, tmpUVY2;
@@ -201,105 +193,92 @@
 				mouseY = app.renderer.plugins.interaction.mouse.global.y;
 			}else{
 				if(touch_data){
-					console.log(touch_data);
 					console.log(touch_data.data.getLocalPosition(app.stage));
-					console.log(touch_data.data.global.x);
-					console.log(touch_data.data.global.y);
 
 					mouseX = touch_data.data.global.x;
 					mouseY = touch_data.data.global.y;
 				}else{
 				}
+
+
+				if(mouseX < -50 ){
+					mouseX = -50;
+				}else if(mouseX > app.screen.width + 50){
+					mouseX = app.screen.width + 50;
+				}
+				if(mouseY < -50 ){
+					mouseY = -50;
+				}else if(mouseY > app.screen.height + 50){
+					mouseY = app.screen.height + 50;
+				}
+
+				// bunny.x += (mouseX - bunny.x) * 0.03125;
+				// bunny.y += (mouseY - bunny.y) * 0.03125;
+
 			}
 
 
-			if(mouseX < -50 ){
-				mouseX = -50;
-			}else if(mouseX > app.screen.width + 50){
-				mouseX = app.screen.width + 50;
-			}
-			if(mouseY < -50 ){
-				mouseY = -50;
-			}else if(mouseY > app.screen.height + 50){
-				mouseY = app.screen.height + 50;
-			}
 
-			// bunny.x += (mouseX - bunny.x) * 0.0625;
-			// bunny.y += (mouseY - bunny.y) * 0.0625;
-			bunny.x += (mouseX - bunny.x) * 0.125;
-			bunny.y += (mouseY - bunny.y) * 0.125;
 
 			otString = '';
 			otString += tlString;
 			otString += '<br>';
 
-			otString += 'window.innerWidth: ' + window.innerWidth+', window.innerHeight: '+ window.innerHeight;
+			otString += 'Window: ' + window.innerWidth+', '+ window.innerHeight;
 			otString += '<br>';
-			otString += 'bg.x: ' + background.x+', bg.y: '+ background.y;
+			otString += 'bg:{ ';
+			otString += 'x: ' + Math.round(background.x);
+			otString += ', y: '+ Math.round(background.y);
+			otString += ', width: '+ Math.round(background.width);
+			otString += ', height: '+ Math.round(background.height);
+			otString += ' };'
 			otString += '<br>';
-			otString += 'bg.width: ' + background.width+', bg.height: '+ background.height;
-			otString += '<br>';
-			/*
-			otString += 'uX: ' + mouseX / app.screen.width;
-			otString += '<br>';
-			otString += 'bunny.x: ' + Math.round(bunny.x);
-			otString += '<br>';
-			otString += 'bunny.y: ' + Math.round(bunny.y);
-			otString += '<br>';
-			otString += 'x dist: ' + Math.round(mouseX - bunny.x);
-			otString += '<br>';
-			otString += 'x dist percent: ' + (Math.round((mouseX - bunny.x) / app.screen.width * 100)) + ' %';
-			otString += '<br>';
-			otString += 'y dist: ' + Math.round(mouseY - bunny.y);
-			otString += '<br>';
-			otString += 'y dist percent: ' + (Math.round((mouseY - bunny.y) / app.screen.height * 100)) + ' %';
-			otString += '<br>';
-
-			otString += '--<br>';
-			*/
 
 			tmpUVX = mouseX - background.x;
 			tmpUVY = mouseY - background.y;
 			tmpUVX2 = bunny.x - background.x;
 			tmpUVY2 = bunny.y - background.y;
 
-			otString += 'uv x Mouse: ' + tmpUVX;
+			otString += 'MouseX: ' + Math.round(tmpUVX) + ', ' + (Math.round((tmpUVX - background.x) / background.width * 100)) + ' %';
 			otString += '<br>';
-			otString += 'uv y Mouse: ' + tmpUVY;
-			otString += '<br>';
-
-			otString += 'uv x dist percent: ' + (Math.round((tmpUVX - background.x) / background.width * 100)) + ' %';
-			otString += '<br>';
-			otString += 'uv y dist percent: ' + (Math.round((tmpUVY - background.y) / background.height * 100)) + ' %';
+			otString += 'MouseY: ' + Math.round(tmpUVY) + ', ' + (Math.round((tmpUVY - background.y) / background.height * 100)) + ' %';
 			otString += '<br>';
 
 
-			// v1 //
-			// filter.uniforms.uX = 0.5;
 
-			// v2 //
-			// filter.uniforms.uX = tmpUVX / app.screen.width;
+			uX = (bunny.x + bunny2.x) * 0.5 / app.screen.width;
+			uX2 = bunny2.x / app.screen.width;
+			uX3 = bunny.x / app.screen.width;
 
-			// v3 //
-			// filter.uniforms.uX = (tmpUVX - background.x) / background.width;
-			// filter.uniforms.uD = (tmpUVX - bunny.x) / app.screen.width;
-
-			// v4 //
-			// uX = (tmpUVX2 - background.x) / background.width;
-			// uD = (tmpUVX - bunny.x) / background.width;
-
-			// v5 //
-			uX = bunny.x / app.screen.width;
-			uD = (mouseX - bunny.x) / app.screen.width;
+			uD = (bunny2.x - bunny.x)*0.5 / app.screen.width;
 			
 			otString += '<br>';
-			otString += 'uX: ' + uX;
+			otString += 'uX [RED]: ' + uX;
+			otString += '<br>';
+			otString += 'uX2 [YELLOW 1]: ' + uX2;
+			otString += '<br>';
+			otString += 'uX3 [YELLOW 2]: ' + uX3;
 			otString += '<br>';
 			otString += 'uD: ' + uD;
 			$('.info').html(otString);
 
 
-
+			if(mouseX > app.screen.width*.5){
+				if($('.aw-left').hasClass('mouse-over')==true){
+					$('.aw-left').removeClass('mouse-over');
+				}
+				if($('.aw-right').hasClass('mouse-over')==false){
+					$('.aw-right').addClass('mouse-over');
+				}
+			}else{
+				if($('.aw-left').hasClass('mouse-over')==false){
+					$('.aw-left').addClass('mouse-over');
+				}
+				if($('.aw-right').hasClass('mouse-over')==true){
+					$('.aw-right').removeClass('mouse-over');
+				}
+			}
+			
 
 
 
@@ -320,6 +299,7 @@
 
 			// PC
 			app.stage.on('click', onClick);
+			app.stage.on('mousemove', onMousemove);
 
 			// MOBILE
 			// app.stage.on('pointerdown', onDragStart);
@@ -328,11 +308,11 @@
 			app.stage.on('touchendoutside', onDragEnd);
 			app.stage.on('touchmove', onDragMove);
 
-			// sprite.on('pointerdown', onClick); // Pointers normalize touch and mouse
-			// sprite.on('click', onClick); // mouse-only
-			// sprite.on('tap', onClick); // touch-only
+			tlString = '[BG UNLOCK]';
+			onresize();
 
-			tlString = '[UNLOCK]';
+			bunny.x = mouseX = app.screen.width*0.5;
+			bunny.y = mouseY = app.screen.height*0.5;
 
 		}
 
@@ -345,24 +325,44 @@
 				prevBg();
 			}
 		}
+		function onMousemove(){
+			if(device=='pc'){
+				TweenMax.to(bunny, 1, {x:mouseX, y:mouseY, ease:Strong.easeOut });
+				TweenMax.to(bunny2, 3, {x:mouseX, y:mouseY, ease:Strong.easeOut });
+			}else{
+				TweenMax.to(bunny, 0.5, {x:mouseX, y:mouseY, ease:Strong.easeOut });
+				TweenMax.to(bunny2, 1.5, {x:mouseX, y:mouseY, ease:Strong.easeOut });
+			}
+
+		}
 
 		// MOBILE //
 		function onDragStart(evt){
 			touch_data = evt;
-			bunny.x = mouseX = touch_data.data.global.x;
-			bunny.y = mouseY = touch_data.data.global.y;
+
+			bunny.x = bunny2.x = mouseX = touch_data.data.global.x;
+			bunny.y = bunny2.y = mouseY = touch_data.data.global.y;
+			touchTl.clear();
+
 		}
 		function onDragEnd(){
 			touch_data = null;
 		}
 		function onDragMove(){
+
+			touchTl.to(bunny, 1, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
+			touchTl.to(bunny2, 3, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
+
+			var nextBgRange = app.screen.width>app.screen.height?0.1:0.1;
+
+
 			if(touch_data){
-				if(uD >0.3){
-					nextBg();
-					touch_data = null;
-				}else if(uD <-0.3){
+				if(uD >nextBgRange){
 					prevBg();
-					touch_data = null;
+					// touch_data = null;
+				}else if(uD <nextBgRange*-1){
+					nextBg();
+					// touch_data = null;
 				}
 			}
 		}
@@ -386,7 +386,6 @@
 		}
 		function bgHandler(){
 			console.log("tmpBg: "+tmpBg+" currentBg: "+currentBg);
-			tl = new TimelineMax({onStart: bgStart, onComplete:bgEnd});
 			//
 			var dirX = 0;
 			if(bgDir == "NEXT"){
@@ -404,12 +403,12 @@
 		}
 		function bgStart(){
 			console.log('bgStart');
-			tlString = '[LOCK]';
+			tlString = '[BG LOCK]';
 			bgLock = true;
 		}
 		function bgEnd(){
 			console.log('bgEnd');
-			tlString = '[UNLOCK]';
+			tlString = '[BG UNLOCK]';
 			bgLock = false;
 		}
 
@@ -422,7 +421,6 @@
 			app.view.style.width = w + "px";
 			app.view.style.height = h + "px";
 			app.renderer.resize(w,h);
-
 
 
 			var scalePercent;
@@ -443,9 +441,6 @@
 
 			background.filterArea = app.screen;
 
-			// var tmpResolution = [app.screen.width, app.screen.height];
-			// if(filter){ filter.uniforms.uResolution = tmpResolution; };
-
 		};
 		onresize();
 
@@ -454,39 +449,18 @@
 
 		gui = new dat.GUI();
 		effectController = {
-			ShowUV: true,
-			TestMask: false,
-			TestShap: false,
-			Filter: true
+			DebugMode: false
 		};
 
-		// gui.add( effectController, "X", 0, 1, 0.01 ).onChange( xChanger );
-		gui.add( effectController, "ShowUV" ).onChange( showUVchange );
-		gui.add( effectController, "TestMask" ).onChange( testMaskChange );
-		gui.add( effectController, "TestShap" ).onChange( testShapChange );
-		gui.add( effectController, "Filter" ).onChange( filterChange );
+		gui.add( effectController, "DebugMode" ).onChange( debugModeChange );
 
 		///////////////////////////////////////////
 
-		function showUVchange(){
-			console.log('showUVchange: ' + effectController.ShowUV);
-			filter.uniforms.uShowUV = effectController.ShowUV;
+		function debugModeChange(){
+			console.log('debugModeChange: ' + effectController.DebugMode);
+			filter.uniforms.uDebugMode = effectController.DebugMode;
+			$('.info').css('display', effectController.DebugMode?'block':'none');
 		}
-
-		function testMaskChange(){
-			console.log('testMaskChange: ' + effectController.TestMask);
-			filter.uniforms.uTestMask = effectController.TestMask;
-		}
-
-		function testShapChange(){
-			console.log('testShapChange: ' + effectController.TestShap);
-			filter.uniforms.uTestShap = effectController.TestShap;
-		}
-
-		function filterChange(){
-			background.filters = effectController.Filter?[filter]:[];			
-		}
-		
 
 	</script>
 </body>
