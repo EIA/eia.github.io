@@ -3,6 +3,7 @@ varying vec2 vTextureCoord;
 uniform sampler2D uSampler;
 uniform vec2 dimensions;
 uniform vec4 filterArea;
+uniform mat3 mappedMatrix;
 
 uniform float uX;
 uniform float uX2;
