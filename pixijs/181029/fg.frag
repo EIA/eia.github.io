@@ -107,9 +107,10 @@ vec2 unmapCoord( vec2 coord )
 
     if(uv5.y > 0.5 ){
         if(uDebugMode == true){
+            
             color = texture2D(uSampler, uv2);
             // color = vec4(maskDebug);
-            color = mix(color, vec4(maskDebug), maskDebug);
+            color = mix(color, vec4(maskDebug), 0.5);
         }else{
             color = texture2D(uSampler, uv2);
         }
@@ -145,8 +146,8 @@ vec2 unmapCoord( vec2 coord )
 
         uv3 = unmapCoord(uv3) * dimensions;
         gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 0.0, 0.0), testShap), 1.0);
-        gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 1.0, 0.0), testShap2 * 0.75), 1.0);
-        gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 1.0, 0.0), testShap3 * 0.75), 1.0);
+        gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 1.0, 0.0), testShap2 * 0.15), 1.0);
+        gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 1.0, 0.0), testShap3 * 0.15), 1.0);
 
     }
 

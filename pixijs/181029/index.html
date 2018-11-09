@@ -326,14 +326,8 @@
 			}
 		}
 		function onMousemove(){
-			if(device=='pc'){
-				TweenMax.to(bunny, 1, {x:mouseX, y:mouseY, ease:Strong.easeOut });
-				TweenMax.to(bunny2, 3, {x:mouseX, y:mouseY, ease:Strong.easeOut });
-			}else{
-				TweenMax.to(bunny, 0.5, {x:mouseX, y:mouseY, ease:Strong.easeOut });
-				TweenMax.to(bunny2, 1.5, {x:mouseX, y:mouseY, ease:Strong.easeOut });
-			}
-
+			TweenMax.to(bunny, 2.0, {x:mouseX, y:mouseY, ease:Strong.easeOut });
+			TweenMax.to(bunny2, 1.8, {x:mouseX, y:mouseY, ease:Sine.easeOut });
 		}
 
 		// MOBILE //
@@ -350,10 +344,13 @@
 		}
 		function onDragMove(){
 
-			touchTl.to(bunny, 1, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
-			touchTl.to(bunny2, 3, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
+			// touchTl.to(bunny, 1, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
+			// touchTl.to(bunny2, 3, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
 
-			var nextBgRange = app.screen.width>app.screen.height?0.1:0.1;
+			touchTl.to(bunny, 1.5, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
+			touchTl.to(bunny2, 1.35, {x:mouseX, y:mouseY, ease:Sine.easeOut }, "start");
+
+			var nextBgRange = app.screen.width>app.screen.height?0.11:0.11;
 
 
 			if(touch_data){
