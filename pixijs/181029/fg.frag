@@ -110,7 +110,8 @@ vec2 unmapCoord( vec2 coord )
 
     if(uv5.y > 0.5 ){
         if(uDebugMode == true){
-            color = vec4(maskDebug);
+            color = texture2D(uSampler, uv2);
+            // color = vec4(maskDebug);
             color = mix(color, vec4(maskDebug), 0.5);
         }else{
             color = texture2D(uSampler, uv2);
