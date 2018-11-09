@@ -2,10 +2,7 @@ precision mediump float;
 varying vec2 vTextureCoord;
 uniform sampler2D uSampler;
 uniform vec2 dimensions;
-uniform vec4 filterArea;
-uniform mat3 mappedMatrix;
 
-uniform bool uTestShap;
 uniform float uX;
 uniform float uX2;
 uniform float uX3;
@@ -74,28 +71,27 @@ vec2 unmapCoord( vec2 coord )
 
     float d = abs(uD);
     if(d<=0.0001){ d = 0.0; }
-    vec2 dd = vec2(d, d);
 
     uv = mapCoord(uv) / dimensions;
-    dd = mapCoord(dd) / dimensions;
 
-    // mask = Rect(uv, uX - d, uX + d, -0.4, 1.4, d*0.5); // wrong
     mask = Rect(uv, uX - d*0.5, uX + d*.5, -0.4, 1.4, d*0.5);
-    // mask = Rect2(uv, uX - d, uX + d, -0.4, 1.4); // ok
     maskDebug = mask;
 
     mask *= d * 0.3;
     maskDebug *= 1.0;
 
     uv = unmapCoord(uv) * dimensions;
-    dd = unmapCoord(dd) * dimensions;
     
 
+    /*
+    取中間Height時用 mapCoord 的 uv5
+    存圖食用 unmapCoord 的 uv2
+    */
 
     vec2 uv2 = vTextureCoord;
     vec2 uv5 = vTextureCoord;
-    // uv2 = mapCoord(uv2) / dimensions;
     uv5 = mapCoord(uv5) / dimensions;
+
     if(uv5.y > 0.5 ){
         if(uDebugMode == true){
             uv2.x += maskDebug;
@@ -105,18 +101,10 @@ vec2 unmapCoord( vec2 coord )
     }else{
         uv2.x += mask;
     }
-    
-    // if(uv2.x <= 0.0){ uv2.x = uv2.x * -1.0; };
-    // if(uv2.x >= 1.0){ uv2.x = (2.0 - uv2.x); };
-
-    // uv2 = unmapCoord(uv2) * dimensions;
 
     vec4 color = vec4(0.0);
 
-    /*
-    取中間Height時用 mapCoord 的 uv5
-    存圖食用 unmapCoord 的 uv2
-    */
+
 
     if(uv5.y > 0.5 ){
         if(uDebugMode == true){
