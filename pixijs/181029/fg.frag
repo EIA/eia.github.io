@@ -12,19 +12,13 @@ uniform float uD;
 uniform bool uDebugMode;
 
 
-float Circle(vec2 uv, vec2 p, float r, float blur){
-    float d = length(uv-p);
-    float c = smoothstep(r, r-blur, d);
-
-    return c;
-}
-
-
 float Band2(float t, float start, float end){
     float step1 = step(t, start);
     float step2 = step(t, end);
     return step1-step2;
 }
+
+// 畫純色方塊 //
 float Rect2(vec2 uv, float left, float right, float bottom , float top){
 	float  band1 = Band2(uv.x, left, right);
     float  band2 = Band2(uv.y, bottom, top);
@@ -41,6 +35,7 @@ float Band(float t, float start, float end, float blur){
     return step1-step2;
 }
 
+// 畫有毛邊的方塊 //
 float Rect(vec2 uv, float left, float right, float bottom , float top, float blur){
 	float  band1 = Band(uv.x, left, right, blur);
     float  band2 = Band(uv.y, bottom, top, blur);
@@ -87,7 +82,7 @@ vec2 unmapCoord( vec2 coord )
 
     /*
     取中間Height時用 mapCoord 的 uv5
-    存圖食用 unmapCoord 的 uv2
+    存圖時用 unmapCoord 的 uv2
     */
 
     vec2 uv2 = vTextureCoord;
@@ -96,7 +91,9 @@ vec2 unmapCoord( vec2 coord )
 
     if(uv5.y > 0.5 ){
         if(uDebugMode == true){
-            uv2.x += maskDebug;
+             // maskDebug 方便看未加偏移的效果，合併時使用原本偏移的亮就可
+            uv2.x += mask;
+            // uv2.x += maskDebug;
         }else{
             uv2.x += mask;
         }
