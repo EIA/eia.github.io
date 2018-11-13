@@ -108,8 +108,8 @@
 		var otString = '', tlString = '';
 		var uX = 0, uX2 = 0, uX3 = 0, uD = 0;
 		var PIC_WIDTH = 1920, PIC_HEIGHT = 1080;
+		var mouseTl = new TimelineMax();
 		var touchTl = new TimelineMax();
-		var tCount = 0;
 
 		//////////////////////////////////////
 
@@ -181,7 +181,6 @@
 			filter = new PIXI.Filter( null, loadedShaderData, uniforms );
 			filter.apply = function(filterManager, input, output)
 			{
-				tCount ++;
 				this.uniforms.dimensions[0] = input.sourceFrame.width;
 				this.uniforms.dimensions[1] = input.sourceFrame.height;
 				this.uniforms.uX = uX;
@@ -209,8 +208,6 @@
 			var tmpUVX2, tmpUVY2;
 
 			if(device == 'pc'){
-				mouseX = app.renderer.plugins.interaction.mouse.global.x;
-				mouseY = app.renderer.plugins.interaction.mouse.global.y;
 			}else{
 				if(touch_data){
 					// console.log(touch_data.data.getLocalPosition(app.stage));
@@ -319,7 +316,9 @@
 
 			// PC
 			app.stage.on('click', onClick);
-			app.stage.on('mousemove', onMousemove);
+			app.stage.on('mouseover', onMouseOver);
+			app.stage.on('mouseout', onMouseOut);
+			app.stage.on('mousemove', onMouseMove);
 
 			// MOBILE
 			// app.stage.on('pointerdown', onDragStart);
@@ -331,8 +330,8 @@
 			tlString = '[BG UNLOCK]';
 			onresize();
 
-			tracker.x = mouseX = app.screen.width*0.5;
-			tracker.y = mouseY = app.screen.height*0.5;
+			tracker.x = tracker2.x = mouseX = app.screen.width*0.5;
+			tracker.y = tracker2.y = mouseY = app.screen.height*0.5;
 
 			if(device == "pc"){
 			}else{
@@ -350,18 +349,26 @@
 				prevBg();
 			}
 		}
-		function onMousemove(){
-			// console.log('onMousemove: '+ mouseX+' '+mouseY);
-			// console.log(Math.abs(mouseX));
-			if(Math.abs(mouseX > 5000)){
-				trackers.x = mouseX = app.screen.width *.5;
-			}
-			if(Math.abs(mouseY > 5000)){
-				trackers.y = mouseY = app.screen.height *.5;
-			}
+		function onMouseOver(){
+			console.log('onMouseOver');
+			tracker.x = tracker2.x = mouseX = app.renderer.plugins.interaction.mouse.global.x;
+			tracker.y = tracker2.y = mouseY = app.renderer.plugins.interaction.mouse.global.y;
+			mouseTl.clear();
+		}
+		function onMouseOut(){
+			
+		}
 
-			TweenMax.to(tracker, 1.0, {x:mouseX, y:mouseY, ease:Strong.easeOut });
-			TweenMax.to(tracker2, 1.2, {x:mouseX, y:mouseY, ease:Sine.easeOut });
+		function onMouseMove(){
+
+			// console.log('onMouseMove: '+ mouseX+' '+mouseY);
+
+			mouseX = app.renderer.plugins.interaction.mouse.global.x;
+			mouseY = app.renderer.plugins.interaction.mouse.global.y;
+
+			mouseTl.clear();
+			mouseTl.to(tracker, 1.0, {x:mouseX, y:mouseY, ease:Strong.easeOut }, 'start');
+			mouseTl.to(tracker2, 1.2, {x:mouseX, y:mouseY, ease:Sine.easeOut }, 'start');
 		}
 
 
