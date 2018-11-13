@@ -14,11 +14,15 @@
 	<meta property="og:type" content="website"/>
 
 
-	<script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.4/pixi.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
-	<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.3/dat.gui.min.js"></script>
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.4/pixi.min.js"></script> -->
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script> -->
+	<!-- <script src="//code.jquery.com/jquery-2.2.4.min.js"></script> -->
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.3/dat.gui.min.js"></script> -->
 	
+	<script src="js/libs/pixi.min.js"></script>
+	<script src="js/libs/TweenMax.min.js"></script>
+	<script src="js/libs/jquery-1.11.2.min.js"></script>
+	<script src="js/libs/dat.gui.min.js"></script>
 
 	<style>
 			@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
@@ -143,6 +147,7 @@
 		bunny.anchor.set(0.5);
 		bunny.x = app.screen.width / 2;
 		bunny.y = app.screen.height / 2;
+		// app.stage.addChild(bunny);
 
 
 		bunny2 = PIXI.Sprite.fromImage('assets/basics/bunny.png?v=2');
@@ -150,6 +155,7 @@
 		bunny2.anchor.set(0.5);
 		bunny2.x = app.screen.width / 2;
 		bunny2.y = app.screen.height / 2;
+		// app.stage.addChild(bunny2);
 
 		app.stop();
 		PIXI.loader.add('shader', 'fg.frag').load(onLoaded);
@@ -202,7 +208,7 @@
 				mouseY = app.renderer.plugins.interaction.mouse.global.y;
 			}else{
 				if(touch_data){
-					console.log(touch_data.data.getLocalPosition(app.stage));
+					// console.log(touch_data.data.getLocalPosition(app.stage));
 
 					mouseX = touch_data.data.global.x;
 					mouseY = touch_data.data.global.y;
@@ -220,9 +226,6 @@
 				}else if(mouseY > app.screen.height + 50){
 					mouseY = app.screen.height + 50;
 				}
-
-				// bunny.x += (mouseX - bunny.x) * 0.03125;
-				// bunny.y += (mouseY - bunny.y) * 0.03125;
 
 			}
 
@@ -248,16 +251,19 @@
 			tmpUVX2 = bunny.x - background.x;
 			tmpUVY2 = bunny.y - background.y;
 
-			otString += 'MouseX: ' + Math.round(tmpUVX) + ', ' + (Math.round((tmpUVX - background.x) / background.width * 100)) + ' %';
+			otString += 'Mouse / Touch - X: ' + Math.round(tmpUVX) + ', ' + (Math.round((tmpUVX - background.x) / background.width * 100)) + ' %';
 			otString += '<br>';
-			otString += 'MouseY: ' + Math.round(tmpUVY) + ', ' + (Math.round((tmpUVY - background.y) / background.height * 100)) + ' %';
+			otString += 'Mouse / Touch - Y: ' + Math.round(tmpUVY) + ', ' + (Math.round((tmpUVY - background.y) / background.height * 100)) + ' %';
 			otString += '<br>';
 
-
-
+			// RED
 			uX = (bunny.x + bunny2.x) * 0.5 / app.screen.width;
+
+			// Yellow
 			uX2 = bunny2.x / app.screen.width;
-			uX3 = bunny.x / app.screen.width;
+
+
+			uX3 = uX + (uX - uX2);
 
 			uD = (bunny2.x - bunny.x)*0.5 / app.screen.width;
 			
@@ -323,11 +329,16 @@
 			bunny.x = mouseX = app.screen.width*0.5;
 			bunny.y = mouseY = app.screen.height*0.5;
 
+			if(device == "pc"){
+			}else{
+				onDragStart({data:{global:{x:app.screen.width*.5, y:app.screen.height*.5}}});
+			}
+
 		}
 
 		// PC //
 		function onClick(){
-			console.log("pc click: [x: "+mouseX+", y:"+mouseY+"]");
+			// console.log("pc click: [x: "+mouseX+", y:"+mouseY+"]");
 			if(mouseX>=app.screen.width*0.5){
 				nextBg();
 			}else{
@@ -335,9 +346,11 @@
 			}
 		}
 		function onMousemove(){
-			TweenMax.to(bunny, 2.0, {x:mouseX, y:mouseY, ease:Strong.easeOut });
-			TweenMax.to(bunny2, 1.8, {x:mouseX, y:mouseY, ease:Sine.easeOut });
+			TweenMax.to(bunny, 1.0, {x:mouseX, y:mouseY, ease:Strong.easeOut });
+			TweenMax.to(bunny2, 1.2, {x:mouseX, y:mouseY, ease:Sine.easeOut });
 		}
+
+
 
 		// MOBILE //
 		function onDragStart(evt){
@@ -353,11 +366,9 @@
 		}
 		function onDragMove(){
 
-			// touchTl.to(bunny, 1, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
-			// touchTl.to(bunny2, 3, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
 
-			touchTl.to(bunny, 1.5, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
-			touchTl.to(bunny2, 1.35, {x:mouseX, y:mouseY, ease:Sine.easeOut }, "start");
+			touchTl.to(bunny, 2.0, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
+			touchTl.to(bunny2, 2.4, {x:mouseX, y:mouseY, ease:Sine.easeOut }, "start");
 
 			var nextBgRange = app.screen.width>app.screen.height?0.11:0.11;
 

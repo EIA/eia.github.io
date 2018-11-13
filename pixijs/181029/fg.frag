@@ -146,8 +146,8 @@ vec2 unmapCoord( vec2 coord )
 
         uv3 = unmapCoord(uv3) * dimensions;
         gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 0.0, 0.0), testShap), 1.0);
-        gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 1.0, 0.0), testShap2 * 0.15), 1.0);
-        gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 1.0, 0.0), testShap3 * 0.15), 1.0);
+        gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 1.0, 0.0), testShap2 * 0.3), 1.0);
+        gl_FragColor = vec4(mix(vec3(gl_FragColor.xyz), vec3(1.0, 1.0, 0.0), testShap3 * 0.3), 1.0);
 
     }
 
