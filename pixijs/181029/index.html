@@ -379,10 +379,9 @@
 			touch_data = null;
 		}
 		function onDragMove(){
-
-
-			touchTl.to(tracker, 2.0, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
-			touchTl.to(tracker2, 2.4, {x:mouseX, y:mouseY, ease:Sine.easeOut }, "start");
+			touchTl.clear();
+			touchTl.to(tracker, 1.0, {x:mouseX, y:mouseY, ease:Strong.easeOut }, "start");
+			touchTl.to(tracker2, 1.2, {x:mouseX, y:mouseY, ease:Sine.easeOut }, "start");
 
 			var nextBgRange = app.screen.width>app.screen.height?0.11:0.11;
 
