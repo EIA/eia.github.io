@@ -9,6 +9,7 @@ uniform float uX;
 uniform float uX2;
 uniform float uX3;
 uniform float uD;
+uniform float uStrength;
 uniform bool uDebugMode;
 
 
@@ -74,8 +75,8 @@ vec2 unmapCoord( vec2 coord )
     mask = Rect(uv, uX - d*0.5, uX + d*.5, -0.4, 1.4, d*0.5);
     maskDebug = mask;
 
-    mask *= d * 0.3;
-    maskDebug *= 1.0;
+    mask *= d * 0.3 * uStrength;
+    maskDebug *= 1.0 * uStrength;
 
     uv = unmapCoord(uv) * dimensions;
     

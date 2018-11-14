@@ -106,10 +106,11 @@
 		var gui, effectController;
 		var mouseX, mouseY;
 		var otString = '', tlString = '';
-		var uX = 0, uX2 = 0, uX3 = 0, uD = 0;
+		var uX = 0, uX2 = 0, uX3 = 0, uD = 0, uStrength = 1;
 		var PIC_WIDTH = 1920, PIC_HEIGHT = 1080;
 		var mouseTl = new TimelineMax();
 		var touchTl = new TimelineMax();
+		var ct = 0;
 
 		//////////////////////////////////////
 
@@ -183,6 +184,7 @@
 								uX2: { type: 'float', value: 0 },
 								uX3: { type: 'float', value: 0 },
 								uD: { type: 'float', value: 0 },
+								uStrength: { type: 'float', value: 1 },
 								uDebugMode: { type: 'bool', value: effectController.DebugMode },
 								mappedMatrix: { type: 'mat3', value: new PIXI.Matrix()}
 							};
@@ -195,6 +197,7 @@
 				this.uniforms.uX2 = uX2;
 				this.uniforms.uX3 = uX3;
 				this.uniforms.uD = uD;
+				this.uniforms.uStrength = uStrength;
 				this.uniforms.mappedMatrix = filterManager.calculateNormalizedScreenSpaceMatrix( this.uniforms.mappedMatrix );
 				filterManager.applyFilter(this, input, output);
 			}
@@ -214,6 +217,14 @@
 
 			var tmpUVX, tmpUVY;
 			var tmpUVX2, tmpUVY2;
+
+			ct ++;
+			if(effectController.Mode == 'AUTO_DEMO'){
+				uStrength = Math.sin(ct*0.01)+1; // 0~2
+			}else{
+
+			}
+
 
 			if(device == 'pc'){
 			}else{
@@ -492,18 +503,44 @@
 
 		gui = new dat.GUI();
 		effectController = {
-			DebugMode: false
+			Mode: 'NORMAL'
 		};
 
-		gui.add( effectController, "DebugMode" ).onChange( debugModeChange );
+
+		gui.add( effectController, 'Mode', [ 'NORMAL', 'DEBUG', 'AUTO_DEMO' ] ).onChange( modeChange );
 
 		///////////////////////////////////////////
 
-		function debugModeChange(){
-			console.log('debugModeChange: ' + effectController.DebugMode);
-			filter.uniforms.uDebugMode = effectController.DebugMode;
-			tracker.alpha = tracker2.alpha = effectController.DebugMode?1:0;
-			$('.info').css('display', effectController.DebugMode?'block':'none');
+		function modeChange(){
+			console.log('modeChange: ' + effectController.Mode);
+			switch(effectController.Mode){
+				case 'NORMAL':
+								app.stage.interactive = true;
+								filter.uniforms.uDebugMode = false;
+								tracker.alpha = tracker2.alpha = 0;
+								$('.info').css('display', 'none');
+								$('.aw.aw-left, .aw.aw-right').css('display', 'block');
+								filter.uniforms.uStrength = 1;
+								break;
+				case 'DEBUG':
+								app.stage.interactive = true;
+								filter.uniforms.uDebugMode = true;
+								tracker.alpha = tracker2.alpha = 1;
+								$('.info').css('display', 'block');
+								$('.aw.aw-left, .aw.aw-right').css('display', 'block');
+								filter.uniforms.uStrength = 1;
+								break;
+				case 'AUTO_DEMO':
+								app.stage.interactive = false;
+								filter.uniforms.uDebugMode = true;
+								tracker.alpha = tracker2.alpha = 0;
+								$('.info').css('display', 'none');
+								$('.aw.aw-left, .aw.aw-right').css('display', 'none');
+								tracker.x = app.screen.width*.5+400;
+								tracker2.x = app.screen.width*.5-400;
+								tracker.y = tracker2.y = app.screen.height*.5;
+								break;
+			}
 		}
 
 	</script>
