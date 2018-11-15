@@ -88,6 +88,7 @@
 		var device;
 		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
 			device = 'mobile';
+			$('.aw').css('visibility','hidden');
 		} else {
 			device = 'pc';
 			$('.aw').css('display', 'block');
@@ -219,15 +220,7 @@
 			var tmpUVX2, tmpUVY2;
 
 			ct ++;
-			if(effectController.Mode == 'AUTO_DEMO'){
-				if(device == 'pc'){
-					uStrength = Math.sin(ct*0.01)+1; // 0~2
-				}else{
-					uStrength = (Math.sin(ct*0.01)+1)*0.5; // 0~1
-				}
-			}else{
-
-			}
+			uStrength = Math.sin(ct*0.01)+1; // 0~2
 
 
 			if(device == 'pc'){
@@ -505,8 +498,8 @@
 										tracker2.x = app.screen.width*.5-400;
 										tracker.y = tracker2.y = app.screen.height*.5;	
 									}else{
-										tracker.x = app.screen.width*.25+100;
-										tracker2.x = app.screen.width*.25-100;
+										tracker.x = app.screen.width*.50+100;
+										tracker2.x = app.screen.width*.50-100;
 										tracker.y = tracker2.y = app.screen.height*.5;	
 									}
 			}
@@ -535,7 +528,7 @@
 								filter.uniforms.uDebugMode = false;
 								tracker.alpha = tracker2.alpha = 0;
 								$('.info').css('display', 'none');
-								$('.aw.aw-left, .aw.aw-right').css('display', 'block');
+								$('.aw').css('display', 'block');
 								filter.uniforms.uStrength = 1;
 								break;
 				case 'DEBUG':
@@ -543,7 +536,7 @@
 								filter.uniforms.uDebugMode = true;
 								tracker.alpha = tracker2.alpha = 1;
 								$('.info').css('display', 'block');
-								$('.aw.aw-left, .aw.aw-right').css('display', 'block');
+								$('.aw').css('display', 'block');
 								filter.uniforms.uStrength = 1;
 								break;
 				case 'AUTO_DEMO':
@@ -551,14 +544,14 @@
 								filter.uniforms.uDebugMode = true;
 								tracker.alpha = tracker2.alpha = 0;
 								$('.info').css('display', 'none');
-								$('.aw.aw-left, .aw.aw-right').css('display', 'none');
+								$('.aw').css('display', 'none');
 								if(device == 'pc'){
 									tracker.x = app.screen.width*.5+400;
 									tracker2.x = app.screen.width*.5-400;
 									tracker.y = tracker2.y = app.screen.height*.5;	
 								}else{
-									tracker.x = app.screen.width*.25+100;
-									tracker2.x = app.screen.width*.25-100;
+									tracker.x = app.screen.width*.50+100;
+									tracker2.x = app.screen.width*.50-100;
 									tracker.y = tracker2.y = app.screen.height*.5;	
 								}
 								break;
