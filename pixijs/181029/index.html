@@ -220,7 +220,11 @@
 
 			ct ++;
 			if(effectController.Mode == 'AUTO_DEMO'){
-				uStrength = Math.sin(ct*0.01)+1; // 0~2
+				if(device == 'pc'){
+					uStrength = Math.sin(ct*0.01)+1; // 0~2
+				}else{
+					uStrength = (Math.sin(ct*0.01)+1)*0.5; // 0~1
+				}
 			}else{
 
 			}
@@ -495,6 +499,18 @@
 
 			background.filterArea = app.screen;
 
+			if(effectController && effectController.Mode == "AUTO_DEMO"){
+				if(device == 'pc'){
+										tracker.x = app.screen.width*.5+400;
+										tracker2.x = app.screen.width*.5-400;
+										tracker.y = tracker2.y = app.screen.height*.5;	
+									}else{
+										tracker.x = app.screen.width*.25+100;
+										tracker2.x = app.screen.width*.25-100;
+										tracker.y = tracker2.y = app.screen.height*.5;	
+									}
+			}
+
 		};
 		onresize();
 
@@ -536,9 +552,15 @@
 								tracker.alpha = tracker2.alpha = 0;
 								$('.info').css('display', 'none');
 								$('.aw.aw-left, .aw.aw-right').css('display', 'none');
-								tracker.x = app.screen.width*.5+400;
-								tracker2.x = app.screen.width*.5-400;
-								tracker.y = tracker2.y = app.screen.height*.5;
+								if(device == 'pc'){
+									tracker.x = app.screen.width*.5+400;
+									tracker2.x = app.screen.width*.5-400;
+									tracker.y = tracker2.y = app.screen.height*.5;	
+								}else{
+									tracker.x = app.screen.width*.25+100;
+									tracker2.x = app.screen.width*.25-100;
+									tracker.y = tracker2.y = app.screen.height*.5;	
+								}
 								break;
 			}
 		}
