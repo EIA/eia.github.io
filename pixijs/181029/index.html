@@ -522,6 +522,9 @@
 
 		function modeChange(){
 			console.log('modeChange: ' + effectController.Mode);
+			mouseTl.clear();
+			touchTl.clear();
+			
 			switch(effectController.Mode){
 				case 'NORMAL':
 								app.stage.interactive = true;
