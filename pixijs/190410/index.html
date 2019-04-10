@@ -186,6 +186,26 @@
 		}
 
 
+
+		.btn-normal{
+			display: none;
+			width: 140px;
+			height: 40px;
+			background-color: #fff;
+			color: #000;
+			font-size: 18px;
+			margin: 10px auto;
+			cursor: pointer;
+			text-align: center;
+			line-height: 40px;
+			letter-spacing: 1px;
+		}
+		.popup-end-game.mode-never-fails .popup-text.success .btn-normal,
+		.popup-end-game.mode-never-win .popup-text.failed .btn-normal{
+			display: block;
+		}
+
+
 		.btn-never-fails{
 			display: none;
 			width: 140px;
@@ -199,7 +219,7 @@
 			line-height: 40px;
 			letter-spacing: 1px;
 		}
-		.popup-end-game .popup-text.success .btn-never-fails,
+		.popup-end-game.mode-normal .popup-text.success .btn-never-fails,
 		.popup-end-game.mode-never-win .popup-text.failed .btn-never-fails{
 			display: block;
 		}
@@ -253,6 +273,7 @@
 			<div class="title">遊戲結束</div>
 			<a class="btn-retry">RETRY</a>
 			<a class="btn-play-again">PLAY AGAIN</a>
+			<a class="btn-normal">一般模式</a>
 			<a class="btn-never-fails">必贏模式</a>
 			<a class="btn-never-win">必輸模式</a>
 		</div>
