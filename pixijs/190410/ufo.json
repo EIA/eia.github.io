@@ -1,0 +1,68 @@
+{
+	"frames":
+	{
+        "ufo0.png":
+        {
+            "frame": {"x":0,"y":0,"w":85,"h":48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0,"y":0,"w":85,"h":48},
+            "sourceSize": {"w":85,"h":48}
+        },
+        "ufo1.png":
+        {
+            "frame": {"x":0,"y":48,"w":85,"h":48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0,"y":0,"w":85,"h":48},
+            "sourceSize": {"w":85,"h":48}
+        },
+        "ufo2.png":
+        {
+            "frame": {"x":0,"y":96,"w":85,"h":48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0,"y":0,"w":85,"h":48},
+            "sourceSize": {"w":85,"h":48}
+        },
+        "ufo3.png":
+        {
+            "frame": {"x":0,"y":144,"w":85,"h":48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0,"y":0,"w":85,"h":48},
+            "sourceSize": {"w":85,"h":48}
+        },
+        "ufo4.png":
+        {
+            "frame": {"x":0,"y":192,"w":85,"h":48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0,"y":0,"w":85,"h":48},
+            "sourceSize": {"w":85,"h":48}
+        },
+        "ufo5.png":
+        {
+            "frame": {"x":0,"y":240,"w":85,"h":48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0,"y":0,"w":85,"h":48},
+            "sourceSize": {"w":85,"h":48}
+        },
+        "ufo6.png":
+        {
+            "frame": {"x":0,"y":288,"w":85,"h":48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0,"y":0,"w":85,"h":48},
+            "sourceSize": {"w":85,"h":48}
+        }
+	},
+	"meta": {
+        "image": "assets/ufo_v3.png",
+        "version": "1.0",
+	    "format": "RGBA8888",
+        "size": {"w":85,"h":336},
+	    "scale": "1"
+	}
+}

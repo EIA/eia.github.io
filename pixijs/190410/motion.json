@@ -1,0 +1,28 @@
+{
+	"frames":
+	{
+        "motion0.png":
+        {
+            "frame": {"x":0,"y":0,"w":26,"h":37},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0,"y":0,"w":26,"h":37},
+            "sourceSize": {"w":26,"h":37}
+        },
+        "motion1.png":
+        {
+            "frame": {"x":26,"y":0,"w":26,"h":37},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0,"y":0,"w":26,"h":37},
+            "sourceSize": {"w":26,"h":37}
+        }
+	},
+	"meta": {
+        "image": "assets/bunny_motion.png",
+        "version": "1.0",
+	    "format": "RGBA8888",
+        "size": {"w":52,"h":37},
+	    "scale": "1"
+	}
+}
