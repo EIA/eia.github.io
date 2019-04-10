@@ -13,6 +13,7 @@ Shader - Practice<br/>
 [![alt](pixijs/181029/demo_359x150.jpg)](https://eia.github.io/pixijs/181029/)
 
 PixiJS - Practice <br/>
+[![alt](pixijs/190410/demo_359x150.jpg)](https://eia.github.io/pixijs/190410/)
 [![alt](pixijs/180706/demo_359x150.jpg)](https://eia.github.io/pixijs/180706/)
 [![alt](pixijs/180507/demo_359x150.jpg)](https://eia.github.io/pixijs/180507/)
 [![alt](pixijs/180328/demo_359x150.jpg)](https://eia.github.io/pixijs/180328/)
