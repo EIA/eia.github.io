@@ -11,6 +11,7 @@ three.js - Practice<br/>
 
 Shader - Practice<br/>
 [![alt](pixijs/181029/demo_359x150.jpg)](https://eia.github.io/pixijs/181029/)
+[![alt](pixijs/190422/demo_359x150.jpg)](https://eia.github.io/pixijs/190422/)
 
 PixiJS - Practice <br/>
 [![alt](pixijs/190410/demo_359x150.jpg)](https://eia.github.io/pixijs/190410/)
