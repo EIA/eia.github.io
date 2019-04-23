@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>PixiJS-Practices: Custom Transition Filter</title>
+
+	<meta property="og:title" content="PixiJS-Practices: Custom Transition Filter" />
+	<meta property="og:image" content="https://eia.github.io/pixijs/190422/share/meta.jpg" />
+	<meta property="og:description" content="" />
+
+	<meta property="og:url" content="https://eia.github.io/pixijs/190422/"/>
+	<meta property="og:site_name" content="PixiJS-Practices: Custom Transition Filter"/>
+	<meta property="og:type" content="website"/>
+
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.4/pixi.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.3/dat.gui.min.js"></script>
+
+
+	<style>
+			@import url(fonts.googleapis.com/earlyaccess/notosanstc.css);
+			html, body{
+				font-family: 'Noto Sans TC', 'Microsoft JhengHei', Tahoma, Verdana, Arial, Helvetica, sans-serif; /* 'Noto Sans TC',  */
+				/*font-weight: 300;*/
+				margin: 0;
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+				background-color: #000;
+			}
+
+			#pixiContainer{
+				margin: 0 auto;
+			}
+	
+		</style>
+	
+</head>
+<body>
+	
+	<div class="info"></div>
+	<div id="pixiContainer"></div>
+
+
+	<script>
+
+		var app;
+		var PIC_WIDTH = 300, PIC_HEIGHT = 300;
+		var bgContainer, fixedBg, tweenBg;
+
+		var filter;
+		var uT = 0.3, uDebugMode = false, uSmoothRange = 0.1;
+
+		var tweenValue = 0;
+		var bgs = [
+            'bg0', 'images/bg_1.jpg',
+            'bg1', 'images/bg_2.jpg',
+            'bg2', 'images/bg_3.jpg',
+		];
+
+		var bgCount = bgs.length * 0.5;
+		var currentId = 0;
+		var pixiLoader;
+
+		////////////////////////////////////////////////////////////////////////////////////////
+
+		app = new PIXI.Application(PIC_WIDTH, PIC_HEIGHT, {bgColor : 0x0});
+		document.getElementById('pixiContainer').appendChild(app.view);
+		app.stop();
+
+		bgContainer = new PIXI.Container();
+		app.stage.addChild(bgContainer);
+
+		fixedBg = new PIXI.Container();
+		bgContainer.addChild(fixedBg);
+
+		tweenBg = new PIXI.Container();
+		bgContainer.addChild(tweenBg);
+
+		
+		////////////////////////////////////////////////////////////////////////////////////////
+
+		pixiLoader = new PIXI.loaders.Loader();
+		for(var i = 0; i<bgCount; i++){
+		    pixiLoader.add(bgs[i*2+0], bgs[i*2+1]);
+		}
+
+		pixiLoader.load(function(){
+
+		   // buildBg(1, 0);
+		   buildBg(bgs.length-1, 0);
+		   setBGSize(); 
+		});
+
+		function buildBg($prevIndex, $nextIndex){
+
+			fixedBg.removeChildren();
+			tweenBg.removeChildren();
+
+		    var bgIndex;
+	        var bg;
+
+	        bgIndex = $prevIndex;
+	        bg = PIXI.Sprite.from(PIXI.TextureCache[bgs [bgIndex * 2 + 1]]);
+		    fixedBg.addChild(bg);
+		    bg.anchor.set(0.5);
+		    // bg.alpha = 0;
+		    // 
+		    
+	        bgIndex = $nextIndex;
+	        bg = PIXI.Sprite.from(PIXI.TextureCache[bgs [bgIndex * 2 + 1]]);
+		    tweenBg.addChild(bg);
+		    bg.anchor.set(0.5);
+		    // bg.alpha = 0;
+		}
+		function setBGSize(){
+
+			var bgScalePercent, tmpBG;
+
+			tmpBG = tweenBg.children[0];
+			if(tmpBG){
+				bgScalePercent = Math.max(app.renderer.width / tmpBG.width, app.renderer.height / tmpBG.height);
+			    tmpBG.width = tmpBG.width * bgScalePercent;
+			    tmpBG.height = tmpBG.height * bgScalePercent;
+		    }
+
+		    tmpBG = fixedBg.children[0];
+		    if(tmpBG){				
+				bgScalePercent = Math.max(app.renderer.width / tmpBG.width, app.renderer.height / tmpBG.height);
+			    tmpBG.width = tmpBG.width * bgScalePercent;
+			    tmpBG.height = tmpBG.height * bgScalePercent;
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////
+
+		PIXI.loader.add('shader', 'filter.frag').load(onLoaded);
+
+		function onLoaded (loader,res) {
+		    var loadedShaderData = res.shader.data;
+			var uniforms = {
+								resolution: { type: 'v2', value: [PIC_WIDTH, PIC_HEIGHT] },
+								uT: { type: 'float', value: uT },
+								uDebugMode: {type: 'boolean', value: uDebugMode },
+								uSmoothRange: { type: 'float', value: uSmoothRange }
+							};
+			filter = new PIXI.Filter( null, loadedShaderData, uniforms );
+			filter.apply = function(filterManager, input, output)
+			{
+				this.uniforms.resolution[0] = input.sourceFrame.width;
+				this.uniforms.resolution[1] = input.sourceFrame.height;
+				this.uniforms.uT = uT;
+				this.uniforms.uDebugMode = uDebugMode;
+				this.uniforms.uSmoothRange = uSmoothRange;
+				filterManager.applyFilter(this, input, output);
+			}
+
+		    tweenBg.filters = [filter];
+
+			startApp();
+		}
+
+
+
+		app.ticker.add(function(delta) {
+		});
+
+
+		function startApp(){
+		    app.start();
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////////
+		
+		TweenMax.to(this, 4,{tweenValue:1, repeat:-1, ease:Strong.easeOut, onUpdate:function(){
+				// console.log(this.target.tweenValue);
+				uT = this.target.tweenValue;
+			},onRepeat:function(){
+				var tmpBgId = currentId;
+				currentId ++;
+				if(currentId >= bgCount){
+					currentId = 0;
+				}
+				// console.log('repeat> currentId: '+currentId);
+				buildBg(tmpBgId, currentId)
+		   		setBGSize(); 
+
+			}
+		});
+
+
+
+		///////////////////////////////////////////
+
+		window.onresize = function (event){
+
+			var w = window.innerWidth;
+			var h = window.innerHeight;
+
+			app.view.style.width = w + "px";
+			app.view.style.height = h + "px";
+			app.renderer.resize(w,h);
+
+			bgContainer.x = app.renderer.width / 2;
+			bgContainer.y = app.renderer.height / 2;
+
+			setBGSize();
+
+		};
+		onresize();
+
+
+
+		///////////////////////////////////////////
+
+		var gui = new dat.GUI();
+		effectController = {
+			DebugMode: uDebugMode,
+			SmoothRange: uSmoothRange
+		};
+
+
+		gui.add( effectController, 'DebugMode' ).onChange( modeChange );
+		gui.add( effectController, 'SmoothRange', 0, 1, 0.01 ).onChange( smoothRangeChange );
+		function modeChange(){
+			uDebugMode = effectController.DebugMode;
+		}
+		function smoothRangeChange(){
+			uSmoothRange = effectController.SmoothRange;
+		}
+		
+	</script>
+</body>
+</html>
