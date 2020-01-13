@@ -1,12 +1,11 @@
 eia.github.io
 =============
 > [About.me](https://about.me/eia) <br/>
-> [iT 邦幫忙](https://ithelp.ithome.com.tw/users/20106532/ironman) <br/>
 
 
 ### iT邦幫忙鐵人賽
-[![alt](2018ironman/pics/ironman_sticker-9-web.png)](https://ithelp.ithome.com.tw/users/20106532/ironman/1249)
-[![alt](ironman/2020/web.png)](https://ithelp.ithome.com.tw/users/20106532/ironman/2869)
+[![alt](2018ironman/pics/ironman_sticker-9-web.png "PixiJS，方便好用的 WebGL 內容產生工具")](https://ithelp.ithome.com.tw/users/20106532/ironman/1249)
+[![alt](ironman/2020/web.png "寫給工程師的 WebGL 學習心得")](https://ithelp.ithome.com.tw/users/20106532/ironman/2869)
 
 ### three.js - Practice <br/>
 [![alt](threejs/170719/demo_359x150.jpg)](https://eia.github.io/threejs/170719/?s=io)
