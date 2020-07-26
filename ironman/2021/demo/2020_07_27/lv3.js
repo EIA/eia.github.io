@@ -48,7 +48,12 @@ window.onresize = function (event){
 };
 onresize();
 
+app.ticker.stop();
 
+// Now, we use 'tick' from gsap
+gsap.ticker.add(() => {
+    app.ticker.update();
+});
 
 app.ticker.add((delta) => {
     stats.begin();
