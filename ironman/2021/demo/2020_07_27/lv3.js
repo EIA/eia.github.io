@@ -2,7 +2,8 @@ const app = new PIXI.Application({ backgroundColor: 0x1099bb });
 document.body.appendChild(app.view);
 
 let controller = {
-	counts: 1
+	counts: 1,
+	FPS: 60
 };
 
 const stats = new Stats();
@@ -12,12 +13,20 @@ document.body.appendChild(stats.domElement);
 
 const gui = new dat.GUI();
 gui.add(controller, "counts", [1, 10, 100, 1000, 10000, 30000]).onChange(guiHandler);
+gui.add(controller, "FPS", [1, 10, 30, 60, 100]).onChange(FPSUpdateHandler);
 function guiHandler(){
 	bunnyContainer.removeChildren();
 	for(let i = 0; i< controller.counts; i++){
 		createBunny();
 	};
 };
+
+function FPSUpdateHandler(){
+	// gsap.ticker.fps(30);
+	gsap.ticker.fps(controller.FPS);
+}
+
+
 
 
 const bunnyContainer = new PIXI.Container();
@@ -49,6 +58,9 @@ window.onresize = function (event){
 onresize();
 
 app.ticker.stop();
+
+
+gsap.ticker.lagSmoothing(1000, 16);
 
 // Now, we use 'tick' from gsap
 gsap.ticker.add(() => {
