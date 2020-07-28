@@ -33,7 +33,7 @@ box3.x = 0;
 box3.y = 140;
 
 const boxGraphic = new PIXI.Graphics();
-boxGraphic.beginFill(0x999999);
+boxGraphic.beginFill(0xffffff);
 boxGraphic.moveTo(0, 0);
 boxGraphic.lineTo(300, 0);
 boxGraphic.lineTo(150, 220);
@@ -47,3 +47,5 @@ boxGraphic.addChild(box3);
 app.stage.addChild(boxGraphic);
 boxGraphic.x = 50;
 boxGraphic.y = 50;
+
+console.log("boxGraphic.children.length: ", boxGraphic.children.length);
