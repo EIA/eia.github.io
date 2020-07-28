@@ -19,3 +19,7 @@ bunny.on("pointerdown", (e)=>{
 bunny.on("pointerdown", (e)=>{
 	console.log('pointerdown2');
 });
+
+app.ticker.add((delta) => {
+    bunny.rotation += 0.1 * delta;
+});
