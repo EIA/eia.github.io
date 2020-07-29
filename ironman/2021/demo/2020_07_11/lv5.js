@@ -41,8 +41,7 @@ const textField = new PIXI.Text("", textFieldStyle);
 textField.x = 400;
 textField.y = 50;
 
-let text = `
-`;
+let text = ``;
 
 textField.text = text;
 app.stage.addChild(textField);
