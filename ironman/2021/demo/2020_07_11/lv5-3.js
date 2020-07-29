@@ -80,7 +80,7 @@ const gui = new dat.GUI();
 let leftTransparentGraphic = createBoard("graphicAlpha0", 300, 300, 0xdddddd, 1);
 leftTransparentGraphic.x = 10;
 leftTransparentGraphic.y = 10;
-leftTransparentGraphic.alpha = 0;
+leftTransparentGraphic.alpha = 1;
 app.stage.addChild(leftTransparentGraphic);
 
 leftTransparentGraphic.on("pointerdown", function(){
@@ -91,7 +91,7 @@ leftTransparentGraphic.interactive = true;
 leftTransparentGraphic.buttonMode = true;
 
 
-let rightTransparentGraphic = createBoard("graphicFillAlpha0", 300, 300, 0xdddddd, 0);
+let rightTransparentGraphic = createBoard("graphicFillAlpha0", 300, 300, 0xdddddd, 1);
 rightTransparentGraphic.x = 360;
 rightTransparentGraphic.y = 10;
 app.stage.addChild(rightTransparentGraphic);
