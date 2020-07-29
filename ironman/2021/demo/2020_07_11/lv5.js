@@ -79,3 +79,15 @@ mainBoardGUI.add(mainBoard, "visible");
 mainBoardGUI.add(mainBoard, "renderable");
 mainBoardGUI.add(mainBoard, "alpha", 0, 1, 0.01);
 mainBoardGUI.open();
+
+
+window.onresize = function (event){
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+
+  app.view.style.width = w + "px";
+  app.view.style.height = h + "px";
+  app.renderer.resize(w,h);
+};
+
+onresize();
