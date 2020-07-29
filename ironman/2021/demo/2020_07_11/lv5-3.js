@@ -30,12 +30,14 @@ function createBoard(boardName, w, h, color, alpha){
 
 	board.setGraphicFill = function(alpha){
 		board.fillAlpha = alpha;
-		console.log(`${boardName} clear & redraw: `, board.fillAlpha);
 		boardGraphics.clear();
 		boardGraphics.lineStyle(10, 0x0);
 		boardGraphics.beginFill(board.defaultColor, board.fillAlpha);
 		boardGraphics.drawRect(0, 0, board.defaultWidth, board.defaultHeight);
 		boardGraphics.endFill();
+	};
+	board.setTitle = function(title){
+		boardTextField.text = title;
 	};
 
 	board.fillAlpha = alpha;
@@ -77,46 +79,54 @@ function setMsg(msg){
 const gui = new dat.GUI();
 
 //////////// Init ////////////
-let leftTransparentGraphic = createBoard("graphicAlpha0", 300, 300, 0xdddddd, 1);
-leftTransparentGraphic.x = 10;
-leftTransparentGraphic.y = 10;
-leftTransparentGraphic.alpha = 1;
-app.stage.addChild(leftTransparentGraphic);
+let leftGraphic = createBoard("leftGraphic", 300, 300, 0xdddddd, 1);
+leftGraphic.x = 10;
+leftGraphic.y = 10;
+leftGraphic.alpha = 1;
+app.stage.addChild(leftGraphic);
 
-leftTransparentGraphic.on("pointerdown", function(){
-	setMsg("leftTransparentGraphic pointerdown");
+leftGraphic.on("pointerdown", function(){
+	setMsg("leftGraphic pointerdown");
 });
 
-leftTransparentGraphic.interactive = true;
-leftTransparentGraphic.buttonMode = true;
+leftGraphic.interactive = true;
+leftGraphic.buttonMode = true;
 
 
-let rightTransparentGraphic = createBoard("graphicFillAlpha0", 300, 300, 0xdddddd, 1);
-rightTransparentGraphic.x = 360;
-rightTransparentGraphic.y = 10;
-app.stage.addChild(rightTransparentGraphic);
+let rightGraphic = createBoard("rightGraphic", 300, 300, 0xdddddd, 1);
+rightGraphic.x = 360;
+rightGraphic.y = 10;
+app.stage.addChild(rightGraphic);
 
-rightTransparentGraphic.on("pointerdown", function(){
-	setMsg("rightTransparentGraphic pointerdown");
+rightGraphic.on("pointerdown", function(){
+	setMsg("rightGraphic pointerdown");
 });
 
-rightTransparentGraphic.interactive = true;
-rightTransparentGraphic.buttonMode = true;
+rightGraphic.interactive = true;
+rightGraphic.buttonMode = true;
 
 
 
 
 const leftGraphicGUI = gui.addFolder('LeftGraphicGUI');
-leftGraphicGUI.add(leftTransparentGraphic, "alpha", 0, 1, 0.1);
+leftGraphicGUI.add(leftGraphic, "alpha", 0, 1, 0.1).onChange(leftGraphicHandler);;
 leftGraphicGUI.open();
 
+function leftGraphicHandler(){
+	leftGraphic.setTitle(`alpha: ${leftGraphic.alpha.toFixed(1)}`);
+};
+leftGraphicHandler();
+
+
 const rightGraphicGUI = gui.addFolder('RightGraphicGUI');
-rightGraphicGUI.add(rightTransparentGraphic, "fillAlpha", 0, 1, 0.1).onChange(rightTransparentGraphicHandler);
+rightGraphicGUI.add(rightGraphic, "fillAlpha", 0, 1, 0.1).onChange(rightGraphicHandler);
 rightGraphicGUI.open();
 
-function rightTransparentGraphicHandler(){
-	rightTransparentGraphic.setGraphicFill(rightTransparentGraphic.fillAlpha);
-}
+function rightGraphicHandler(){
+	rightGraphic.setGraphicFill(rightGraphic.fillAlpha);
+	rightGraphic.setTitle(`fillAlpha: ${rightGraphic.fillAlpha.toFixed(1)}`);
+};
+rightGraphicHandler();
 
 window.onresize = function (event){
   var w = window.innerWidth;
