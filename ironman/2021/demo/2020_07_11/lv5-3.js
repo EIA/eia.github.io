@@ -88,6 +88,7 @@ leftTransparentGraphic.on("pointerdown", function(){
 });
 
 leftTransparentGraphic.interactive = true;
+leftTransparentGraphic.buttonMode = true;
 
 
 let rightTransparentGraphic = createBoard("graphicFillAlpha0", 300, 300, 0xdddddd, 0);
@@ -100,7 +101,7 @@ rightTransparentGraphic.on("pointerdown", function(){
 });
 
 rightTransparentGraphic.interactive = true;
-
+rightTransparentGraphic.buttonMode = true;
 
 
 
