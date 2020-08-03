@@ -1,6 +1,8 @@
 const app = new PIXI.Application({ backgroundColor: 0x1099bb });
 document.body.appendChild(app.view);
 
+app.stage.name = "stage";
+
 function createInteractiveSprite(){
 	const sprite = PIXI.Sprite.from('assets/basics/bunny.png');
 	sprite.buttonMode = true;
