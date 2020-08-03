@@ -39,12 +39,14 @@ app.stage.addChild(container);
 
 
 const sprite = createInteractiveSprite();
+sprite.x = 100;
 
 const graphic = createInteractiveGraphic();
 graphic.x = 100;
 
-container.addChild(sprite);
+
 container.addChild(graphic);
+container.addChild(sprite);
 
 
 const gui = new dat.GUI();
