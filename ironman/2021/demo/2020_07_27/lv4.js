@@ -66,19 +66,20 @@ function createBunny(){
 
 
 window.onresize = function (event){
-  var w = window.innerWidth;
-  var h = window.innerHeight;
+	var w = window.innerWidth;
+	var h = window.innerHeight;
 
-  app.view.style.width = w + "px";
-  app.view.style.height = h + "px";
-  app.renderer.resize(w,h);
+	app.view.style.width = w + "px";
+	app.view.style.height = h + "px";
+	app.renderer.resize(w,h);
 };
 onresize();
 
 
 app.ticker.add((delta) => {
-    stats.begin();
-    stats.end();
+	console.log("add", delta);
+	stats.begin();
+	stats.end();
 });
 
 
