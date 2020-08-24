@@ -21,7 +21,7 @@ function createGradTexture() {
     return PIXI.Texture.from(canvas);
 };
 
-const sprite = new PIXI.Sprite();
+const sprite = new PIXI.Sprite(createGradTexture());
 app.stage.addChild(sprite);
 sprite.x = app.screen.width * 0.5 - 50;
 sprite.y = app.screen.height * 0.5 - 50;
