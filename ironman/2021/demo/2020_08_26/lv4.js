@@ -3,7 +3,7 @@ document.body.appendChild(app.view);
 
 const loader = PIXI.Loader.shared;
 // loader.add('bunny', 'assets/basics/bunny.png');
-loader.add('bunnyJSON', 'bunny.json');
+loader.add('bunnyJSON', 'bunnies.json');
 
 loader.load((loader, resources) => {
 
