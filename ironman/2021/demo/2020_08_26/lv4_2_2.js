@@ -9,7 +9,7 @@ loader.add(
   {
     name: 'bunny',
     url: 'assets/basics/bunny.png',
-    onComplete:function(resources){console.log("1", resources)}
+    onComplete:function(resources){console.log("bunny onComplete", resources)}
   });
 // loader.add('bunniesJSON', 'bunnies.json');
 
@@ -17,7 +17,7 @@ loader.add(
   {
     name: 'bunniesJSON',
     url: 'bunnies.json',
-    onComplete:function(resources){console.log("2", resources)}
+    onComplete:function(resources){console.log("bunniesJSON onComplete", resources)}
   });
 
 loader.load((loader, resources) => {
