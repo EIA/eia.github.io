@@ -1,6 +1,8 @@
 const app = new PIXI.Application({ backgroundColor: 0x1099bb });
 document.body.appendChild(app.view);
 
+let animatedSprite;
+
 const loader = PIXI.Loader.shared;
 loader.add('bunny', 'assets/basics/bunny.png');
 loader.add('bunniesJSON', 'bunnies.json');
@@ -10,12 +12,19 @@ loader.load((loader, resources) => {
     console.log("loader: ", loader);
     console.log("resources: ", resources);
     console.log("resources.bunniesJSON: ", resources.bunniesJSON);
-    console.log("resources.bunniesJSON: ", resources.bunniesJSON.textures);
+    console.log("resources.bunniesJSON.textures: ", resources.bunniesJSON.textures);
+    console.log("resources.bunniesJSON.spritesheet: ", resources.bunniesJSON.spritesheet);
 
     console.log("PIXI.utils.TextureCache: ", PIXI.utils.TextureCache);
     console.log("PIXI.utils.BaseTextureCache: ", PIXI.utils.BaseTextureCache);
 
-    // const a1 =  new PIXI.TilingSprite(resources.bunny.texture);
-    const a1 =  new PIXI.TilingSprite(resources.bunniesJSON.textures['bunny2.png'], 300, 300);
-    app.stage.addChild(a1);
+
+	// let sheet = PIXI.Loader.shared.resources["assets/spritesheet.json"].spritesheet;
+  	// animatedSprite = new PIXI.AnimatedSprite(sheet.animations["image_sequence"]);
+
+  	animatedSprite = new PIXI.AnimatedSprite(resources.bunniesJSON.spritesheet.animations["bunny"]);
+  	app.stage.addChild(animatedSprite);
+
+  	animatedSprite.play();
+
 });

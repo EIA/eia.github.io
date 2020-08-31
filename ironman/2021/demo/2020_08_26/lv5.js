@@ -3,26 +3,26 @@ document.body.appendChild(app.view);
 
 const loader = PIXI.Loader.shared;
 // loader.add('bunny', 'assets/basics/bunny.png');
-loader.add('bunnyJSON', 'bunnies.json');
-// loader.add('bunnyJSON2', 'bunnies.json');
-// loader.add('bunnyJSONNoFrame', 'bunnies_noFrams.json');
+loader.add('bunniesJSON', 'bunnies.json');
+// loader.add('bunniesJSON2', 'bunnies.json');
+// loader.add('bunniesJSONNoFrame', 'bunnies_noFrams.json');
 
 loader.load((loader, resources) => {
 
     console.log("loader: ", loader);
     console.log("resources: ", resources);
     // console.log("resources.bunny: ", resources.bunny);
-    console.log("resources.bunnyJSON: ", resources.bunnyJSON);
-    // console.log("resources.bunnyJSONNoFrame: ", resources.bunnyJSONNoFrame);
+    console.log("resources.bunniesJSON: ", resources.bunniesJSON);
+    // console.log("resources.bunniesJSONNoFrame: ", resources.bunniesJSONNoFrame);
     
     // console.log("------");
-    // console.log("resources.bunnyJSON instanceof PIXI.resources.Resource: ", resources.bunnyJSON instanceof PIXI.resources.Resource);
-    // console.log("resources.bunnyJSON.type: ", resources.bunnyJSON.type);
-    // console.log("resources.bunnyJSON.type === PIXI.LoaderResource.TYPE.JSON", resources.bunnyJSON.type === PIXI.LoaderResource.TYPE.JSON);
+    // console.log("resources.bunniesJSON instanceof PIXI.resources.Resource: ", resources.bunniesJSON instanceof PIXI.resources.Resource);
+    // console.log("resources.bunniesJSON.type: ", resources.bunniesJSON.type);
+    // console.log("resources.bunniesJSON.type === PIXI.LoaderResource.TYPE.JSON", resources.bunniesJSON.type === PIXI.LoaderResource.TYPE.JSON);
 
     // console.log("------");
-    // console.log("resources.bunnyJSONNoFrame instanceof PIXI.resources.Resource: ", resources.bunnyJSONNoFrame instanceof PIXI.resources.Resource);
-    // console.log("resources.bunnyJSONNoFrame.type: ", resources.bunnyJSONNoFrame.type);
-    // console.log("resources.bunnyJSONNoFrame.type === PIXI.LoaderResource.TYPE.JSON", resources.bunnyJSONNoFrame.type === PIXI.LoaderResource.TYPE.JSON);
+    // console.log("resources.bunniesJSONNoFrame instanceof PIXI.resources.Resource: ", resources.bunniesJSONNoFrame instanceof PIXI.resources.Resource);
+    // console.log("resources.bunniesJSONNoFrame.type: ", resources.bunniesJSONNoFrame.type);
+    // console.log("resources.bunniesJSONNoFrame.type === PIXI.LoaderResource.TYPE.JSON", resources.bunniesJSONNoFrame.type === PIXI.LoaderResource.TYPE.JSON);
 
 });
