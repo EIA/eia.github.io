@@ -23,6 +23,7 @@ loader.load((loader, resources) => {
   	// animatedSprite = new PIXI.AnimatedSprite(sheet.animations["image_sequence"]);
 
   	animatedSprite = new PIXI.AnimatedSprite(resources.bunniesJSON.spritesheet.animations["bunny"]);
+    animatedSprite.animationSpeed = 0.05;
   	app.stage.addChild(animatedSprite);
 
   	animatedSprite.play();
