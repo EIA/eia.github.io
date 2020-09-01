@@ -9,8 +9,5 @@ const bunny = PIXI.Sprite.from('assets/basics/bunny.png');
 container.addChild(bunny);
 
 setTimeout(function(){
-	container.width *= 1.5;
+	container.scale.x = 1.5;
 }, 1000);
-
-
-// container.scale.x = 1.5;
