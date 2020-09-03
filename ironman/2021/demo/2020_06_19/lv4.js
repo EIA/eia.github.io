@@ -1,6 +1,6 @@
 const app = new PIXI.Application({ backgroundColor: 0x1099bb });
 document.body.appendChild(app.view);
-
+app.stage.name = "stage";
 
 function createContainer(name){
 	const container = new PIXI.Graphics();
