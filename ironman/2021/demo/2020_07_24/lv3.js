@@ -7,7 +7,7 @@ bunnyLeft.x = app.screen.width / 2 - 100;
 bunnyLeft.y = app.screen.height / 2;
 
 const bunnyRight = PIXI.Sprite.from('assets/basics/bunny.png');
-bunnyRight.pivot.set(13, 18.5);
+bunnyRight.pivot.set(26 * 0.5, 37 * 0.5);
 bunnyRight.x = app.screen.width / 2 + 100;
 bunnyRight.y = app.screen.height / 2;
 
