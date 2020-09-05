@@ -7,3 +7,9 @@ bunny.x = app.screen.width / 2;
 bunny.y = app.screen.height / 2;
 
 app.stage.addChild(bunny);
+
+// -- DEMO for REMOVE --
+// app.stage.removeChild(bunny);
+// bunny = undefined;
+// console.log('PIXI.utils.TextureCache: ', PIXI.utils.TextureCache);
+// console.log('PIXI.utils.TextureCache: ', PIXI.utils.BaseTextureCache);
