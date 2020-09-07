@@ -1,4 +1,4 @@
-const app = new PIXI.Application({ backgroundColor: 0x1099bb });
+const app = new PIXI.Application({ width: 300, height: 250, backgroundColor: 0x1099bb });
 document.body.appendChild(app.view);
 
 const bunny = PIXI.Sprite.from('assets/basics/bunny.png');
@@ -11,6 +11,7 @@ bunny.y = app.screen.height / 2;
 app.stage.addChild(bunny);
 
 bunny.interactive = true;
+bunny.buttonMode = true;
 
 bunny.on("pointerdown", (e)=>{
 	console.log('pointerdown1');
@@ -18,8 +19,4 @@ bunny.on("pointerdown", (e)=>{
 
 bunny.on("pointerdown", (e)=>{
 	console.log('pointerdown2');
-});
-
-app.ticker.add((delta) => {
-    bunny.rotation += 0.1 * delta;
 });
