@@ -30,5 +30,5 @@ bunny.on("click", ()=>{
 });
 
 bunny.on("pointermove", ()=>{
-	console.log('pv');
+	console.log('pointermove');
 });
