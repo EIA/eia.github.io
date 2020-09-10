@@ -14,24 +14,24 @@ bunny.y = app.screen.height / 2;
 app.stage.addChild(bunny);
 
 
-const hitArea = new PIXI.Graphics();
-hitArea.name = 'hitArea';
-hitArea.interactive = true
-hitArea.buttonMode = true;
-hitArea.beginFill(0x0);
-hitArea.alpha = 0.3;
-hitArea.drawRect(0, 0, app.screen.width, app.screen.width);
-hitArea.endFill();
-app.stage.addChild(hitArea);
-hitArea.visible = false;
+const popup = new PIXI.Graphics();
+popup.name = 'popup';
+popup.interactive = true
+popup.buttonMode = true;
+popup.beginFill(0x0);
+popup.alpha = 0.3;
+popup.drawRect(0, 0, app.screen.width, app.screen.width);
+popup.endFill();
+app.stage.addChild(popup);
+popup.visible = false;
 
 
 bunny.on('pointerup', ()=>{
 	console.log("hit: bunny, openPopup");
-	hitArea.visible = true;
+	popup.visible = true;
 });
 
-hitArea.on('pointerup', ()=>{
-	console.log("hit: hitArea, closePopup");
-	hitArea.visible = false;
+popup.on('pointerup', ()=>{
+	console.log("hit: popup, closePopup");
+	popup.visible = false;
 });
