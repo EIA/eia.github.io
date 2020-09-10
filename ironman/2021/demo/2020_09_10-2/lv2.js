@@ -1,4 +1,4 @@
-const app = new PIXI.Application({ backgroundColor: 0x1099bb });
+const app = new PIXI.Application({ width:300, height: 250, backgroundColor: 0x1099bb });
 document.body.appendChild(app.view);
 app.stage.name = 'stage';
 
