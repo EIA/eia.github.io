@@ -56,18 +56,6 @@ function createBoard(boardName, w, h, color, alpha){
 
 const gui = new dat.GUI();
 
-//////////// stageBoard ////////////
-let stageBoard = createBoard("StageBoard", 700, 500, 0xdddddd, 1);
-stageBoard.x = 50;
-stageBoard.y = 50;
-app.stage.addChild(stageBoard);
-
-stageBoard.on("pointerdown", function(){
-	stageBoard.setMsg("pointerdown");
-});
-
-stageBoard.interactive = true;
-
 
 
 
@@ -81,6 +69,7 @@ app.stage.addChild(subBoard);
 
 subBoard.on("pointerdown", function(){
 	subBoard.setMsg("pointerdown");
+	console.log("subBoard pointerdown");
 });
 
 subBoard.interactive = true;
@@ -96,6 +85,7 @@ subBoard.addChild(subBoardChild);
 
 subBoardChild.on("pointerdown", function(){
 	subBoardChild.setMsg("pointerdown");
+	console.log("subBoardChild pointerdown");
 });
 
 subBoardChild.interactive = true;
@@ -103,33 +93,21 @@ subBoardChild.interactive = true;
 
 
 //////////// GUI Setting ////////////
-const stageBoardGUI = gui.addFolder('StageBoard');
-stageBoardGUI.add(stageBoard, "interactive");
-stageBoardGUI.add(stageBoard, "interactiveChildren");
-stageBoardGUI.add(stageBoard, "visible");
-stageBoardGUI.add(stageBoard, "renderable");
-stageBoardGUI.add(stageBoard, "alpha", 0, 1, 0.01);
-stageBoardGUI.open();
 
 const subBoardGUI = gui.addFolder('SubBoard');
 subBoardGUI.add(subBoard, "interactive");
-subBoardGUI.add(stageBoard, "interactiveChildren");
+subBoardGUI.add(subBoard, "interactiveChildren");
 subBoardGUI.add(subBoard, "visible");
 subBoardGUI.add(subBoard, "renderable");
 subBoardGUI.add(subBoard, "alpha", 0, 1, 0.01);
 subBoardGUI.open();
 
 const subBoardChildGUI = gui.addFolder('SubBoardChild');
-subBoardChildGUI.add(subBoard, "interactive");
-subBoardChildGUI.add(stageBoard, "interactiveChildren");
-subBoardChildGUI.add(subBoard, "visible");
-subBoardChildGUI.add(subBoard, "renderable");
-subBoardChildGUI.add(subBoard, "alpha", 0, 1, 0.01);
+subBoardChildGUI.add(subBoardChild, "interactive");
+subBoardChildGUI.add(subBoardChild, "interactiveChildren");
+subBoardChildGUI.add(subBoardChild, "visible");
+subBoardChildGUI.add(subBoardChild, "renderable");
+subBoardChildGUI.add(subBoardChild, "alpha", 0, 1, 0.01);
 subBoardChildGUI.open();
 
 
-
-
-app.stage.setChildIndex(subChildTextField, app.stage.children.length-1);
-app.stage.setChildIndex(subTextField, app.stage.children.length-1);
-app.stage.setChildIndex(mainTextField, app.stage.children.length-1);

@@ -71,9 +71,10 @@ mainBoard.on("pointerdown", function(){
 });
 
 mainBoard.interactive = true;
+mainBoard.buttonMode = true;
 
 const mainBoardGUI = gui.addFolder('MainBoard');
-mainBoardGUI.add(mainBoard, "interactive");
+// mainBoardGUI.add(mainBoard, "interactive");
 mainBoardGUI.add(mainBoard, "visible");
 mainBoardGUI.add(mainBoard, "renderable");
 mainBoardGUI.add(mainBoard, "alpha", 0, 1, 0.01);
