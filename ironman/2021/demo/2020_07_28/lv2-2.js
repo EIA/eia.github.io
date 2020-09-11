@@ -40,6 +40,7 @@ box3.x = 0;
 box3.y = 140;
 
 const testGraphic = new PIXI.Graphics();
+testGraphic.name = "testGraphic";
 testGraphic.beginFill(0xffffff);
 testGraphic.moveTo(0, 0);
 testGraphic.lineTo(300, 0);
