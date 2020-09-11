@@ -52,7 +52,7 @@ function createBoard(boardName, w, h, color, alpha){
 
 const textFieldStyle = {
 	fill: 0xffffff,
-	fontSize: 14,
+	fontSize: 14
 };
 
 const textField = new PIXI.Text("", textFieldStyle);
