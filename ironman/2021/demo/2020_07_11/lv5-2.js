@@ -52,12 +52,12 @@ function createBoard(boardName, w, h, color, alpha){
 
 const textFieldStyle = {
 	fill: 0xffffff,
-	fontSize: 14
+	fontSize: 14,
 };
 
 const textField = new PIXI.Text("", textFieldStyle);
-textField.x = 250;
-textField.y = 330;
+textField.x = 175;
+textField.y = 180;
 
 let text = ``;
 
@@ -70,7 +70,8 @@ function setMsg(msg){
 	text = msg;
 	console.log(text);
 	textField.text = text;
-	TweenMax.set(textField, {alpha:1});
+	const textFieldX = textField.width *-0.5 + 175;
+	TweenMax.set(textField, {alpha:1, x: textFieldX, y:180 });
 	TweenMax.to(textField, 1, {alpha:0, ease:Strong.easeIn});
 };
 
@@ -79,7 +80,7 @@ function setMsg(msg){
 const gui = new dat.GUI();
 
 //////////// Init ////////////
-let leftGraphic = createBoard("leftGraphic", 300, 300, 0xdddddd, 1);
+let leftGraphic = createBoard("leftGraphic", 150, 150, 0xdddddd, 1);
 leftGraphic.x = 10;
 leftGraphic.y = 10;
 leftGraphic.alpha = 1;
@@ -93,8 +94,8 @@ leftGraphic.interactive = true;
 leftGraphic.buttonMode = true;
 
 
-let rightGraphic = createBoard("rightGraphic", 300, 300, 0xdddddd, 1);
-rightGraphic.x = 360;
+let rightGraphic = createBoard("rightGraphic", 150, 150, 0xdddddd, 1);
+rightGraphic.x = 210;
 rightGraphic.y = 10;
 app.stage.addChild(rightGraphic);
 
