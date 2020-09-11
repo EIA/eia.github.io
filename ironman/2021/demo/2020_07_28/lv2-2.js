@@ -39,27 +39,27 @@ box2.y = 70;
 box3.x = 0;
 box3.y = 140;
 
-const boxGraphic = new PIXI.Graphics();
-boxGraphic.beginFill(0xffffff);
-boxGraphic.moveTo(0, 0);
-boxGraphic.lineTo(300, 0);
-boxGraphic.lineTo(150, 220);
-boxGraphic.lineTo(0, 0);
-boxGraphic.endFill();
+const testGraphic = new PIXI.Graphics();
+testGraphic.beginFill(0xffffff);
+testGraphic.moveTo(0, 0);
+testGraphic.lineTo(300, 0);
+testGraphic.lineTo(150, 220);
+testGraphic.lineTo(0, 0);
+testGraphic.endFill();
 
-boxGraphic.addChild(box1);
-boxGraphic.addChild(box2);
-boxGraphic.addChild(box3);
+testGraphic.addChild(box1);
+testGraphic.addChild(box2);
+testGraphic.addChild(box3);
 
-app.stage.addChild(boxGraphic);
-boxGraphic.x = 50;
-boxGraphic.y = 50;
+app.stage.addChild(testGraphic);
+testGraphic.x = 50;
+testGraphic.y = 50;
 
-boxGraphic.interactive = true;
-boxGraphic.buttonMode = true;
+testGraphic.interactive = true;
+testGraphic.buttonMode = true;
 
-boxGraphic.on("pointerdown", ()=>{
-	console.log(`boxGraphic pointerdown`);
+testGraphic.on("pointerdown", ()=>{
+	console.log(`testGraphic pointerdown`);
 });
 
-// console.log("boxGraphic.children.length: ", boxGraphic.children.length);
+// console.log("testGraphic.children.length: ", testGraphic.children.length);
