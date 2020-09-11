@@ -71,7 +71,7 @@ function setMsg(msg){
 	console.log(text);
 	textField.text = text;
 	const textFieldX = textField.width *-0.5 + 175;
-	TweenMax.set(textField, {alpha:1, x: textFieldX});
+	TweenMax.set(textField, {alpha:1, x: textFieldX, y:180 });
 	TweenMax.to(textField, 1, {alpha:0, ease:Strong.easeIn});
 };
 
