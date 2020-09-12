@@ -66,5 +66,12 @@ testGraphic.on("pointerdown", ()=>{
 // console.log("testGraphic.children.length: ", testGraphic.children.length);
 
 const gui = new dat.GUI();
-gui.add(testGraphic, "interactive");
-gui.add(testGraphic, "interactiveChildren");
+gui.add(testGraphic, "interactive").onChange(function(){
+	console.log('testGraphic.interactive: ', testGraphic.interactive);
+});
+gui.add(testGraphic, "interactiveChildren").onChange(function(){
+	console.log('testGraphic.interactiveChildren: ', testGraphic.interactiveChildren);
+});
+
+console.log('testGraphic.interactive: ', testGraphic.interactive);
+console.log('testGraphic.interactiveChildren: ', testGraphic.interactiveChildren);
