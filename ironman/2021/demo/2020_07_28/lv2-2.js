@@ -64,3 +64,7 @@ testGraphic.on("pointerdown", ()=>{
 });
 
 // console.log("testGraphic.children.length: ", testGraphic.children.length);
+
+const gui = new dat.GUI();
+gui.add(testGraphic, "interactive");
+gui.add(testGraphic, "interactiveChildren");
