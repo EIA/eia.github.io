@@ -25,3 +25,10 @@ line.lineTo(app.screen.width * .5, app.screen.height);
 line.moveTo(0, app.screen.height * .5);
 line.lineTo(app.screen.width, app.screen.height * .5);
 app.stage.addChild(line);
+
+const testGraphic = new PIXI.Graphics();
+testGraphic.name = 'testGraphic';
+testGraphic.beginFill(0xff0000, .5);
+testGraphic.drawRect(0, 0, 10, 10);
+testGraphic.endFill();
+bunny.addChild(testGraphic);
