@@ -15,8 +15,8 @@ app.stage.addChild(hitBox);
 hitBox.x = app.screen.width / 2;
 hitBox.y = app.screen.height / 2;
 
-hitBox.on('pointermove', onDragMove);
-function onDragMove() {
+hitBox.on('pointermove', onPointerMove);
+function onPointerMove() {
     console.log('pointermove');
 };
 
