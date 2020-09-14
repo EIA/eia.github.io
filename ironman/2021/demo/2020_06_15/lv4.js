@@ -22,8 +22,7 @@ btn.on('pointerdown', function(){
 	btn.pressTime = 0;
 	btn.isHold = false;
 	btn.interval = setInterval(function(){ 
-		const upDate = new Date();
-		btn.pressTime = upDate.getTime() - btn.startPressTime.getTime();
+		
 		if(btn.pressTime >= 300 && btn.isHold === false){
 			btn.isHold = true;
 			msg += `btn.isHold: ${btn.isHold}</br>`;
@@ -36,6 +35,8 @@ btn.on('pointerdown', function(){
 	output();
 });
 btn.on('pointermove', function(e){
+	const upDate = new Date();
+	btn.pressTime = upDate.getTime() - btn.startPressTime.getTime();
 	const point = e.data.global;
 	msg += `pointermove: time: ${btn.pressTime} {x:${point.x.toFixed(2)}, y:${point.y.toFixed(2)}}</br>`;
 	output();
