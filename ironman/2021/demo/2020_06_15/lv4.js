@@ -35,6 +35,7 @@ btn.on('pointerdown', function(){
 	output();
 });
 btn.on('pointermove', function(e){
+	if(!btn.interval) { return };
 	const upDate = new Date();
 	btn.pressTime = upDate.getTime() - btn.startPressTime.getTime();
 	const point = e.data.global;
