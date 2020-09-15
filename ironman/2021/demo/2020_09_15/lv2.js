@@ -14,10 +14,11 @@ bunny.buttonMode = true;
 
 bunny.on('pointerdown', (e)=>{
 	console.log('pointerdown');
-	console.log(e);
+	// console.log(e);
 	console.log(e.data.originalEvent);
 	console.log(e.data.originalEvent.constructor);
 });
+
 
 
 window.onresize = function (event){

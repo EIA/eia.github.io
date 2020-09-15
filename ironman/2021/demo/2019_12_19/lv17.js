@@ -7,7 +7,10 @@ const container = new PIXI.Container();
 container.name = "boxContainer";
 app.stage.addChild(container);
 
-const BOX_WH = 120;
+const isPhone = PIXI.utils.isMobile.phone;
+
+const BOX_WH = isPhone ? 40 : 120;
+const BUNNY_SCALE = isPhone ? 1 : 3;
 const SPACE = BOX_WH * .1;
 
 const LINE1_COUNT = 5;
@@ -38,9 +41,9 @@ function createAllBox(){
 
     const bunny = PIXI.Sprite.from("assets/basics/bunny.png");
     bunny.anchor.set(.5);
-    bunny.scale.set(3);
-    bunny.defaultY = BOX_WH * -.5 + 18;
-    bunny.hoverY = BOX_WH * -.5 - 30;
+    bunny.scale.set(BUNNY_SCALE);
+    bunny.defaultY = BOX_WH * -.5 + BOX_WH * 0.15;
+    bunny.hoverY = BOX_WH * -.5 - BOX_WH * 0.25;
     boxContainer.addChildAt(bunny, 0);
     bunny.y = bunny.defaultY;
 
