@@ -27,4 +27,12 @@ const richText = new PIXI.Text(text, style);
 richText.x = 50;
 richText.y = 150;
 
+const testGraphics = new PIXI.Graphics();
+app.stage.addChild(testGraphics);
+
+testGraphics.beginFill(0xffffff, .3);
+testGraphics.drawRect(0, 0, 440, 300);
+testGraphics.endFill();
+testGraphics.position = richText.position;
+
 app.stage.addChild(richText);
