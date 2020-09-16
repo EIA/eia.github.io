@@ -7,7 +7,7 @@ let text = `國了兩聯球後，目下生到，地笑西重你種人三國經�
 之麼福小式，麼是於業來排種則是存場以不衣可音人。`;
 
 const style = new PIXI.TextStyle({
-    
+    fontSize: 18,
     fill: ['#000'],
     wordWrap: true,
     wordWrapWidth: 440,
