@@ -1,4 +1,4 @@
-const app = new PIXI.Application({ backgroundColor: 0xeeeeee });
+const app = new PIXI.Application({ backgroundColor: 0xffffff });
 document.body.appendChild(app.view);
 
 /*
@@ -25,7 +25,7 @@ const style = new PIXI.TextStyle({
 });
 
 const richText = new PIXI.Text(text, style);
-richText.x = 50;
+richText.x = 100;
 richText.y = 100;
 
 app.stage.addChild(richText);
@@ -60,3 +60,15 @@ function setStrokeAndGraphics(){
 	stroke.x = richText.x - 10;
 	stroke.y = richText.y - 10;
 };
+
+
+window.onresize = function (event){
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+
+  app.view.style.width = w + "px";
+  app.view.style.height = h + "px";
+  app.renderer.resize(w,h);
+};
+
+onresize();
