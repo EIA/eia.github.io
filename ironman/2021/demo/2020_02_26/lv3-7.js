@@ -3,6 +3,7 @@ document.body.appendChild(app.view);
 
 const BAR_WIDTH = 100;
 const BAR_HEIGHT = 160;
+const BAR_ROUND = 40;
 
 const bar = new PIXI.Container();
 const barGray = new PIXI.Graphics();
@@ -29,6 +30,16 @@ bar.y = 300;
 
 
 function updateRedBar(barHeight){
+
+	let round;
+
+	if(barHeight >= BAR_ROUND * 2 ){
+		round = BAR_ROUND;
+	}else{
+		round = Math.abs(barHeight * 0.5);
+	}
+
+
 	// console.log('updateRedBar: ', barHeight)
 	barRed.clear();
 	barRed.beginFill(0xFF2F2F);
@@ -37,7 +48,7 @@ function updateRedBar(barHeight){
 		0, // y
 		BAR_WIDTH, // 寬
 		barHeight, // 高
-		40 // 圓角
+		round // 圓角
 	);
 	barRed.endFill();
 }
