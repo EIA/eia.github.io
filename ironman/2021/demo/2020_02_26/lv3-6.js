@@ -73,7 +73,7 @@ window.onresize = function (event){
 
 onresize();
 
-TweenMax.to(controller, 4, {barHeight: -160, repeat: -1, yoyo:true, ease:Linear.easeNone, onUpdate:()=>{
-		saleChangeHandler();
-	}
-});
+// TweenMax.to(controller, 4, {barHeight: -160, repeat: -1, yoyo:true, ease:Linear.easeNone, onUpdate:()=>{
+// 		saleChangeHandler();
+// 	}
+// });
