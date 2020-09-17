@@ -37,8 +37,11 @@ function updateRedBar(barHeight){
 		round = BAR_ROUND;
 	}else{
 		round = Math.abs(barHeight * 0.5);
-	}
+	};
 
+	if(barHeight <= 0){
+		round = 0;
+	};
 
 	// console.log('updateRedBar: ', barHeight)
 	barRed.clear();
@@ -51,7 +54,7 @@ function updateRedBar(barHeight){
 		round // 圓角
 	);
 	barRed.endFill();
-}
+};
 
 updateRedBar(160);
 
