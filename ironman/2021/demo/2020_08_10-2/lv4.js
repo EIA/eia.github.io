@@ -41,14 +41,3 @@ svg2.y = 250;
 svg2.scale.x = 2;
 svg2.scale.y = 2;
 app.stage.addChild(svg2);
-
-window.onresize = function (event){
-  var w = window.innerWidth;
-  var h = window.innerHeight;
-
-  app.view.style.width = w + "px";
-  app.view.style.height = h + "px";
-  app.renderer.resize(w,h);
-};
-
-onresize();

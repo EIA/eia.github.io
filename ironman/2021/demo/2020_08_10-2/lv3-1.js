@@ -29,18 +29,6 @@ testText3.y = 250;
 app.stage.addChild(testText3);
 
 
-// -----
-const svg1 = PIXI.Sprite.from('control.svg');
-svg1.x = 400;
-svg1.y = 50;
-app.stage.addChild(svg1);
-
-const svg2 = PIXI.Sprite.from('control.svg');
-svg2.x = 400;
-svg2.y = 250;
-svg2.scale.x = 2;
-svg2.scale.y = 2;
-app.stage.addChild(svg2);
 
 window.onresize = function (event){
   var w = window.innerWidth;
