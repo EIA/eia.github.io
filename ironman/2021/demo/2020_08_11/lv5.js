@@ -35,17 +35,17 @@ onresize();
 var gui = new dat.GUI();
 
 var effectController = {
-	// FillColor: [ 255, 255, 255 ]
-	FillColor: 0xffffff,
+	// TintColor: [ 255, 255, 255 ]
+	TintColor: 0xffffff,
 	BackgroundColor: 0x1099bb
 };
 gui.addColor(effectController, 'BackgroundColor').onChange( backgroundColorChangeHandler );
-gui.addColor(effectController, 'FillColor').onChange( tintChangeHandler ).listen();
+gui.addColor(effectController, 'TintColor').onChange( tintChangeHandler ).listen();
 
 function backgroundColorChangeHandler(){
 	app.renderer.backgroundColor = effectController.BackgroundColor;
 };
 
 function tintChangeHandler(){
-	originGraphic.tint = effectController.FillColor;
+	originGraphic.tint = effectController.TintColor;
 };
