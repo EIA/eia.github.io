@@ -100,3 +100,14 @@ app.stage.addChild(mask2_3);
 mask2_3.x = 300;
 mask2_3.y = 300;
 gradTexture2_3.mask = mask2_3;
+
+window.onresize = function (event){
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+
+  app.view.style.width = w + "px";
+  app.view.style.height = h + "px";
+  app.renderer.resize(w,h);
+};
+
+onresize();
