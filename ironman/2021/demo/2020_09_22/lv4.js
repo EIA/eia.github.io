@@ -82,7 +82,6 @@ function onDragMove() {
     }
 }
 
-
 window.onresize = function (event){
   var w = window.innerWidth;
   var h = window.innerHeight;
