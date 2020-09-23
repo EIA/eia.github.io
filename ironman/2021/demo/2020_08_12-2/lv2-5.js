@@ -23,10 +23,21 @@ function createGradTexture() {
 
 const sprite = new PIXI.Sprite(createGradTexture());
 app.stage.addChild(sprite);
-sprite.x = app.screen.width * 0.5 - 50;
-sprite.y = app.screen.height * 0.5 - 50;
+sprite.x = app.screen.width * 0.5;
+sprite.y = app.screen.height * 0.5;
 
 setInterval(()=>{
     sprite.texture = createGradTexture();
 }, 1000);
 
+window.onresize = function (event){
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+
+  app.view.style.width = w + "px";
+  app.view.style.height = h + "px";
+  app.renderer.resize(w,h);
+
+  sprite.x = app.screen.width * 0.5;
+  sprite.y = app.screen.height * 0.5;
+};
