@@ -2,7 +2,7 @@ const app = new PIXI.Application({ backgroundColor: 0x1099bb });
 document.body.appendChild(app.view);
 
 
-if (window.confirm("Memory Leak Demo")) { 
+if (window.confirm("Crash Demo")) { 
 }else{
     window.history.go(-1);
 }
