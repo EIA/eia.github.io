@@ -10,7 +10,7 @@ loader.add(
   {
     name: 'bunny',
     url: 'assets/basics/bunny.png',
-    onComplete:function(resources){console.log("bunny onComplete", resources)}
+    // onComplete:function(resources){console.log("bunny onComplete", resources)}
   });
 // loader.add('bunniesJSON', 'bunnies.json');
 
@@ -18,9 +18,27 @@ loader.add(
   {
     name: 'bunniesJSON',
     url: 'bunnies.json',
-    onComplete:function(resources){console.log("bunniesJSON onComplete", resources)}
+    // onComplete:function(resources){console.log("bunniesJSON onComplete", resources)}
   });
 
+loader.onStart.add((loader, resource) => {
+    console.log("onStart: ", loader, resource)
+}); // Called when a resource starts loading.
+loader.onError.add((loader, resource) => {
+            console.log("onError: ", loader, resource)
+}); // Called when a resource fails to load.
+loader.onLoad.add((loader, resource) => {
+            console.log("onLoad: ", loader, resource)
+}); // Called when a resource successfully loads.
+loader.onProgress.add((loader, resource) => {
+            console.log("onProgress: ", loader, resource)
+}); // Called when a resource finishes loading (success or fail).
+loader.onComplete.add((loader, resource) => {
+            console.log("onComplete: ", loader, resource)
+})
+
+loader.load();
+/*
 loader.load((loader, resources) => {
 
     console.log("loader: ", loader);
@@ -43,3 +61,4 @@ loader.load((loader, resources) => {
   	animatedSprite.play();
 
 });
+*/
