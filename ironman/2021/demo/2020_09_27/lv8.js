@@ -15,10 +15,8 @@ function createAnimatedBunny() {
         // console.log(animateBunny);
         animateBunny.animationSpeed = 0.05;
         animateBunny.play();
-        // animateBunny.x = Math.random() * app.screen.width;
-        // animateBunny.y = Math.random() * app.screen.height;
-        animateBunny.x = 100;
-        animateBunny.y = 100;
+        animateBunny.x = Math.random() * app.screen.width;
+        animateBunny.y = Math.random() * app.screen.height;
         app.stage.addChild(animateBunny);
     });
 };
