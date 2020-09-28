@@ -1,4 +1,9 @@
-const app = new PIXI.Application({ width: 300, height:300, backgroundColor: 0x1099bb });
+const app = new PIXI.Application({
+    width: 300,
+    height: 300,
+    backgroundColor: 0x1099bb,
+    resolution: window.devicePixelRatio
+});
 document.getElementById("pixiContainer").appendChild(app.view);
 
 
