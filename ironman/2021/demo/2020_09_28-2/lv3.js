@@ -1,5 +1,5 @@
 const app = new PIXI.Application({ width: 300, height:300, backgroundColor: 0x1099bb });
-document.body.appendChild(app.view);
+document.getElementById("pixiContainer").appendChild(app.view);
 
 
 const resolution = PIXI.settings.RESOLUTION;
@@ -10,6 +10,9 @@ console.log('resolution: ', resolution);
 console.log('filterResolution: ', filterResolution);
 console.log('rendererResolution: ', rendererResolution);
 
+document.getElementById("resolution").innerText = "resolution: " + resolution;
+document.getElementById("filterResolution").innerText = "filterResolution: " + filterResolution;
+document.getElementById("rendererResolution").innerText = "rendererResolution: " + rendererResolution;
 
 const testPic = PIXI.Sprite.from('test.png');
 
@@ -36,4 +39,4 @@ window.onresize = function (event) {
 onresize();
 */
 
-alert("1421");
+alert("1433");

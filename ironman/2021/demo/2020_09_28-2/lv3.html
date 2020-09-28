@@ -12,13 +12,24 @@
 
 
 	<style>
+		@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
 		html, body{
 			margin: 0;
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', Tahoma, Verdana, Arial, Helvetica, sans-serif; /*
+            'Noto Sans TC', */
+            font-weight: 300;
 		}
+        .outputMsg{
+            margin-left: 1em;
+        }
 	</style>
 	
 </head>
 <body>
+    <div id="pixiContainer"></div>
+    <div id="resolution" class="outputMsg">100</div>
+    <div id="filterResolution" class="outputMsg">100</div>
+    <div id="rendererResolution" class="outputMsg">100</div>
 	<script src="lv3.js"></script>
 </body>
 </html>
