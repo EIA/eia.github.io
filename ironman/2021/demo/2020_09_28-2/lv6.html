@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>lv5</title>
+
+	<style>
+		html, body{
+			margin: 0;
+		}
+		canvas{
+			display: block;
+			margin: 5px;
+		}
+		#saveImgButton{
+			display: block;
+			width: 190px;
+			height: 15px;
+			margin: 5px;
+			background-color: #000;
+			color: #fff;
+			text-align: center;
+			padding: 5px;
+			line-height: 15px;
+			cursor: pointer;
+		}
+		.outputMsg{
+			width: 200px;
+			text-align: center;
+			margin: 5px;
+			font-size: 14px;
+			border: solid 1px #eee;
+		}
+	</style>
+	
+</head>
+<body>
+	<canvas id="testCanvas" width="200" height="200" style="border:1px solid"></canvas>
+	<div id="windowDevicePixelRatio" class="outputMsg"></div>
+	<a id="saveImgButton" onclick="saveImg()" download="my-file-name.png">Save Image</a>
+	<script>
+		const button = document.getElementById("saveImgButton");
+
+		const canvas = document.getElementById("testCanvas");
+		const ctx = canvas.getContext("2d");
+
+		ctx.fillStyle = "green";
+		ctx.fillRect(0, 0, 200, 200);
+
+		function saveImg(){
+
+			const dataURL = canvas.toDataURL('image/png');
+    		button.href = dataURL;
+		}
+
+		document.getElementById("windowDevicePixelRatio").innerText = "window.devicePixelRatio: " + window.devicePixelRatio;
+	</script>
+</body>
+</html>
