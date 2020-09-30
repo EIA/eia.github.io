@@ -20,6 +20,12 @@ document.getElementById("resolution").innerText = resolution;
 document.getElementById("filterResolution").innerText = filterResolution;
 document.getElementById("rendererResolution").innerText = rendererResolution;
 
+const bd = new PIXI.Graphics();
+bd.beginFill(0xffffff);
+bd.drawRect(0, 0, 300, 300);
+bd.endFill();
+bd.alpha = 0;
+app.stage.addChild(bd);
 const testPic = PIXI.Sprite.from('test_100x100.png');
 
 testPic.anchor.set(0.5);
@@ -44,3 +50,14 @@ window.onresize = function (event) {
 
 onresize();
 */
+
+function saveImg() {
+    app.renderer.extract.canvas(app.stage).toBlob((b) => {
+        const a = document.createElement('a');
+        document.body.append(a);
+        a.download = 'save_src-100x100';
+        a.href = URL.createObjectURL(b);
+        a.click();
+        a.remove();
+    }, 'image/png');
+};

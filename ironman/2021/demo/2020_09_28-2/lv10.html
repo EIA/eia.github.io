@@ -25,6 +25,18 @@
         .height-light{
             font-weight: 700;
         }
+		#saveImgButton{
+            display: block;
+            width: 190px;
+            height: 15px;
+            margin: 5px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            line-height: 15px;
+            cursor: pointer;
+		}
 	</style>
 	
 </head>
@@ -42,6 +54,7 @@
     <div class="outputMsg">
         rendererResolution: <span id="rendererResolution" class="height-light"></span>
     </div>
+    <a id="saveImgButton" onclick="saveImg()">Save Image</a>
 	<script src="lv10.js"></script>
 </body>
 </html>
