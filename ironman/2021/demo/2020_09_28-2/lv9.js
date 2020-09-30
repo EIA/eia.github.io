@@ -13,11 +13,11 @@ const filterResolution = PIXI.settings.FILTER_RESOLUTION;
 const rendererResolution = app.renderer.resolution;
 
 console.log('resolution: ', resolution);
-console.log('filterResolution: ', filterResolution);
+// console.log('filterResolution: ', filterResolution);
 console.log('rendererResolution: ', rendererResolution);
 
 document.getElementById("resolution").innerText = resolution;
-document.getElementById("filterResolution").innerText = filterResolution;
+// document.getElementById("filterResolution").innerText = filterResolution;
 document.getElementById("rendererResolution").innerText = rendererResolution;
 
 const bd = new PIXI.Graphics();
