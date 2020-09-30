@@ -16,9 +16,9 @@ console.log('resolution: ', resolution);
 console.log('filterResolution: ', filterResolution);
 console.log('rendererResolution: ', rendererResolution);
 
-document.getElementById("resolution").innerText = "resolution: " + resolution;
-document.getElementById("filterResolution").innerText = "filterResolution: " + filterResolution;
-document.getElementById("rendererResolution").innerText = "rendererResolution: " + rendererResolution;
+document.getElementById("resolution").innerText = resolution;
+document.getElementById("filterResolution").innerText = filterResolution;
+document.getElementById("rendererResolution").innerText = rendererResolution;
 
 const testPic = PIXI.Sprite.from('test_100x100.png');
 

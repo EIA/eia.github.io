@@ -20,16 +20,28 @@
             font-weight: 300;
 		}
         .outputMsg{
-            margin-left: 1em;
+        margin-left: 1em;
+        }
+        .height-light{
+          font-weight: 700;
         }
 	</style>
 	
 </head>
 <body>
     <div id="pixiContainer"></div>
-    <div id="resolution" class="outputMsg">100</div>
-    <div id="filterResolution" class="outputMsg">100</div>
-    <div id="rendererResolution" class="outputMsg">100</div>
+    <div class="outputMsg">
+        PNG: <span class="height-light">100</span> x <span class="height-light">100</span>
+    </div>
+    <div class="outputMsg">
+        resolution: <span id="resolution" class="height-light"></span>
+    </div>
+    <div class="outputMsg">
+        filterResolution: <span id="filterResolution" class="height-light"></span>
+    </div>
+    <div class="outputMsg">
+        rendererResolution: <span id="rendererResolution" class="height-light"></span>
+    </div>
 	<script src="lv9.js"></script>
 </body>
 </html>
