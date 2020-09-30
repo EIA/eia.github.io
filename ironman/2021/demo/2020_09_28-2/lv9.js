@@ -21,11 +21,18 @@ document.getElementById("filterResolution").innerText = filterResolution;
 document.getElementById("rendererResolution").innerText = rendererResolution;
 
 const bd = new PIXI.Graphics();
-bd.beginFill(0xffffff);
+bd.beginFill(0x1099bb);
 bd.drawRect(0, 0, 300, 300);
 bd.endFill();
-bd.alpha = 0;
 app.stage.addChild(bd);
+
+const msg = new PIXI.Text('100x100', {
+    fontSize: 12
+});
+msg.x = 5;
+msg.y = 5;
+app.stage.addChild(msg);
+
 const testPic = PIXI.Sprite.from('test_100x100.png');
 
 testPic.anchor.set(0.5);
