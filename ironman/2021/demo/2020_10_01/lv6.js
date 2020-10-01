@@ -9,6 +9,7 @@ document.getElementById("pixiContainer").appendChild(app.view);
 
 
 console.log('PIXI.settings.FILTER_RESOLUTION: ', PIXI.settings.FILTER_RESOLUTION);
+console.log('- 更改 PIXI.settings.FILTER_RESOLUTION 為：', window.devicePixelRatio);
 PIXI.settings.FILTER_RESOLUTION = window.devicePixelRatio;
 console.log('PIXI.settings.FILTER_RESOLUTION: ', PIXI.settings.FILTER_RESOLUTION);
 
@@ -32,7 +33,8 @@ testPic.scale.x = testPic.scale.y = 0.5;
 
 app.stage.addChild(testPic);
 
-const glowFilter = new PIXI.filters.GlowFilter(1, 0, 0);
+console.log("- 建立 GlowFilter 實體");
+const glowFilter = new PIXI.filters.GlowFilter(16);
 glowFilter.padding = 20;
 
 testPic.filters = [glowFilter];

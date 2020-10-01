@@ -41,3 +41,5 @@ glowFilter.padding = 20;
 glowFilter.resolution = window.devicePixelRatio;
 
 testPic.filters = [glowFilter];
+
+msg.text = msg.text + "\nGlowFilter(1, 0, 0)";

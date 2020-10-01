@@ -40,3 +40,5 @@ const glowFilter = new PIXI.filters.GlowFilter(16);
 glowFilter.padding = 20;
 
 testPic.filters = [glowFilter];
+
+msg.text = msg.text + "\nGlowFilter(16)";
