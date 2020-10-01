@@ -38,3 +38,6 @@ const glowFilter = new PIXI.filters.GlowFilter(16);
 glowFilter.padding = 20;
 
 testPic.filters = [glowFilter];
+
+msg.text += "\nGlowFilter(16)";
+msg.text += "\nresolution: " + PIXI.settings.FILTER_RESOLUTION;
