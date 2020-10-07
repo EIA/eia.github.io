@@ -11,8 +11,8 @@ const bunny = PIXI.Sprite.from('assets/basics/bunny.png');
 bunny.istweening = false;
 bunny.anchor.set(0.5);
 
-bunny.x = app.renderer.width * 0.5;
-bunny.y = app.renderer.height * 0.5;
+bunny.x = 200;
+bunny.y = 200;
 
 app.stage.addChild(bunny);
 
