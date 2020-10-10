@@ -32,8 +32,8 @@ onresize();
 
 
 const gui = new dat.GUI();
-gui.add(bunnyL, 'alpha', 0, 1, 0.01);
-gui.add(bunnyR, 'alpha', 0, 1, 0.01);
+// gui.add(bunnyL, 'alpha', 0, 1, 0.01);
+// gui.add(bunnyR, 'alpha', 0, 1, 0.01);
 
-// gui.add(bunnyL, 'alpha', 0, 1, 0.01).name('左邊兔子透明度');
-// gui.add(bunnyR, 'alpha', 0, 1, 0.01).name('右邊兔子透明度');
+gui.add(bunnyL, 'alpha', 0, 1, 0.01).name('左邊兔子透明度');
+gui.add(bunnyR, 'alpha', 0, 1, 0.01).name('右邊兔子透明度');
