@@ -8,8 +8,9 @@ const texture = PIXI.Texture.from('assets/basics/bunny.png');
 texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
 
 const bunny = createBunny(
-    Math.floor(Math.random() * app.screen.width),
-    Math.floor(Math.random() * app.screen.height),
+    // Math.floor(Math.random() * app.screen.width),
+    // Math.floor(Math.random() * app.screen.height),
+    0, 0
 );
 
 function createBunny(x, y) {
@@ -82,20 +83,8 @@ function onDragMove() {
     }
 }
 
-
-window.onresize = function (event){
-  var w = window.innerWidth;
-  var h = window.innerHeight;
-
-  app.view.style.width = w + "px";
-  app.view.style.height = h + "px";
-  app.renderer.resize(w,h);
-
-  bunny.x = app.screen.width / 2;
-  bunny.y = app.screen.height / 2;
-};
-
-onresize();
+app.stage.x = app.screen.width * 0.5;
+app.stage.y = app.screen.height * 0.5;
 
 
 const gui = new dat.GUI();
