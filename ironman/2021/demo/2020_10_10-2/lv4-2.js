@@ -3,21 +3,8 @@ document.body.appendChild(app.view);
 
 let emitterContainer = new PIXI.Container();
 app.stage.addChild(emitterContainer);
-let emitter = null;
 
-app.ticker.add((delta) => {
-        var now = Date.now();
-        // The emitter requires the elapsed
-        // number of seconds since the last update
-        emitter.update((now - elapsed) * 0.001);
-        elapsed = now;
-
-        // Should re-render the PIXI Stage
-        // renderer.render(stage);
-});
-
-
-emitter = new PIXI.particles.Emitter(
+let emitter = new PIXI.particles.Emitter(
 
     // The PIXI.Container to put the emitter in
     // if using blend modes, it's important to put this
@@ -90,3 +77,14 @@ var elapsed = Date.now();
 
 // Start emitting
 emitter.emit = true;
+
+app.ticker.add((delta) => {
+    var now = Date.now();
+    // The emitter requires the elapsed
+    // number of seconds since the last update
+    emitter.update((now - elapsed) * 0.001);
+    elapsed = now;
+
+    // Should re-render the PIXI Stage
+    // renderer.render(stage);
+});

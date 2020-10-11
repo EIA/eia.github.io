@@ -3,9 +3,8 @@ document.body.appendChild(app.view);
 
 let emitterContainer = new PIXI.Container();
 app.stage.addChild(emitterContainer);
-let emitter = null;
 
-emitter = new PIXI.particles.Emitter(
+let emitter = new PIXI.particles.Emitter(
 
     // The PIXI.Container to put the emitter in
     // if using blend modes, it's important to put this
