@@ -92,7 +92,6 @@ app.ticker.add((delta) => {
 
 emitter.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
 
-
 window.onresize = function (event) {
     var w = window.innerWidth;
     var h = window.innerHeight;
