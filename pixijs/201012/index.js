@@ -128,7 +128,7 @@ let emitter1 = new PIXI.particles.Emitter(
 
     emitterContainer,
 
-    [PIXI.Texture.from('particle.png')],
+    [PIXI.Texture.from('particle.png?v=1')],
 
     emitterSetting
 );
@@ -137,7 +137,7 @@ let emitter2 = new PIXI.particles.Emitter(
 
     emitterContainer,
 
-    [PIXI.Texture.from('particle.png')],
+    [PIXI.Texture.from('particle.png?v=1')],
 
     emitterSetting
 );
@@ -147,7 +147,7 @@ let emitter3 = new PIXI.particles.Emitter(
 
     emitterContainer,
 
-    [PIXI.Texture.from('particle.png')],
+    [PIXI.Texture.from('particle.png?v=1')],
 
     emitterSetting
 );
