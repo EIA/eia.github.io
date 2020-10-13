@@ -16,6 +16,7 @@ eia.github.io
 [![alt](pixijs/190422/demo_359x150.jpg)](https://eia.github.io/pixijs/190422/)
 
 ### PixiJS - Practice <br/>
+[![alt](pixijs/201012/demo_359x150.jpg)](https://eia.github.io/pixijs/201012/)
 [![alt](pixijs/190410/demo_359x150.jpg)](https://eia.github.io/pixijs/190410/)
 [![alt](pixijs/180706/demo_359x150.jpg)](https://eia.github.io/pixijs/180706/)
 [![alt](pixijs/180507/demo_359x150.jpg)](https://eia.github.io/pixijs/180507/)
