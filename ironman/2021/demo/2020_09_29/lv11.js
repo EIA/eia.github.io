@@ -25,7 +25,7 @@ app.stage.addChild(containerInner);
 
 
 // https://pixijs.io/pixi-filters/docs/PIXI.filters.GlowFilter.html
-const glowFilter = new PIXI.filters.GlowFilter(1); // 32
+const glowFilter = new PIXI.filters.GlowFilter(32); // 32
 glowFilter.padding = 20;
 
 const spriteTopInner = new PIXI.Sprite();
@@ -170,7 +170,7 @@ app.ticker.add((delta) => {
 
     containerInner.angle -= 0.3;
     containerOutter.angle += 0.7;
-    
+
     // console.log(glowFilter.distance);
     // const gradTexture = createGradTexture(gradStartPos, 0.5);
     const gradTextureInner = createGradTexture(gradStartPos, gradLengthInner);
