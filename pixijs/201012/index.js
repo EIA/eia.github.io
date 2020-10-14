@@ -162,6 +162,10 @@ emitter1.emit = false;
 emitter2.emit = false;
 emitter3.emit = false;
 
+emitter1.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
+emitter2.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
+emitter3.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
+
 app.ticker.add((delta) => {
     
     var now = Date.now();
@@ -213,19 +217,10 @@ app.ticker.add((delta) => {
     bunny.scale.x = bunnyScale;
     bunny.scale.y = bunnyScale;
 
-
-    // 加上亂數看起來比較自然一些
-    // emitter1.rotation += (Math.random() * -10) + 5;
-    // emitter2.rotation += (Math.random() * -10) + 5 - 13;
-    // emitter3.rotation += (Math.random() * -10) + 5 - 7;
-
-    // console.log("emitter1.rotation: " + emitter1.rotation);
     emitter1.frequency = emitterFrequency;
     emitter2.frequency = emitterFrequency;
     emitter3.frequency = emitterFrequency;
 
-
-    
     const rot1 = emitter1.rotation / (180 / Math.PI);
     emitter1.updateOwnerPos(
         app.screen.width / 2 + Math.cos(rot1) * emitterRadius,
@@ -248,38 +243,6 @@ app.ticker.add((delta) => {
 });
 
 
-emitter1.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
-emitter2.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
-emitter3.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
-
-
-window.onresize = function (event) {
-    var w = window.innerWidth;
-    var h = window.innerHeight;
-
-    app.view.style.width = w + "px";
-    app.view.style.height = h + "px";
-    app.renderer.resize(w, h);
-
-    emitter1.resetPositionTracking();
-    emitter1.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
-    emitter2.resetPositionTracking();
-    emitter2.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
-    emitter3.resetPositionTracking();
-    emitter3.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
-
-    bunnyContainer.x = app.screen.width / 2;
-    bunnyContainer.y = app.screen.height / 2;
-    centerCircle.x = app.screen.width / 2;
-    centerCircle.y = app.screen.height / 2;
-
-    hitArea.setSize();
-
-    
-};
-onresize();
-
-
 
 
 function createHitArea(){
@@ -295,18 +258,6 @@ function createHitArea(){
 
     hitArea.interactive = true;
     hitArea.buttonMode = true;
-    hitArea.on("pointermove", (e) => {
-        const pointCoordinate = e.data.getLocalPosition(hitArea);
-        // console.log("pm: ", pointCoordinate);
-
-        const xDist = pointCoordinate.x - app.screen.width * .5;
-        const yDist = pointCoordinate.y - app.screen.height * .5;
-
-        // 留意使用方式為 Math.atan2(y, x); y 在前
-        // const radian = Math.atan2(yDist, xDist);
-        // console.log("radian: ", radian, radian * (180 / Math.PI));
-        // emitter1.rotation = radian * (180 / Math.PI) + 90;
-    });
 
     hitArea.on("pointerdown", () => {
         isPress = true;
@@ -338,3 +289,29 @@ function createCenterCircle() {
 
     return circle;
 }
+
+window.onresize = function (event) {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+
+    app.view.style.width = w + "px";
+    app.view.style.height = h + "px";
+    app.renderer.resize(w, h);
+
+    emitter1.resetPositionTracking();
+    emitter1.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
+    emitter2.resetPositionTracking();
+    emitter2.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
+    emitter3.resetPositionTracking();
+    emitter3.updateOwnerPos(app.screen.width / 2, app.screen.height / 2);
+
+    bunnyContainer.x = app.screen.width / 2;
+    bunnyContainer.y = app.screen.height / 2;
+    centerCircle.x = app.screen.width / 2;
+    centerCircle.y = app.screen.height / 2;
+
+    hitArea.setSize();
+
+
+};
+onresize();
