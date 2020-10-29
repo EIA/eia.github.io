@@ -47,7 +47,7 @@ function enableFilterHandler(){
 }
 
 function enableMaskHandler(){
-    if(controller.enableFilter){
+    if(controller.enableMask){
         glowContainer.mask = maskGraphic;
         maskGraphic.visible = true;
     }else{
