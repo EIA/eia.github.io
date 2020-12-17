@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+	<title>Document</title>
+	<style>
+		ul {
+		  position: relative;
+		  display:flex;
+		  flex-direction: column-reverse;
+
+		  list-style-type: none;
+		  padding: 0;
+		}
+
+		ul .cube{
+		    position: absolute;
+		    bottom: 0;
+		    right: 0;
+		    width:  64px;
+		    height: 64px;
+		    background: red;
+		    transition: bottom 2s;
+
+
+		}
+
+		li {
+		  padding:20px;
+		  /*box-sizing: border-box;*/
+		  border:1px solid #dddddd;
+		  cursor:pointer;
+		}
+
+		li.active{
+			background-color: #f5f5f5;
+
+		}
+
+	</style>
+</head>
+<body>
+
+
+	  
+	<ul>
+	  <li data-floor="1">1</li>
+	  <li data-floor="2">2</li>
+	  <li data-floor="3">3</li>
+	  <li data-floor="4">4</li>
+	  <li data-floor="5">5</li>
+	  <li data-floor="6">6</li>
+	  <li data-floor="7">7</li>
+	  <div class="cube"></div>
+	</ul>
+	<div class="msg" id="msg1">電梯方向：電梯停止</div>
+	<div class="msg" id="msg2">電梯正在：2樓</div>
+	<div class="msg" id="msg3">電梯停靠樓層：1樓、3樓、4樓、6樓</div>
+	<div class="msg" id="msg4">電梯將停靠：4樓、6樓、3樓、1樓</div>
+	  
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+		
+			
+
+	/*
+	* 感謝 Peter / Crowe 提供的題目與樣板
+	* 每到下一個樓層時，按鈕會熄滅並更新狀態：
+	*     - 電梯方向：電梯向上 / 電梯向下 / 電梯停止
+	*     - 電梯正在第幾樓
+	*     - 會停在哪幾個樓層停
+	*     - 停靠的順序：到達下一個樓層時會更新停靠樓層與將停靠樓層
+	*/
+
+	// $('#msg1').text("電梯方向：電梯向下"); // 電梯向上 / 電梯向下 / 電梯停止
+	// $('#msg2').text("電梯正在：3樓");
+	$('#msg3').text("電梯停靠樓層：1樓、3樓、4樓、6樓");
+	$('#msg4').text("電梯將停靠：4樓、6樓、3樓、1樓");
+
+
+	// 測試效果，將 cube 指定到相對應的 bottom 變數，就會自行觸發動畫
+	function moveElevator(floor){
+	  $('#msg2').text("電梯正在："+(floor+1)+"樓");
+	  $(".cube").css("bottom", (64) * floor);
+	  updateFloor();
+	};
+	// 電梯先在2樓
+	// moveElevator(1);
+
+
+	// API 使用
+	// 將 2 的按鈕表示為點下
+	// $("li").eq(1).addClass("active");
+
+	// 取消 2 的按鈕的點下狀態
+	// $("li").eq(1).removeClass("active");
+
+	// 點選按鈕時，顯示按到的是哪樓
+	$("li").click((e)=>{
+	  console.log($(e.target).data("floor"));
+	  pushArray($(e.target).data("floor"));
+	});
+
+	// ---------------------------------
+
+	let currentValue = 6; // 1
+	let valueArray = [currentValue];
+
+	let dir = ""; // up：向上; down：向下; 空字串：停止
+
+
+	moveElevator(currentValue-1);
+
+	function pushArray(value){
+
+	  if(value === currentValue){return};
+
+	  console.log("-------");
+	  console.log("按下： ", value);
+
+
+	  //
+	  if(valueArray.indexOf(value) === -1){
+	    valueArray.push(value);
+	    valueArray.sort();
+	    // console.log("current valueArray: ", valueArray);
+	    //
+	    let index = valueArray.indexOf(currentValue);
+
+
+	    // 如果目前電梯停止，取得電梯向上或向下
+	    let elevatorIsStop;
+	    if(dir === ""){
+	      elevatorIsStop = true;
+	      dir = valueArray[1] > currentValue? "up":"down"; //由陣列第一個位置決定電梯向上或向下
+	      console.log("判斷", dir);
+	    }else{
+	      elevatorIsStop = false;
+	    }
+
+	    if(dir === "up"){
+    	  console.log("電梯方向：電梯向上");
+	      $('#msg1').text("電梯方向：電梯向上");
+	      valueArray = valueArray.concat(valueArray.splice(0, index).reverse());
+	    }else{
+    	  console.log("電梯方向：電梯向下");
+	      $('#msg1').text("電梯方向：電梯向下");
+	      valueArray = valueArray.splice(0, index+1).reverse().concat(valueArray);
+	    }				
+	    
+	    console.log("結果陣列：[ " + valueArray.toString() + " ]");
+	  
+	    console.log("elevatorIsStop: ", elevatorIsStop);
+	    if(elevatorIsStop === true){
+	      moveElevatorLoop();
+	      updateFloor();
+	    }
+	    
+	    
+	  }
+	};
+
+	function moveElevatorLoop(){
+	  console.log("moveElevator", valueArray, valueArray.length, dir);
+	  console.log("0- ", valueArray.toString())
+	  if(valueArray.length > 1){
+	  	valueArray.shift();
+	  	console.log("1- ", valueArray.toString())
+	    currentValue = valueArray[0];
+	    console.log("2- ", valueArray.toString())
+	    moveElevator(currentValue-1);
+	    console.log("3- ", valueArray.toString())
+	    setTimeout(()=>{
+	      moveElevatorLoop();
+	    }, 2100);
+	  }else{
+	    dir = "";
+	    $('#msg1').text("電梯方向：電梯停止");
+	  }
+	}
+
+	function updateFloor(){
+
+		// 有陷阱！ sort() 會改變陣列順序
+		// https://stackoverflow.com/questions/9592740/how-can-you-sort-an-array-without-mutating-the-original-array
+
+    	$('#msg3').text(`電梯停靠樓層：${[...valueArray].sort().toString()}`);
+		$('#msg4').text(`電梯將停靠：${valueArray.toString()}`);
+	}
+
+		/*
+		let pool = [0, 1, 2, 3, 4, 5, 6];
+
+		let currentValue = getRandomFromPool(); // 3
+		let valueArray = [currentValue];
+
+		let appendBasicP = document.createElement("P");
+		appendBasicP.innerHTML = "樓層：" + currentValue+"</br>----------";
+		console.log("樓層：" + currentValue);
+		document.body.appendChild(appendBasicP);
+
+		let dir = ""; // up：向上; down：向下; 空字串：停止
+
+
+		function getRandomFromPool(){
+			if(pool.length === 0){
+				return;
+			}
+			let randomIndex = Math.floor(Math.random() * pool.length);
+			let returnValue = pool.splice(randomIndex, 1);
+			return returnValue[0];
+		}
+
+
+
+
+		function pushArray(value){
+
+			if(value === currentValue){return};
+
+			console.log("-------");
+			console.log("按下： ", value);
+
+			let appendP = document.createElement("P");
+			appendP.innerHTML = "按下：" + value;
+			document.body.appendChild(appendP);
+
+			//
+			if(valueArray.indexOf(value) === -1){
+				valueArray.push(value);
+				valueArray.sort();
+				// console.log("current valueArray: ", valueArray);
+				//
+				let index = valueArray.indexOf(currentValue);
+
+
+				// 如果目前電梯停止，取得電梯向上或向下
+				if(dir === ""){
+					dir = valueArray[1] > currentValue? "up":"down"; //由陣列第一個位置決定電梯向上或向下
+					console.log("判斷", dir);
+					let floorP = document.createElement("P");
+					floorP.innerHTML = ("判斷: "+ dir==="up"?"先向上":"先向下");
+					document.body.appendChild(floorP);
+				}else{
+				}
+				
+				if(dir === "up"){
+					valueArray = valueArray.concat(valueArray.splice(0, index).reverse());
+				}else{
+					valueArray = valueArray.splice(0, index+1).reverse().concat(valueArray);
+				}				
+			}
+			//
+
+			let appendP2 = document.createElement("P");
+			appendP2.innerHTML = "結果陣列：[ " + valueArray.toString() + " ]";
+			console.log("結果陣列：[ " + valueArray.toString() + " ]");
+			document.body.appendChild(appendP2);
+		};
+
+		
+		// 先向下
+		// pushArray(1);
+		// pushArray(5);
+		// pushArray(2);
+		// pushArray(4);
+		// pushArray(7);
+		// pushArray(6);
+
+		// 先向上
+		// pushArray(5);
+		// pushArray(2);
+		// pushArray(4);
+		// pushArray(7);
+		// pushArray(6);
+		// pushArray(1);
+
+
+		pushArray(getRandomFromPool());
+		pushArray(getRandomFromPool());
+		pushArray(getRandomFromPool());
+		pushArray(getRandomFromPool());
+		pushArray(getRandomFromPool());
+		pushArray(getRandomFromPool());
+		*/
+
+	</script>
+</body>
+</html>

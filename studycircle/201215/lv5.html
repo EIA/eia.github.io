@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		p{
+			margin: 0;
+			font-size: 14px;
+		}
+
+	</style>
+</head>
+<body>
+	<script>
+		
+		let currentValue = 3;
+		let valueArray = [currentValue];
+
+		let appendBasicP = document.createElement("P");
+		appendBasicP.innerHTML = "基準：" + currentValue;
+		document.body.appendChild(appendBasicP);
+
+
+		function pushArray(value){
+
+			if(value === currentValue){return};
+
+			console.log("-------");
+			console.log("按下： ", value);
+
+			let appendP = document.createElement("P");
+			appendP.innerHTML = "要放入的是：" + value;
+			document.body.appendChild(appendP);
+
+			//
+			if(valueArray.indexOf(value) === -1){
+				valueArray.push(value);
+				valueArray.sort();
+				//
+				let index = valueArray.indexOf(currentValue);
+
+				let dir = valueArray[1] > currentValue? "up":"down"; //由陣列第一個位置決定電梯向上或向下
+
+				if(dir === "up"){
+					console.log("電梯向上");
+					console.log(valueArray.slice(index));
+					console.log("電梯向下");
+					console.log(valueArray.slice(0, index).reverse());
+				}else{
+					console.log("電梯向下");
+					console.log(valueArray.slice(index));
+					console.log("電梯向上");
+					console.log(valueArray.slice(0, index).reverse());
+				}
+				
+			}
+			//
+
+			let appendP2 = document.createElement("P");
+			appendP2.innerHTML = "結果陣列：[ " + valueArray.toString() + " ]";
+			document.body.appendChild(appendP2);
+		};
+
+		
+		// 先向下
+		// pushArray(1);
+		// pushArray(5);
+		// pushArray(2);
+		// pushArray(4);
+		// pushArray(7);
+		// pushArray(6);
+
+		// 先向上
+		pushArray(5);
+		pushArray(2);
+		pushArray(4);
+		pushArray(7);
+		pushArray(6);
+		pushArray(1);
+
+
+	</script>
+</body>
+</html>

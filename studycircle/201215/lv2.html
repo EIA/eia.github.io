@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		p{
+			margin: 0;
+			font-size: 14px;
+		}
+
+	</style>
+</head>
+<body>
+	<script>
+		
+		let currentValue = 3;
+		let valueArray = [currentValue];
+
+		let appendBasicP = document.createElement("P");
+		appendBasicP.innerHTML = "基準：" + currentValue;
+		document.body.appendChild(appendBasicP);
+
+		function pushArray(value){
+
+			let appendP = document.createElement("P");
+			appendP.innerHTML = "要放入的是：" + value;
+			document.body.appendChild(appendP);
+
+			//
+			if(value > currentValue){
+				valueArray.push(value);
+			}else if(value < currentValue){
+				valueArray.splice(0, 0, value);
+			}
+
+
+			//
+
+			let appendP2 = document.createElement("P");
+			appendP2.innerHTML = "結果陣列：[ " + valueArray.toString() + " ]";
+			document.body.appendChild(appendP2);
+		};
+
+		
+
+		pushArray(1);
+		pushArray(5);
+		pushArray(2);
+		pushArray(4);
+		pushArray(7);
+
+
+	</script>
+</body>
+</html>

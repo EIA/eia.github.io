@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		p{
+			margin: 0;
+			font-size: 14px;
+		}
+
+	</style>
+</head>
+<body>
+	<script>
+		
+		let currentValue = 3;
+		let valueArray = [currentValue];
+
+		let appendBasicP = document.createElement("P");
+		appendBasicP.innerHTML = "基準：" + currentValue;
+		document.body.appendChild(appendBasicP);
+
+		let dir = ""; // up：向上; down：向下; 空字串：停止
+
+
+
+		function pushArray(value){
+
+			if(value === currentValue){return};
+
+			console.log("-------");
+			console.log("按下： ", value);
+
+			let appendP = document.createElement("P");
+			appendP.innerHTML = "要放入的是：" + value;
+			document.body.appendChild(appendP);
+
+			//
+			if(valueArray.indexOf(value) === -1){
+				valueArray.push(value);
+				valueArray.sort();
+				//
+				let index = valueArray.indexOf(currentValue);
+
+
+				// 如果目前電梯停止，取得電梯向上或向下
+				if(dir === ""){
+					dir = valueArray[1] > currentValue? "up":"down"; //由陣列第一個位置決定電梯向上或向下
+				}else{
+				}
+				
+				if(dir === "up"){
+					// v1
+					// console.log("電梯向上");
+					// console.log(valueArray.slice(index));
+					// console.log("電梯向下");
+					// console.log(valueArray.slice(0, index).reverse());
+
+					// v2
+					// let a = [1, 2, 3, 4, 5];
+					// a.concat(a.splice(0, 2).reverse());
+					// 3 4 5 2 1
+
+					valueArray = valueArray.concat(valueArray.splice(0, index).reverse());
+
+				}else{
+					// v1
+					// console.log("電梯向下");
+					// console.log(valueArray.slice(index));
+					// console.log("電梯向上");					
+					// console.log(valueArray.slice(0, index).reverse());
+
+					// v2
+					// let a = [1, 2, 3, 4, 5];
+					// a.splice(2).concat(a.reverse());
+					// 3 2 1 4 5
+
+					valueArray = valueArray.splice(index).concat(valueArray.reverse());
+				}
+				
+			}
+			//
+
+			let appendP2 = document.createElement("P");
+			appendP2.innerHTML = "結果陣列：[ " + valueArray.toString() + " ]";
+			console.log("結果陣列：[ " + valueArray.toString() + " ]");
+			document.body.appendChild(appendP2);
+		};
+
+		
+		// 先向下
+		pushArray(1);
+		pushArray(5);
+		pushArray(2);
+		pushArray(4);
+		pushArray(7);
+		pushArray(6);
+
+		// 先向上
+		// pushArray(5);
+		// pushArray(2);
+		// pushArray(4);
+		// pushArray(7);
+		// pushArray(6);
+		// pushArray(1);
+
+
+	</script>
+</body>
+</html>
