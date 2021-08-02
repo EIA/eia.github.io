@@ -2,7 +2,7 @@ var renderer = PIXI.autoDetectRenderer(800, 600,{backgroundColor : 0xEEEEEE});
 
 var stage = new PIXI.Container();
 
-var texture = PIXI.Texture.fromImage('_assets/basics/bunny.png');
+var texture = PIXI.Texture.fromImage('assets/basics/bunny.png');
 
 var bunny = new PIXI.Sprite(texture);
 

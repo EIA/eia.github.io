@@ -25,11 +25,11 @@ var stage = new PIXI.Container();
 
 var texture;
 if(device == 'pc'){
-	// texture = PIXI.Texture.fromImage('_assets/Digital-Organic-Art-0_h2.jpg');
-	texture = PIXI.Texture.fromImage('_assets/1280.jpg');
+	// texture = PIXI.Texture.fromImage('assets/Digital-Organic-Art-0_h2.jpg');
+	texture = PIXI.Texture.fromImage('assets/1280.jpg');
 }else{
-	// texture = PIXI.Texture.fromImage('_assets/Digital-Organic-Art-0_h2_mob.jpg');
-	texture = PIXI.Texture.fromImage('_assets/1280.jpg');
+	// texture = PIXI.Texture.fromImage('assets/Digital-Organic-Art-0_h2_mob.jpg');
+	texture = PIXI.Texture.fromImage('assets/1280.jpg');
 }
 
 var rabbits = [];

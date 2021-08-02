@@ -2,7 +2,7 @@ var renderer = PIXI.autoDetectRenderer(320, 320,{backgroundColor : 0xEEEEEE});
 
 var stage = new PIXI.Container();
 
-var texture = PIXI.Texture.fromImage('_assets/Digital-Organic-Art-0.jpg');
+var texture = PIXI.Texture.fromImage('assets/Digital-Organic-Art-0.jpg');
 
 var rabbits = [];
 

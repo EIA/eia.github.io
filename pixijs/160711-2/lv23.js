@@ -23,7 +23,7 @@ var stage = new PIXI.Container();
 	stage.position.x = renderer.width * .5;
 	stage.position.y = renderer.height * .5;
 
-var texture = PIXI.Texture.fromImage('_assets/Digital-Organic-Art-0_h2.jpg');
+var texture = PIXI.Texture.fromImage('assets/Digital-Organic-Art-0_h2.jpg');
 
 var rabbits = [];
 var masks = [];

@@ -27,9 +27,9 @@ var texture;
 var explosionTextures = [];
 var mobTouch = false;
 if(device == 'pc'){
-	texture = PIXI.Texture.fromImage('_assets/1468384265298.jpg');
+	texture = PIXI.Texture.fromImage('assets/1468384265298.jpg');
 }else{
-	texture = PIXI.Texture.fromImage('_assets/1468384265298.jpg');
+	texture = PIXI.Texture.fromImage('assets/1468384265298.jpg');
 }
 
 var rabbits = [];
