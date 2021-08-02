@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>pixijs</title>
+
+	<meta property="og:title" content="pixijs 萬花筒" />
+	<meta property="og:image" content="http://dev.mo2.com.tw/eia/pixijs/2016_07_11-2/meta/share1.jpg" />
+	<meta property="og:description" content="" />
+
+	<meta property="og:url" content="http://dev.mo2.com.tw/eia/pixijs/2016_07_11-2/lv25.html"/>
+	<meta property="og:site_name" content="pixijs"/>
+	<meta property="og:type" content="website"/>
+
+	<script src="../pixijs_3-0-11/pixi.min.js"></script>
+	<script src="js/screenfull.js"></script>
+	<script src="lv25.js"></script>
+	<style>
+	html, body{
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	#ot{
+		position: fixed;
+		left: 0;
+		top: 0;
+		color: #fff;
+		font-size: 30px;
+		font-family: Arial, '微軟正黑體', 'Helvetica Neue', Verdana, Tahoma, Helvetica, sans-serif;
+		z-index: 30;
+	}
+	</style>
+</head>
+<body>
+	<script>
+		document.body.appendChild(renderer.view);
+	</script>
+	<div id="ot" style="display: none;">
+		<div class="msg1">100</div>
+		<div class="msg2"></div>
+	</div>
+</body>
+</html>
