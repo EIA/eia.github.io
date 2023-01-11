@@ -9,6 +9,7 @@ eia.github.io
 [![alt](ironman/2021/web.png "再談 PixiJS，那些先前不一定有提到的部分與地雷")](https://ithelp.ithome.com.tw/users/20106532/ironman/3096)
 
 ### three.js - Practice <br/>
+[![alt](threejs/230111/demo_359x150.jpg)](https://eia.github.io/threejs/230111/)
 [![alt](threejs/170719/demo_359x150.jpg)](https://eia.github.io/threejs/170719/?s=io)
 
 ### Shader - Practice <br/>
